@@ -5,7 +5,8 @@ const ping = {
 		.setName('ping')
 		.setDescription('Replies with Pong!'),
 	async execute(interaction) {
-		await interaction.reply('Pong!');
+		const userName = interaction.user.globalName;
+		await interaction.reply(`I'm here, ${userName}.`);
 	},
 };
 

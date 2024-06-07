@@ -16,7 +16,6 @@ client.once(Events.ClientReady, readyClient => {
 
 
 client.on(Events.InteractionCreate, async interaction => {
-	console.log('worst hello world ever')
 	if (!interaction.isChatInputCommand()) {
 		return;
 	}
