@@ -9,6 +9,4 @@ const ping = {
 	},
 };
 
-export {
-	ping
-}
+export { ping }
