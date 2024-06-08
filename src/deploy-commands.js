@@ -13,11 +13,11 @@ const serversForDeployment = getServers({ args, servers });
 const rest = new REST().setToken(token);
 const commandList = CommandLibary.map(command => command.data.toJSON());
 
-serversForDeployment.forEach(server => {
+
+for (const server of serversForDeployment) {
 	console.log(`Deploying for server: ${server.name}.`);
-	// you have async in a forloop.  That's a nono.  Look into it
-	deployCommands({ rest, commandList, server });
-});
+	await deployCommands({ rest, commandList, server });
+}
 
 
 async function deployCommands({ rest, commandList, server }) {
