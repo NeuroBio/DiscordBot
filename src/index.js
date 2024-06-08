@@ -1,17 +1,19 @@
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
-import { commands } from './commands/index.js'
+import commandLibary from './commandLibrary.js'
 import config from './config.json' assert { type: "json" };
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
+
 client.commands = new Collection();
-commands.forEach(command => {
+commandLibary.forEach(command => {
 	client.commands.set(command.data.name, command);	
 });
 
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
+
 
 
 
