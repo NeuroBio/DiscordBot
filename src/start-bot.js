@@ -1,20 +1,18 @@
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
-import CommandLibary from './commands/commandLibrary.js'
-import config from './config.json' assert { type: "json" };
+import CommandLibary from './commands/commandLibrary.js';
+import Configs from './configs.js';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 
 client.commands = new Collection();
 CommandLibary.forEach(command => {
-	client.commands.set(command.data.name, command);	
+	client.commands.set(command.data.name, command);
 });
 
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
-
-
 
 
 client.on(Events.InteractionCreate, async interaction => {
@@ -32,15 +30,17 @@ client.on(Events.InteractionCreate, async interaction => {
 
 	try {
 		await command.execute(interaction);
-	} catch (error) {
+	}
+	catch (error) {
 		console.error(error);
 		if (interaction.replied || interaction.deferred) {
 			await interaction.followUp({ content: 'There was an error while executing this command.', ephemeral: true });
-		} else {
+		}
+		else {
 			await interaction.reply({ content: 'There was an error while executing this command.', ephemeral: true });
 		}
 	}
 });
-  
 
-client.login(config.token);
+
+client.login(Configs.main.token);
