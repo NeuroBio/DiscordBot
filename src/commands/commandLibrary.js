@@ -14,7 +14,8 @@ export default class CommandLibrary {
 	 * @param {LoadParams} params
 	 * @returns {Array<Command>}
 	 */
-	static async load({ excludedFolders }) {
+	static async load(params = {}) {
+		const { excludedFolders } = params;
 		const folderPath = this.#getCommandsFolderPath();
 		const commandFolders = fs.readdirSync(folderPath);
 		const commandLibary = [];

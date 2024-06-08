@@ -6,7 +6,8 @@
     "deploy": "node src/deploy-commands.js ",
     "deploy-all": "node src/deploy-commands.js -server all",
     "postinstall": "node setup.js",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "test": "jasmine --config=test/spec/support/jasmine.json"
   },
   "dependencies": {
     "discord.js": "^14.15.3"
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@eslint/js": "^9.4.0",
     "eslint": "^9.4.0",
-    "globals": "^15.4.0"
+    "globals": "^15.4.0",
+    "jasmine": "^5.1.0"
   }
 }
