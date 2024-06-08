@@ -3,7 +3,9 @@ Testing out making my own discord bot
 
 ## Getting Started
 ### Installation
-- install VS-Code (https://code.visualstudio.com/)
+- install VSCode (https://code.visualstudio.com/)
+- install the VSCode extension ESLint
+	- Note: If you add linter errors to my coe base I will be very unhappy.
 - install node.  Currently, I'm using node `v18.12.0` (https://nodejs.org/en/blog/release/v18.12.0)
 - clone this repo from github
 	- if not open, open the VS Code terminal (hotkey ctrl+`)
