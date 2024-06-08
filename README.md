@@ -60,3 +60,4 @@ Our `deploy-commands.js` files are very similar.  The same differences noted abo
 
 ### On Deck
 - unit test start up code
+- add karma to make test run on save
