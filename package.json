@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node src/start-bot.js",
     "deploy": "node src/deploy-commands.js",
-    "deploy-prod": "node src/deploy-commands.js -server all",
+    "deploy-all": "node src/deploy-commands.js -server all",
     "postinstall": "node setup.js",
     "lint": "eslint --fix"
   },
