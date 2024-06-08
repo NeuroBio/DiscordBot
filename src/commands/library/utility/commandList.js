@@ -8,7 +8,7 @@ const data = new SlashCommandBuilder()
 
 async function execute(interaction) {
 	let message = 'Supported commands include...\n';
-	let commands = await CommandLibrary
+	let commands = await new CommandLibrary()
 		.load({ excludedFolders: 'no-deploy' });
 	commands = commands.sort((a, b) => a.data.name < b.data.name ? -1 : 0);
 	commands.forEach((command) => {
