@@ -39,4 +39,13 @@ You may have an additional server you want to experiment on.  To add a new serve
 
 **Self:** you have the permissions locked down.  You'll need to open them if you they actually want to do this.
 
+#### Development
+You shouln't have to know too much about most of the files floating around in here.  Most of your efforts should be in the commands library (`src/commands/library`).  Start by looking at one of the existing commands (e.g. `ping` in `utility/ping`).  Most of your code will be the 'work' performed by the `execute` function.  By and large, you can consider the rest of the file boiler plate and until you start wanting to do more complex operations.  Ideally, no command will live loose in the library folder.  Feel free to make new folders within library.  If you want to nest folders deeper than that, given me a heads up.  I probably need to update the code that assembles the command library to recognize nested folders.
 
+Beyond that, I think the discord.js interface is fairly self-explanatory.  Their tutorials and ocumentation is here: https://discord.js.org/.
+
+If you start working through the guide from the beginning, you'll notice strong similarities between what they have and what I have... but you'll also notice I structure my code significantly differently.
+
+Their `index.js` is analogus to my `start-bot.js`.  However, I extracted out the code to assemble the commands into `commandLibrary.js`.  I'm also working in es modules instead of commonJs.  The big difference there is that their code relies on `require` to load modules while mine uses `import` statements.  Finally, in lieu of comments, I extracted bits of logic into named functions that explain at a high level what they are doing.
+
+Our `deploy-commands.js` files are very similar.  The same differences noted above are true here.  Otherwise, my code is more strigent: it fails entirely if loading a command errors out instead of writing a warning.  I also added logic to change what server(s) you are deploying to based on what script you are running.

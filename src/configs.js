@@ -1,6 +1,7 @@
 /* 
-Eslint does not support import assertions because they only
-support stage-4 language features.  This is a cheat to get around that. :)
+	Eslint does not support import assertions because they only support
+	stage-4 language features.  It explodes on the asster/with keywords.
+	This is a cheat to get around that. :)
 */
 
 import config from '../config.json' assert { type: 'json' };
