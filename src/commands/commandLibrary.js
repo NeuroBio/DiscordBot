@@ -12,7 +12,7 @@ export default class CommandLibrary {
 
 	/**
 	 * @param {LoadParams} params
-	 * @returns {Array<Command>}
+	 * @returns {Promise<Array<Command>>}
 	 */
 	static async load(params = {}) {
 		const { excludedFolders } = params;
