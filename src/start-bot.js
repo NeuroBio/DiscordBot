@@ -1,12 +1,13 @@
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
-import CommandLibary from './commands/commandLibrary.js';
+import CommandLibrary from './commands/commandLibrary.js';
 import Configs from './configs.js';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const commands = await CommandLibrary.load({ excludedFolders: 'no-deploy' });
 
 
 client.commands = new Collection();
-CommandLibary.forEach(command => {
+commands.forEach((command) => {
 	client.commands.set(command.data.name, command);
 });
 
