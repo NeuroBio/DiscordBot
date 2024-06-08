@@ -31,7 +31,8 @@ You may want to create your own server to experiment on.  To add a new server to
 	- go to `Advanced` under `APP SETTINGS`
 	- enable `Developer Mode`
 	- Now, when you right click on your server's icon you will have a `Copy Server Id` option.  That's the id you need.
--- self: you have the permissions locked down.  You'll need to open them if you they actually want to do this
+
+**Self:** you have the permissions locked down.  You'll need to open them if you they actually want to do this
 
 
 #### Terminal management
