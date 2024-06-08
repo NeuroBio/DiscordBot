@@ -8,12 +8,14 @@ const data = new SlashCommandBuilder()
 
 async function execute(interaction) {
 	let message = 'Supported commands include...\n';
+	// the ... on await is LYING
 	let commands = await CommandLibrary
 		.load({ excludedFolders: 'no-deploy' });
 	commands = commands.sort((a, b) => a.data.name < b.data.name ? -1 : 0);
 	commands.forEach((command) => {
 		message += `• ${'`'}/${command.data.name}${'`'}: ${command.data.description}\n`;
 	});
+
 	await interaction.reply(message);
 }
 

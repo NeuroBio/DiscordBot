@@ -49,3 +49,13 @@ If you start working through the guide from the beginning, you'll notice strong 
 Their `index.js` is analogus to my `start-bot.js`.  However, I extracted out the code to assemble the commands into `commandLibrary.js`.  I'm also working in es modules instead of commonJs.  The big difference there is that their code relies on `require` to load modules while mine uses `import` statements.  Finally, in lieu of comments, I extracted bits of logic into named functions that explain at a high level what they are doing.
 
 Our `deploy-commands.js` files are very similar.  The same differences noted above are true here.  Otherwise, my code is more strigent: it fails entirely if loading a command errors out instead of writing a warning.  I also added logic to change what server(s) you are deploying to based on what script you are running.
+
+## Quality of life features
+### Supported
+- generates config templates on install (when they don't exist)
+- lint autofixes on save
+- change dev "environment" (server) with one json change
+- experimenting with jsDoc annotations on public functions
+
+### On Deck
+- unit testing

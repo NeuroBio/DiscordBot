@@ -11,7 +11,8 @@ const args = getCommandLineArguments();
 const serversForDeployment = getServersForDeployment({ args, servers });
 
 const rest = new REST().setToken(token);
-const commands = await CommandLibrary.load({ excludedFolders: 'no-deploy' });
+// the ... on await is LYING
+const commands = await CommandLibrary.load({ excludedFolders: ['no-deploy'] });
 const commandList = commands.map(command => command.data.toJSON());
 
 for (const server of serversForDeployment) {

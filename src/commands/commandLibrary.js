@@ -5,6 +5,15 @@ const LibraryPath = 'library';
 
 export default class CommandLibrary {
 
+	/**
+	 * @typedef {Object} LoadParams
+	 * @property excludedFolders {Array<string>}
+	 */
+
+	/**
+	 * @param {LoadParams} params
+	 * @returns {Array<Command>}
+	 */
 	static async load({ excludedFolders }) {
 		const folderPath = this.#getCommandsFolderPath();
 		const commandFolders = fs.readdirSync(folderPath);
@@ -14,6 +23,7 @@ export default class CommandLibrary {
 			if (excludedFolders && excludedFolders.includes(folder)) {
 				continue;
 			}
+
 			const commandsPath = path.join(folderPath, folder);
 			const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 			for (const file of commandFiles) {
