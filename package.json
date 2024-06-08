@@ -4,7 +4,8 @@
   "scripts": {
     "start": "node src/start-bot.js",
     "deploy": "node src/deploy-commands.js",
-    "deploy-prod": "node src/deploy-commands.js -server all"
+    "deploy-prod": "node src/deploy-commands.js -server all",
+    "postinstall": "node setup.js"
   },
   "dependencies": {
     "discord.js": "^14.15.3"

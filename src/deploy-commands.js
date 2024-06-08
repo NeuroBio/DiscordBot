@@ -2,10 +2,12 @@
 
 import { REST, Routes } from 'discord.js';
 import CommandLibary from './commands/commandLibrary.js'
-import config from './config.json' assert { type: "json" };
+import config from '../config.json' assert { type: 'json' };
+import devConfig from '../dev-config.json' assert { type: 'json' };
 
 
 const { token, clientId, servers } = config;
+const { devServer } = devConfig;
 const args = getCommandLineArguments();
 const serversForDeployment = getServers({ args, servers});
 
@@ -49,20 +51,21 @@ function getCommandLineArguments () {
 }
 
 function getServers ({ args, servers }) {
-	const server = args.server;
-	if (!server) {
-		return [servers.dev];
+	const serverName = args.server;
+	if (!serverName) {
+		const server = servers[devServer]
+		return [server];
 	}
 
 
-	if (server === 'all') {
+	if (serverName === 'all') {
 		return Object.values(servers);	
 	}
 
 
-	const foundServer = servers[server]
-	if (!foundServer) {
-		throw new Error(`Server ${server} not found.`)
+	const server = servers[serverName]
+	if (!server) {
+		throw new Error(`Server ${serverName} not found.`)
 	}
-	return [foundServer];	
+	return [server];	
 }
