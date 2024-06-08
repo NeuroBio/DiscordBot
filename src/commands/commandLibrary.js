@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'url';
+const LibraryPath = 'library'
 
 async function loadCommandLibrary () {
 	const folderPath = getCommandsFolderPath();
@@ -21,19 +22,19 @@ async function loadCommandLibrary () {
 function getCommandsFolderPath () {
 	const __filepath = fileURLToPath(import.meta.url);
 	const __dirname = path.dirname(__filepath);
-	return path.join(__dirname, 'commands');
+	return path.join(__dirname, LibraryPath);
 }
 
 async function loadCommand ({ file, folder }) {
-	const relativeFilePath = `./${path.join('commands', folder, file)}`;
+	const relativeFilePath = `./${path.join(LibraryPath, folder, file)}`;
 	const exports = await import(relativeFilePath);
 	const command = exports.default;
-	if ('data' in command && 'execute' in command) {
+	if (command.constructor.name === 'Command') {
 		return command;
 	} else {
-		throw new Error(`The command at ${relativeFilePath} is missing a required "data" or "execute" property.`);
+		throw new Error(`The command at ${relativeFilePath} must be of class Command.`);
 	}
 }
 
-const commandLibary = await loadCommandLibrary();
-export default commandLibary;
+const CommandLibary = await loadCommandLibrary();
+export default CommandLibary;

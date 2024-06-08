@@ -1,7 +1,7 @@
 // https://discordjs.guide/creating-your-bot/command-deployment.html#guild-commands
 
 import { REST, Routes } from 'discord.js';
-import commandLibary from './commandLibrary.js'
+import CommandLibary from './commands/commandLibrary.js'
 import config from './config.json' assert { type: "json" };
 
 
@@ -12,7 +12,7 @@ const serversForDeployment = getServers({ args, servers});
 
 
 const rest = new REST().setToken(token);
-const commandList = commandLibary.map(command => command.data.toJSON());
+const commandList = CommandLibary.map(command => command.data.toJSON());
 
 serversForDeployment.forEach(server => {
 	console.log(`Deploying for server: ${server.name}.`);
