@@ -20,7 +20,7 @@ for (const server of serversForDeployment) {
 }
 
 
-async function deployCommands({ rest, commandList, server }) {
+async function deployCommands ({ rest, commandList, server }) {
 	let data;
 	console.log(`Refreshing ${commandList.length} application (/) commands.`);
 	try {
@@ -28,14 +28,13 @@ async function deployCommands({ rest, commandList, server }) {
 			Routes.applicationGuildCommands(clientId, server.id),
 			{ body: commandList },
 		);
-	}
-	catch (error) {
+	} catch (error) {
 		console.error(error);
 	}
 	console.log(`Reloaded ${data.length} application (/) commands.`);
 }
 
-function getCommandLineArguments() {
+function getCommandLineArguments () {
 	const args = process.argv;
 	args.shift();
 	args.shift();
@@ -47,7 +46,7 @@ function getCommandLineArguments() {
 	return formattedArguments;
 }
 
-function getServersForDeployment({ args, servers }) {
+function getServersForDeployment ({ args, servers }) {
 	const serverName = args.server;
 	if (!serverName) {
 		const server = servers[devServer];

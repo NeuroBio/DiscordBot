@@ -1,10 +1,217 @@
 import VRoll from '../../../../../src/commands/library/dice/vtmRoll.js';
 import Fakes from '../../../../fakes/index.js';
 
-describe('VRoll.execute', () => {
-	it('mimics ping', async () => {
+fdescribe('VRoll.execute', () => {
+	const Fragments = Object.freeze({
+		PREAMBLE: 'Roll results...',
+		CRITICAL_RISK: 'At risk of *messy critical*...',
+		FAILURE_RISK: 'At risk of *bestial failure*.',
+	});
+
+	describe(`
+		2 white dice, all fails
+		3 red dice, all fails,
+		no difficulty
+		`, () => {
 		const interaction = Fakes.Interaction.create();
-		await new VRoll().execute(interaction);
-		expect(interaction.reply).toHaveBeenCalledWith(`I'm here, ${interaction.user.globalName}.`);
+		beforeAll(async () => {
+			interaction.options.getNumber
+				.withArgs('white').and.returnValue(2)
+				.withArgs('red').and.returnValue(3);
+
+			spyOn(Math, 'random').and.returnValues(0.0, 0.1, 0.2, 0.3, 0.4);
+
+			await new VRoll().execute(interaction);
+
+		});
+		it('adds a preamble', () => {
+			const fragment = jasmine.stringContaining(Fragments.PREAMBLE);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides the raw white rolls', () => {
+			const fragment = jasmine.stringContaining(`${'`'}White: 1 2${'`'}\n`);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides the raw red rolls', () => {
+			const fragment = jasmine.stringContaining(`${'`'}Red: 3 4 5${'`'}\n`);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides the final result as 0 successes', () => {
+			const fragment = jasmine.stringContaining('**Successes:** 0\n');
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+	});
+	describe(`
+		2 white dice, one success and one failure,
+		0 red dice,
+		no difficulty
+		`, () => {
+		const interaction = Fakes.Interaction.create();
+		beforeAll(async () => {
+			interaction.options.getNumber
+				.withArgs('white').and.returnValue(2)
+				.withArgs('red').and.returnValue(0);
+
+			spyOn(Math, 'random').and.returnValues(0.5, 0.45);
+
+			await new VRoll().execute(interaction);
+
+		});
+		it('adds a preamble', () => {
+			const fragment = jasmine.stringContaining(Fragments.PREAMBLE);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides the raw white rolls', () => {
+			const fragment = jasmine.stringContaining(`${'`'}White: 6 5${'`'}\n`);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides no red rolls', () => {
+			const fragment = jasmine.stringContaining('Red');
+			expect(interaction.reply).not.toHaveBeenCalledWith(fragment);
+		});
+		it('provides the final result as 1 successes', () => {
+			const fragment = jasmine.stringContaining('**Successes:** 1\n');
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+	});
+	describe(`
+		2 white dice, one critical success and one failure,
+		0 red dice, all fails,
+		no difficulty
+		`, () => {
+		const interaction = Fakes.Interaction.create();
+		beforeAll(async () => {
+			interaction.options.getNumber
+				.withArgs('white').and.returnValue(2)
+				.withArgs('red').and.returnValue(0);
+
+			spyOn(Math, 'random').and.returnValues(0.3, 0.99);
+
+			await new VRoll().execute(interaction);
+
+		});
+		it('adds a preamble', () => {
+			const fragment = jasmine.stringContaining(Fragments.PREAMBLE);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides the raw white rolls', () => {
+			const fragment = jasmine.stringContaining(`${'`'}White: 4 10${'`'}\n`);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides no red rolls', () => {
+			const fragment = jasmine.stringContaining('Red');
+			expect(interaction.reply).not.toHaveBeenCalledWith(fragment);
+		});
+		it('provides the final result as 2 successes', () => {
+			const fragment = jasmine.stringContaining('**Successes:** 2\n');
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+	});
+	describe(`
+		0 white dice,
+		2 red dice, one success and one failure,
+		no difficulty
+		`, () => {
+		const interaction = Fakes.Interaction.create();
+		beforeAll(async () => {
+			interaction.options.getNumber
+				.withArgs('white').and.returnValue(0)
+				.withArgs('red').and.returnValue(2);
+
+			spyOn(Math, 'random').and.returnValues(0.24, 0.59);
+
+			await new VRoll().execute(interaction);
+
+		});
+		it('adds a preamble', () => {
+			const fragment = jasmine.stringContaining(Fragments.PREAMBLE);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides no white rolls', () => {
+			const fragment = jasmine.stringContaining('White');
+			expect(interaction.reply).not.toHaveBeenCalledWith(fragment);
+		});
+		it('provides the raw red rolls', () => {
+			const fragment = jasmine.stringContaining(`${'`'}Red: 3 6${'`'}\n`);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides the final result as 2 successes', () => {
+			const fragment = jasmine.stringContaining('**Successes:** 1\n');
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+	});
+	describe(`
+		0 white dice,
+		2 red dice, one critical success and one failure,
+		no difficulty
+		`, () => {
+		const interaction = Fakes.Interaction.create();
+		beforeAll(async () => {
+			interaction.options.getNumber
+				.withArgs('white').and.returnValue(0)
+				.withArgs('red').and.returnValue(2);
+
+			spyOn(Math, 'random').and.returnValues(0.24, 0.9);
+
+			await new VRoll().execute(interaction);
+
+		});
+		it('adds a preamble', () => {
+			const fragment = jasmine.stringContaining(Fragments.PREAMBLE);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides no white rolls', () => {
+			const fragment = jasmine.stringContaining('White');
+			expect(interaction.reply).not.toHaveBeenCalledWith(fragment);
+		});
+		it('provides the raw red rolls', () => {
+			const fragment = jasmine.stringContaining(`${'`'}Red: 3 10${'`'}\n`);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides the final result as 2 successes', () => {
+			const fragment = jasmine.stringContaining('**Successes:** 2\n');
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides a warning about critical success', () => {
+			const fragment = jasmine.stringContaining(Fragments.CRITICAL_RISK);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+	});
+	describe(`
+		0 white dice,
+		2 red dice, one critical failure and one success,
+		no difficulty
+		`, () => {
+		const interaction = Fakes.Interaction.create();
+		beforeAll(async () => {
+			interaction.options.getNumber
+				.withArgs('white').and.returnValue(0)
+				.withArgs('red').and.returnValue(2);
+
+			spyOn(Math, 'random').and.returnValues(0.09, 0.8);
+
+			await new VRoll().execute(interaction);
+
+		});
+		it('adds a preamble', () => {
+			const fragment = jasmine.stringContaining(Fragments.PREAMBLE);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides no white rolls', () => {
+			const fragment = jasmine.stringContaining('White');
+			expect(interaction.reply).not.toHaveBeenCalledWith(fragment);
+		});
+		it('provides the raw red rolls', () => {
+			const fragment = jasmine.stringContaining(`${'`'}Red: 1 9${'`'}\n`);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides the final result as 1 successes', () => {
+			const fragment = jasmine.stringContaining('**Successes:** 1\n');
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
+		it('provides a warning about critical failure', () => {
+			const fragment = jasmine.stringContaining(Fragments.FAILURE_RISK);
+			expect(interaction.reply).toHaveBeenCalledWith(fragment);
+		});
 	});
 });

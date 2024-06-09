@@ -72,8 +72,7 @@ describe('CommandLibrary.load', () => {
 			let actualError;
 			try {
 				await commandLibrary.load();
-			}
-			catch (error) {
+			} catch (error) {
 				actualError = error;
 			}
 			const path = `./../../test/${LibraryPath}/${command.folderPath}/${command.filePath}`;

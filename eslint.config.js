@@ -30,7 +30,7 @@ export default [
 	{
 		'rules': {
 			'arrow-spacing': ['warn', { 'before': true, 'after': true }],
-			'brace-style': ['error', 'stroustrup', { 'allowSingleLine': true }],
+			'brace-style': ['error', '1tbs', { 'allowSingleLine': false }],
 			'comma-dangle': ['error', 'always-multiline'],
 			'comma-spacing': 'error',
 			'comma-style': 'error',
@@ -57,8 +57,8 @@ export default [
 			'semi': ['error', 'always'],
 			'space-before-blocks': 'error',
 			'space-before-function-paren': ['error', {
-				'anonymous': 'never',
-				'named': 'never',
+				'anonymous': 'always',
+				'named': 'always',
 				'asyncArrow': 'always',
 			}],
 			'space-in-parens': 'error',

@@ -9,7 +9,7 @@ createMainConfig();
 createDevConfig();
 
 
-function createMainConfig() {
+function createMainConfig () {
 	const filePath = path.join(__dirname, 'config.json');
 	const template = {
 		token: 'Ask me for this!',
@@ -28,19 +28,17 @@ function createMainConfig() {
 	loadOrCreate({ filePath, template });
 }
 
-function createDevConfig() {
+function createDevConfig () {
 	const filePath = path.join(__dirname, 'dev-config.json');
 	const template = { devServer: 'dev' };
 	loadOrCreate({ filePath, template });
 }
 
-function loadOrCreate({ filePath, template }) {
+function loadOrCreate ({ filePath, template }) {
 	try {
 		fs.readFileSync(filePath);
-
-	}
-	// eslint-disable-next-line no-unused-vars
-	catch (ignore) {
+		// eslint-disable-next-line no-unused-vars
+	} catch (ignore) {
 		fs.writeFileSync(filePath, JSON.stringify(template, null, 2));
 	}
 }

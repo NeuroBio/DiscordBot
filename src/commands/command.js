@@ -1,5 +1,5 @@
 export default class Command {
-	constructor(params = {}) {
+	constructor (params = {}) {
 		const { data, execute } = params;
 		if (!data) {
 			throw new Error('Commands require a "data" object.');

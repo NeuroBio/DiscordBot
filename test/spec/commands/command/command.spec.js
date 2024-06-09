@@ -27,7 +27,9 @@ describe('Command.construction', () => {
 	describe('construction with all required params', () => {
 		it('makes a valid command object', () => {
 			const data = { name: 'name' };
-			const execute = () => {('shut up linter');};
+			const execute = () => {
+				('shut up linter');
+			};
 			const command = new Command({ data, execute });
 			expect(command).toEqual(jasmine.objectContaining({ data, execute }));
 		});

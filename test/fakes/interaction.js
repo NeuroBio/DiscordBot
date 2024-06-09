@@ -3,10 +3,13 @@ export default class Interaction {
 		globalName: 'test global name',
 	};
 
-	static create(params = {}) {
+	static create (params = {}) {
 		return {
 			user: params.user || this.user,
 			reply: jasmine.createSpy('reply'),
+			options: {
+				getNumber: jasmine.createSpy('getNumber'),
+			},
 		};
 	}
 }
