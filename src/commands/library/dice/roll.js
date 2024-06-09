@@ -13,6 +13,11 @@ export default class VRollCommand extends Command {
 
 		async function execute (interaction) {
 			const nDx = interaction.options.getString('ndx');
+
+			if (!nDx.match(/^[0-9]+(d|D)[0-9]+$/)) {
+				return await interaction.reply('Roll requiest must be nDx or ndx format.');
+			}
+
 			const [n, x] = nDx.split(/d|D/);
 			const rolls = [];
 			for (let i = 0; i < n; i++) {
@@ -20,7 +25,9 @@ export default class VRollCommand extends Command {
 				rolls.push(roll);
 			}
 
-			await interaction.reply(`${'`'}${rolls.join(' ')}${'`'}`);
+			let message = `Rolling ${nDx}\n`;
+			message += `${'`'}${rolls.join(' ')}${'`'}\n`;
+			await interaction.reply(message);
 		}
 
 		super({ data, execute });

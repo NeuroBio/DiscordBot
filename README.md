@@ -56,8 +56,7 @@ Our `deploy-commands.js` files are very similar.  The same differences noted abo
 - lint autofixes on save
 - change dev "environment" (server) with one json change
 - experimenting with jsDoc annotations on public functions
-- unit testing capable
+- unit testing capable and tested
 
 ### On Deck
-- unit test start up code
 - add karma to make test run on save
