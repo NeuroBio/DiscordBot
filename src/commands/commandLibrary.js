@@ -53,9 +53,10 @@ export default class CommandLibrary {
 	async #loadCommand({ relativeFolderPath, folder, file }) {
 		const relativeFilePath = `./${this.#path.join(relativeFolderPath, folder, file)}`;
 		const exports = await import(relativeFilePath);
-		const command = exports.default;
-		if (command.constructor.name === 'Command') {
-			return command;
+		const Command = exports.default;
+		const instance = new Command();
+		if (Object.getPrototypeOf(instance.constructor).name === 'Command') {
+			return instance;
 		}
 		else {
 			throw new Error(`The command at ${relativeFilePath} must be of class Command.`);

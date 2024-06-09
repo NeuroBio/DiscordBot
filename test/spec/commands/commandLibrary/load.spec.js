@@ -33,7 +33,8 @@ describe('commandLibrary.load', () => {
 				.withArgs(`${DirPath}/${LibraryPath}/${folderPaths[0]}`).and.returnValue(filePaths);
 
 			const commands = await commandLibrary.load();
-			expect(commands).toEqual([ command.command ]);
+			expect(commands.length).toBe(1);
+			expect(commands[0].constructor.name).toBe(command.name);
 		});
 	});
 	describe('params exclude a folder', () => {
@@ -51,13 +52,13 @@ describe('commandLibrary.load', () => {
 				.withArgs(`${DirPath}/${LibraryPath}/${folderPaths[0]}`).and.returnValue(filePaths);
 
 			const commands = await commandLibrary.load({ excludedFolders: [excludedCommand.folderPath] });
-			expect(commands).toEqual([ defaultCommand.command ]);
+			expect(commands[0].constructor.name).toBe(defaultCommand.name);
 
 		});
 	});
 	describe('non command file read', () => {
 		it('throw error', async () => {
-			const command = Fakes.FakeLibrary.UNCLASSED;
+			const command = Fakes.FakeLibrary.WRONG_CLASS;
 
 			fileURLToPathFake.and.returnValue('');
 			pathFake.dirname.and.returnValue(DirPath);

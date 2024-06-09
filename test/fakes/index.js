@@ -5,9 +5,9 @@ import Command from './command.js';
 import Interaction from './interaction.js';
 
 // fake library
-import defaultCommandFake from '../library/folder/default.js';
-import excludedCommandFake from '../library/folder2/exclude.js';
-import unclassedCommandFake from '../library/folder/unclassed.js';
+import DefaultCommand from '../library/folder/default.js';
+import ExcludedCommand from '../library/folder2/exclude.js';
+import NotCommand from '../library/folder/wrong-class.js';
 
 const mocks = {
 	Fs,
@@ -16,21 +16,24 @@ const mocks = {
 	Command,
 	Interaction,
 	FakeLibrary: {
-		DEFAULT: {
+		DEFAULT: Object.freeze({
 			filePath: 'default.js',
 			folderPath: 'folder',
-			command: defaultCommandFake,
-		},
-		EXCLUDE: {
+			command: DefaultCommand,
+			name: 'DefaultCommand',
+		}),
+		EXCLUDE: Object.freeze({
 			filePath: 'exclude.js',
 			folderPath: 'folder2',
-			command: excludedCommandFake,
-		},
-		UNCLASSED: {
-			filePath: 'unclassed.js',
+			command: ExcludedCommand,
+			name: 'ExcludedCommand',
+		}),
+		WRONG_CLASS: Object.freeze({
+			filePath: 'wrong-class.js',
 			folderPath: 'folder',
-			command: unclassedCommandFake,
-		},
+			command: NotCommand,
+			name: 'NotCommand',
+		}),
 	},
 };
 export default mocks;

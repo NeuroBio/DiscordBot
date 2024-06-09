@@ -1,3 +1,3 @@
 import Command from '../../fakes/command.js';
 
-export default new Command();
+export default class DefaultCommand extends Command {};
