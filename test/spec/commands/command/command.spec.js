@@ -1,6 +1,6 @@
 import Command from '../../../../src/commands/command.js';
 
-describe('command.construction', () => {
+describe('Command.construction', () => {
 	const ExpectedErrors = Object.freeze({
 		NO_DATA: 'Commands require a "data" object.',
 		NO_NAME: 'Command data requires a "name" property.',

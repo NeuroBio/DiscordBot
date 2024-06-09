@@ -1,7 +1,7 @@
 import Ping from '../../../../../src/commands/library/utils/ping.js';
 import Fakes from '../../../../fakes/index.js';
 
-describe('ping.execute', () => {
+describe('Ping.execute', () => {
 	it('responds with the invoker\'s nickname', () => {
 		const interaction = Fakes.Interaction.create();
 		new Ping().execute(interaction);

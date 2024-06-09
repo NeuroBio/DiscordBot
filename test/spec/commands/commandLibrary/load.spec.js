@@ -1,7 +1,7 @@
 import CommandLibrary from '../../../../src/commands/commandLibrary.js';
 import Fakes from '../../../fakes/index.js';
 
-describe('commandLibrary.load', () => {
+describe('CommandLibrary.load', () => {
 	const LibraryPath = 'library';
 	const DirPath = '../../test';
 	let commandLibrary;
