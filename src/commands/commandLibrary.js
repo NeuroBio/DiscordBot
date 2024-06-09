@@ -24,7 +24,9 @@ export default class CommandLibrary {
 	 */
 	async load(params = {}) {
 		const { excludedFolders } = params;
-		const folderPath = this.#getCommandsFolderPath();
+		const __dirname = this.#getDirectory();
+		const folderPath = this.#path.join(__dirname, LibraryPath);
+		const relativeFolderPath = folderPath.replace(`${__dirname}\\`, '');
 		const commandFolders = this.#fs.readdirSync(folderPath);
 		const commandLibary = [];
 
@@ -36,21 +38,21 @@ export default class CommandLibrary {
 			const commandsPath = this.#path.join(folderPath, folder);
 			const commandFiles = this.#fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 			for (const file of commandFiles) {
-				const command = await this.#loadCommand({ commandsPath, file });
+				const command = await this.#loadCommand({ relativeFolderPath, folder, file });
 				commandLibary.push(command);
 			}
 		}
 		return commandLibary;
 	}
 
-	#getCommandsFolderPath() {
+	#getDirectory() {
 		const __filepath = this.#fileURLToPath(import.meta.url);
-		const __dirname = this.#path.dirname(__filepath);
-		return this.#path.join(__dirname, LibraryPath);
+		return this.#path.dirname(__filepath);
 	};
 
-	async #loadCommand({ commandsPath, file }) {
-		const relativeFilePath = `./${this.#path.join(commandsPath, file)}`;
+	async #loadCommand({ relativeFolderPath, folder, file }) {
+
+		const relativeFilePath = `./${this.#path.join(relativeFolderPath, folder, file)}`;
 		const exports = await import(relativeFilePath);
 		const command = exports.default;
 		if (command.constructor.name === 'Command') {
