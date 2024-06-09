@@ -36,7 +36,7 @@ export default class CommandLibrary {
 			const commandsPath = this.#path.join(folderPath, folder);
 			const commandFiles = this.#fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 			for (const file of commandFiles) {
-				const command = await this.#loadCommand({ file, folder });
+				const command = await this.#loadCommand({ commandsPath, file });
 				commandLibary.push(command);
 			}
 		}
@@ -49,8 +49,8 @@ export default class CommandLibrary {
 		return this.#path.join(__dirname, LibraryPath);
 	};
 
-	async #loadCommand({ file, folder }) {
-		const relativeFilePath = `./${this.#path.join(LibraryPath, folder, file)}`;
+	async #loadCommand({ commandsPath, file }) {
+		const relativeFilePath = `./${this.#path.join(commandsPath, file)}`;
 		const exports = await import(relativeFilePath);
 		const command = exports.default;
 		if (command.constructor.name === 'Command') {
