@@ -70,7 +70,14 @@ export default class VRollCommand extends Command {
 				rolledCriticalSuccess, rolledCriticalFailure,
 			 } = params;
 
-			let message = `Rolling ${white} regular dice and ${red} hunger dice...\n`;
+			let message = `Rolling ${white} regular dice and ${red} hunger dice`;
+
+			if (difficulty) {
+				message += ` for difficulty ${difficulty}...\n`;
+			} else {
+				message += '...\n';
+			}
+
 			if (white > 0) {
 				message += `${'`'}White: ${whiteRolls.join(' ')}${'`'}\n`;
 			}
@@ -91,7 +98,7 @@ export default class VRollCommand extends Command {
 				return message;
 			}
 
-			message += `**Successes:** ${successes}... `;
+			message += `**Successes:** ${successes}. `;
 			if (successes < difficulty) {
 				if (rolledCriticalFailure) {
 					return message += 'Challenge failed. *The beast awakens.*\n';
@@ -99,7 +106,7 @@ export default class VRollCommand extends Command {
 				return message += 'Challenge failed.\n';
 			} else {
 				if (rolledCriticalSuccess) {
-					return message += 'Challenge overcome... with the beast\'s *messy* help.*\n';
+					return message += 'Challenge overcome... with the beast\'s *messy* help.\n';
 				}
 				return message += 'Challenge overcome.\n';
 			}
