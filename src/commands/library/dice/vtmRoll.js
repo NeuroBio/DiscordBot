@@ -77,9 +77,10 @@ export default class VRollCommand extends Command {
 			if (red > 0) {
 				message += `${'`'}Red: ${redRolls.join(' ')}${'`'}\n`;
 			}
-			message += `**Successes:** ${successes}\n`;
 
 			if (!difficulty) {
+				message += `**Successes:** ${successes}\n`;
+
 				if (rolledCriticalSuccess) {
 					message += 'At risk of *messy critical*...\n';
 				}
@@ -87,9 +88,21 @@ export default class VRollCommand extends Command {
 				if (rolledCriticalFailure) {
 					message += 'At risk of *bestial failure*.\n';
 				}
+				return message;
 			}
 
-			return message;
+			message += `**Successes:** ${successes}... `;
+			if (successes < difficulty) {
+				if (rolledCriticalFailure) {
+					return message += 'Challenge failed. *The beast awakens.*\n';
+				}
+				return message += 'Challenge failed.\n';
+			} else {
+				if (rolledCriticalSuccess) {
+					return message += 'Challenge overcome... with the beast\'s *messy* help.*\n';
+				}
+				return message += 'Challenge overcome.\n';
+			}
 		}
 
 		super({ data, execute });
