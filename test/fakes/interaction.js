@@ -9,6 +9,7 @@ export default class Interaction {
 			reply: jasmine.createSpy('reply'),
 			options: {
 				getNumber: jasmine.createSpy('getNumber'),
+				getString: jasmine.createSpy('getString'),
 			},
 		};
 	}
