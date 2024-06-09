@@ -13,12 +13,18 @@ export default class VRollCommand extends Command {
 			.addNumberOption((option) => (option
 				.setName('red')
 				.setDescription('Number of red dice to roll')
-				.setRequired(true)
-			));
+				.setRequired(true)))
+			.addNumberOption((option) => (option
+				.setName('difficulty')
+				.setDescription('Number for the challenge difficulty')
+				.setRequired(false)));
 
 		async function execute (interaction) {
 			const white = interaction.options.getNumber('white');
 			const red = interaction.options.getNumber('red');
+			if (!white && !red) {
+				await interaction.reply('Bring your dice to the game next time, bro.');
+			}
 
 			const whiteRolls = getRolls({ times: white });
 			const redRolls = getRolls({ times: red });
@@ -32,7 +38,7 @@ export default class VRollCommand extends Command {
 				}
 			});
 
-			let message = 'Roll results...\n';
+			let message = `Rolling ${white} dice with ${red} hunger dice...`;
 			if (white > 0) {
 				message += `${'`'}White: ${whiteRolls.join(' ')}${'`'}\n`;
 			}
