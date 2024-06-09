@@ -50,6 +50,10 @@ Their `index.js` is analogus to my `start-bot.js`.  However, I extracted out the
 
 Our `deploy-commands.js` files are very similar.  The same differences noted above are true here.  Otherwise, my code is more strigent: it fails entirely if loading a command errors out instead of writing a warning.  I also added logic to change what server(s) you are deploying to based on what script you are running.
 
+
+## Planne Commands
+- punishme
+
 ## Quality of life features
 ### Supported
 - generates config templates on install (when they don't exist)
