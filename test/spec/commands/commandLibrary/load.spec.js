@@ -1,6 +1,5 @@
 import CommandLibrary from '../../../../src/commands/commandLibrary.js';
-import Mocks from '../../../mocks/index.js';
-import fakeCommand from '../../../library/folder/commandFake.js';
+import Fakes from '../../../fakes/index.js';
 
 describe('commandLibrary.load', () => {
 	const LibraryPath = 'library';
@@ -8,9 +7,9 @@ describe('commandLibrary.load', () => {
 	let fsFake, fileURLToPathFake, pathFake;
 
 	beforeEach(() => {
-		fsFake = new Mocks.Fs();
-		fileURLToPathFake = new Mocks.Url().fileURLToPath;
-		pathFake = new Mocks.Path();
+		fsFake = new Fakes.Fs();
+		fileURLToPathFake = new Fakes.Url().fileURLToPath;
+		pathFake = new Fakes.Path();
 
 		commandLibrary = new CommandLibrary({
 			fs: fsFake,
@@ -19,19 +18,27 @@ describe('commandLibrary.load', () => {
 		});
 	});
 
-	it('loads without exploding', async () => {
-		const originPath = 'originalFile';
-		const dirPath = '../../test';
-		fileURLToPathFake.and.returnValue(originPath);
-		pathFake.dirname.and.returnValue(dirPath);
+	describe('happy path', () => {
+		it('loads a command without exploding', async () => {
+			const command = Fakes.FakeLibrary.DEFAULT;
+			const originPath = 'originalFile';
+			const dirPath = '../../test';
+			fileURLToPathFake.and.returnValue(originPath);
+			pathFake.dirname.and.returnValue(dirPath);
 
-		const folderPaths = ['folder'];
-		const filePaths = ['commandFake.js'];
-		fsFake.readdirSync
-			.withArgs(`${dirPath}/${LibraryPath}`).and.returnValue(folderPaths)
-			.withArgs(`${dirPath}/${LibraryPath}/${folderPaths[0]}`).and.returnValue(filePaths);
+			const folderPaths = [command.folderPath];
+			const filePaths = [command.filePath];
+			fsFake.readdirSync
+				.withArgs(`${dirPath}/${LibraryPath}`).and.returnValue(folderPaths)
+				.withArgs(`${dirPath}/${LibraryPath}/${folderPaths[0]}`).and.returnValue(filePaths);
 
-		const commands = await commandLibrary.load();
-		expect(commands).toEqual([ fakeCommand ]);
+			const commands = await commandLibrary.load();
+			expect(commands).toEqual([ command.command ]);
+		});
 	});
+	// xdescribe('params exclude a folder', () => {
+	// 	it('excludes the folder', () => {
+
+	// 	});
+	// });
 });
