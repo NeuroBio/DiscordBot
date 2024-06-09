@@ -3,8 +3,8 @@ import Fakes from '../../../../fakes/index.js';
 
 fdescribe('VRoll.execute', () => {
 	const Fragments = Object.freeze({
-		CRITICAL_RISK: 'At risk of *messy critical*...',
-		FAILURE_RISK: 'At risk of *bestial failure*.',
+		CRITICAL_RISK: 'At risk of *messy critical*...\n',
+		FAILURE_RISK: 'At risk of *bestial failure*.\n',
 	});
 	describe('no dice were rolled', () => {
 		it('replies with an error message', async () => {
@@ -38,7 +38,7 @@ fdescribe('VRoll.execute', () => {
 			await new VRoll().execute(interaction);
 		});
 		it('adds a preamble summarizing the args', () => {
-			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...`);
+			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides the raw white rolls', () => {
@@ -72,7 +72,7 @@ fdescribe('VRoll.execute', () => {
 			await new VRoll().execute(interaction);
 		});
 		it('adds a preamble summarizing the args', () => {
-			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...`);
+			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides the raw white rolls', () => {
@@ -106,7 +106,7 @@ fdescribe('VRoll.execute', () => {
 			await new VRoll().execute(interaction);
 		});
 		it('adds a preamble summarizing the args', () => {
-			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...`);
+			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides the raw white rolls', () => {
@@ -140,7 +140,7 @@ fdescribe('VRoll.execute', () => {
 			await new VRoll().execute(interaction);
 		});
 		it('adds a preamble summarizing the args', () => {
-			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...`);
+			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides no white rolls', () => {
@@ -174,7 +174,7 @@ fdescribe('VRoll.execute', () => {
 			await new VRoll().execute(interaction);
 		});
 		it('adds a preamble summarizing the args', () => {
-			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...`);
+			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides no white rolls', () => {
@@ -212,7 +212,7 @@ fdescribe('VRoll.execute', () => {
 			await new VRoll().execute(interaction);
 		});
 		it('adds a preamble summarizing the args', () => {
-			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...`);
+			const fragment = jasmine.stringContaining(`Rolling ${white} dice with ${red} hunger dice...\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides no white rolls', () => {

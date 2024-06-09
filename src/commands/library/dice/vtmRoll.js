@@ -9,53 +9,38 @@ export default class VRollCommand extends Command {
 			.addNumberOption((option) => (option
 				.setName('white')
 				.setDescription('Number of white dice to roll')
+				.setMinValue(0)
 				.setRequired(true)))
 			.addNumberOption((option) => (option
 				.setName('red')
 				.setDescription('Number of red dice to roll')
+				.setMinValue(0)
 				.setRequired(true)))
 			.addNumberOption((option) => (option
 				.setName('difficulty')
 				.setDescription('Number for the challenge difficulty')
+				.setMinValue(1)
 				.setRequired(false)));
 
 		async function execute (interaction) {
 			const white = interaction.options.getNumber('white');
 			const red = interaction.options.getNumber('red');
+			const difficulty = interaction.options.getNumber('difficulty');
 			if (!white && !red) {
 				await interaction.reply('Bring your dice to the game next time, bro.');
 			}
 
 			const whiteRolls = getRolls({ times: white });
 			const redRolls = getRolls({ times: red });
-			const allRolls = [...whiteRolls, ...redRolls];
-			let Successes = 0;
-			allRolls.forEach((roll) => {
-				if (roll === 10) {
-					Successes += 2;
-				} else if (roll > 5) {
-					Successes += 1;
-				}
-			});
+			const successes = calculateSuccess({ whiteRolls, redRolls });
+			const rolledCriticalSuccess = (Math.max(...redRolls) === 10);
+			const rolledCriticalFailure = (Math.min(...redRolls) === 1);
 
-			let message = `Rolling ${white} dice with ${red} hunger dice...`;
-			if (white > 0) {
-				message += `${'`'}White: ${whiteRolls.join(' ')}${'`'}\n`;
-			}
-			if (red > 0) {
-				message += `${'`'}Red: ${redRolls.join(' ')}${'`'}\n`;
-			}
-			message += `**Successes:** ${Successes}\n`;
 
-			if (Math.max(...redRolls) === 10) {
-				message += 'At risk of *messy critical*...';
-			}
-
-			if (Math.min(...redRolls) === 1) {
-				message += 'At risk of *bestial failure*.';
-			}
-
-			await interaction.reply(message);
+			await interaction.reply(assembleResponse({
+				white, red, whiteRolls, redRolls, successes, difficulty,
+				rolledCriticalSuccess, rolledCriticalFailure,
+			}));
 		}
 
 		function getRolls ({ times }) {
@@ -65,6 +50,46 @@ export default class VRollCommand extends Command {
 				rolls.push(roll);
 			}
 			return rolls;
+		}
+		function calculateSuccess ({ whiteRolls, redRolls }) {
+			const allRolls = [...whiteRolls, ...redRolls];
+			let successes = 0;
+			allRolls.forEach((roll) => {
+				if (roll === 10) {
+					successes += 2;
+				} else if (roll > 5) {
+					successes += 1;
+				}
+			});
+			return successes;
+		}
+
+		function assembleResponse (params) {
+			const {
+				white, red, whiteRolls, redRolls, successes, difficulty,
+				rolledCriticalSuccess, rolledCriticalFailure,
+			 } = params;
+
+			let message = `Rolling ${white} dice with ${red} hunger dice...\n`;
+			if (white > 0) {
+				message += `${'`'}White: ${whiteRolls.join(' ')}${'`'}\n`;
+			}
+			if (red > 0) {
+				message += `${'`'}Red: ${redRolls.join(' ')}${'`'}\n`;
+			}
+			message += `**Successes:** ${successes}\n`;
+
+			if (!difficulty) {
+				if (rolledCriticalSuccess) {
+					message += 'At risk of *messy critical*...\n';
+				}
+
+				if (rolledCriticalFailure) {
+					message += 'At risk of *bestial failure*.\n';
+				}
+			}
+
+			return message;
 		}
 
 		super({ data, execute });
