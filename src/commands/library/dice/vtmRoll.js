@@ -27,7 +27,7 @@ export default class VRollCommand extends Command {
 			const red = interaction.options.getNumber('red');
 			const difficulty = interaction.options.getNumber('difficulty');
 			if (!white && !red) {
-				await interaction.reply('Bring your dice to the game next time, bro.');
+				return await interaction.reply('Bring your dice to the game next time, bro.');
 			}
 
 			const whiteRolls = getRolls({ times: white });

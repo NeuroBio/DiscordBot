@@ -18,6 +18,7 @@ describe('VRoll.execute', () => {
 
 			const errorMessage = 'Bring your dice to the game next time, bro.';
 			expect(interaction.reply).toHaveBeenCalledWith(errorMessage);
+			expect(interaction.reply).toHaveBeenCalledTimes(1);
 		});
 	});
 	describe(`
