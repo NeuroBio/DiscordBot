@@ -2,6 +2,9 @@ import Fs from './fs.js';
 import Path from './path.js';
 import Url from './url.js';
 import Command from './command.js';
+import Interaction from './interaction.js';
+
+// fake library
 import defaultCommandFake from '../library/folder/default.js';
 import excludedCommandFake from '../library/folder2/exclude.js';
 import unclassedCommandFake from '../library/folder/unclassed.js';
@@ -11,6 +14,7 @@ const mocks = {
 	Path,
 	Url,
 	Command,
+	Interaction,
 	FakeLibrary: {
 		DEFAULT: {
 			filePath: 'default.js',
