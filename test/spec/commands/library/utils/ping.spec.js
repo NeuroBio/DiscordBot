@@ -2,9 +2,9 @@ import Ping from '../../../../../src/commands/library/utils/ping.js';
 import Fakes from '../../../../fakes/index.js';
 
 describe('Ping.execute', () => {
-	it('responds with the invoker\'s nickname', () => {
+	it('responds with the invoker\'s nickname', async () => {
 		const interaction = Fakes.Interaction.create();
-		new Ping().execute(interaction);
+		await new Ping().execute(interaction);
 		expect(interaction.reply).toHaveBeenCalledWith(`I'm here, ${interaction.user.globalName}.`);
 	});
 });

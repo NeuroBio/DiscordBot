@@ -3,6 +3,7 @@ import Path from './path.js';
 import Url from './url.js';
 import Command from './command.js';
 import Interaction from './interaction.js';
+import CommandLibrary from './commandLibrary.js';
 
 // fake library
 import DefaultCommand from '../library/folder/default.js';
@@ -15,6 +16,7 @@ const mocks = {
 	Url,
 	Command,
 	Interaction,
+	CommandLibrary,
 	FakeLibrary: {
 		DEFAULT: Object.freeze({
 			filePath: 'default.js',
