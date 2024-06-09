@@ -51,7 +51,6 @@ export default class CommandLibrary {
 	};
 
 	async #loadCommand({ relativeFolderPath, folder, file }) {
-
 		const relativeFilePath = `./${this.#path.join(relativeFolderPath, folder, file)}`;
 		const exports = await import(relativeFilePath);
 		const command = exports.default;

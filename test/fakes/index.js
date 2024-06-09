@@ -19,7 +19,7 @@ const mocks = {
 		},
 		EXCLUDE: {
 			filePath: 'exclude.js',
-			folderPath: 'folder',
+			folderPath: 'folder2',
 			command: excludedCommandFake,
 		},
 		UNCLASSED: {
