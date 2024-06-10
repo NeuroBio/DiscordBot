@@ -36,7 +36,7 @@ export default class PromptCommand extends Command {
 			const mainVerb = Verbs[0];
 			const goalArticle = Articles[0];
 			const mcguffin = Nouns[1];
-			const pluralize = '';
+			const pluralize = 's';
 			const goal = `${not} ${adverb} ${mainVerb} ${goalArticle} ${mcguffin}`;
 
 
