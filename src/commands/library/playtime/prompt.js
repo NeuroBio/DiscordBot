@@ -23,13 +23,14 @@ export default class PromptCommand extends Command {
 		async function execute (interaction) {
 			const { character, pluralize } = createCharacter();
 			const prompt = `${character} need${pluralize} to ${creatGoal()}, because ${createReason()}.`;
+			// strip white space
 			await interaction.reply(prompt);
 		}
 
 		function createCharacter () {
-			const mainCollectiveNoun = getRandomEntry({ source: CollectiveNouns, caller: 'mainColectiveNoun' });
-			const adjective1 = getRandomEntry({ source: Adjectives, caller: 'adjective1' });
-			const adjective2 = getRandomEntry({ source: Adjectives, caller: 'adjective2' });
+			const mainCollectiveNoun = getRandomEntry({ source: CollectiveNouns, chance: 0.1, caller: 'mainColectiveNoun' });
+			const adjective1 = getRandomEntry({ source: Adjectives, chance: 0.8, caller: 'adjective1' });
+			const adjective2 = getRandomEntry({ source: Adjectives, chance: 0.2, caller: 'adjective2' });
 			const optionalComma = ',';
 
 			const description = `${mainCollectiveNoun} ${adjective1}${optionalComma} ${adjective2}`;
@@ -43,8 +44,8 @@ export default class PromptCommand extends Command {
 		}
 
 		function creatGoal () {
-			const not = 'not';
-			const adverb = getRandomEntry({ source: Adverbs, caller: 'adverb' });
+			const not = Math.random('not') > 0.95 ? 'not' : undefined;
+			const adverb = getRandomEntry({ source: Adverbs, chance: 0.35, caller: 'adverb' });
 			const mainVerb = getRandomEntry({ source: Verbs, caller: 'mainVerb' });
 			const goalArticle = getRandomEntry({ source: Articles, caller: 'goalArticle' });
 			const mcguffin = getRandomEntry({ source: Nouns, caller: 'mcguffin' });
@@ -53,15 +54,19 @@ export default class PromptCommand extends Command {
 
 		function createReason () {
 			const reasonArticle = getRandomEntry({ source: Articles, caller: 'reasonArticle' });
-			const adjective3 = getRandomEntry({ source: Adjectives, caller: 'adjective3' });
-			const reasonCollectiveNoun = getRandomEntry({ source: CollectiveNouns, caller: 'reasonCollectiveNoun' });
+			const adjective3 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective3' });
+			const reasonCollectiveNoun = getRandomEntry({ source: CollectiveNouns, chance: 0.1, caller: 'reasonCollectiveNoun' });
 			const motivation = getRandomEntry({ source: Nouns, caller: 'motivation' });
 			const toBe = FinalToBe.SINGULAR;
 			const verbing = getRandomEntry({ source: VerbParticiples, caller: 'verbing' });
 			return `${reasonArticle} ${reasonCollectiveNoun} ${adjective3} ${motivation} ${toBe} ${verbing}`;
 		}
 
-		function getRandomEntry ({ source, caller }) {
+		function getRandomEntry ({ source, chance, caller }) {
+			if (chance && Math.random(caller) < chance) {
+				return;
+			}
+
 			const index = Math.floor(Math.random(caller) * (source.length - 1));
 			return source[index];
 		}

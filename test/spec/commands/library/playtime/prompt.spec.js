@@ -66,10 +66,11 @@ fdescribe('Prompt.execute', () => {
 		ADVERB: 'adverb',
 		MAIN_VERB: 'mainVerb',
 		VERBING: 'verbing',
+		NOT: 'not',
 	});
 
 	describe(`
-		happy path prompt assembly
+		happy path prompt assembly - all components
 		character is a collective noun start with a consonant
 		character has two adjectives
 		goal has a not
@@ -79,12 +80,16 @@ fdescribe('Prompt.execute', () => {
 		`, () => {
 		it('assembles a prompt with the correct values in the correct place', async () => {
 			spyOn(Math, 'random')
-				.withArgs(Callers.ADJECTIVE_2).and.returnValue(2 / 3)
-				.withArgs(Callers.MCGUFFIN).and.returnValue(2 / 3)
-				.withArgs(Callers.REASON_ARTICLE).and.returnValue(2 / 2)
-				.withArgs(Callers.ADJECTIVE_3).and.returnValue(3 / 3)
-				.withArgs(Callers.REASON_COLLECTIVE).and.returnValue(2 / 2)
-				.withArgs(Callers.MOTIVATION).and.returnValue(3 / 3)
+				.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(0.11, 0)
+				.withArgs(Callers.ADJECTIVE_1).and.returnValues(0.81, 0)
+				.withArgs(Callers.ADJECTIVE_2).and.returnValue(2 / Adjectives.length)
+				.withArgs(Callers.NOT).and.returnValue(0.951)
+				.withArgs(Callers.ADVERB).and.returnValue(0.351)
+				.withArgs(Callers.MCGUFFIN).and.returnValue(2 / Nouns.length)
+				.withArgs(Callers.REASON_ARTICLE).and.returnValue(2 / Articles.length)
+				.withArgs(Callers.ADJECTIVE_3).and.returnValues(0.41, 3 / Adjectives.length)
+				.withArgs(Callers.REASON_COLLECTIVE).and.returnValues(0.11, 2 / CollectiveNouns.length)
+				.withArgs(Callers.MOTIVATION).and.returnValue(3 / Nouns.length)
 				.and.returnValue(0);
 
 			const interaction = Fakes.Interaction.create();
@@ -98,5 +103,4 @@ fdescribe('Prompt.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
 	});
-
 });
