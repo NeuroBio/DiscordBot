@@ -23,19 +23,19 @@ export default class PromptCommand extends Command {
 		async function execute (interaction) {
 			const { character, pluralize } = createCharacter();
 			const prompt = `${character} need${pluralize} to ${creatGoal()}, because ${createReason()}.`;
-			// strip white space
-			await interaction.reply(prompt);
+			await interaction.reply(prompt.replace(/\s+/g, ' '));
 		}
 
 		function createCharacter () {
 			const mainCollectiveNoun = getRandomEntry({ source: CollectiveNouns, chance: 0.1, caller: 'mainColectiveNoun' });
 			const adjective1 = getRandomEntry({ source: Adjectives, chance: 0.8, caller: 'adjective1' });
 			const adjective2 = getRandomEntry({ source: Adjectives, chance: 0.2, caller: 'adjective2' });
-			const optionalComma = ',';
+			const optionalComma = (adjective1 && adjective2) ? ',' : '';
 
 			const description = `${mainCollectiveNoun} ${adjective1}${optionalComma} ${adjective2}`;
 
-			const initialArticle = InitialArticle.CONSONANT;
+			const startsWithVowel = /^[aeiou]+/.test(description.replace(/\s+/g, ''));
+			const initialArticle = startsWithVowel ? InitialArticle.VOWEL : InitialArticle.CONSONANT;
 			const pluralize = 's';
 			const subject = getRandomEntry({ source: Nouns, caller: 'subject' });
 			const character = `${initialArticle} ${description} ${subject}`;
@@ -44,7 +44,7 @@ export default class PromptCommand extends Command {
 		}
 
 		function creatGoal () {
-			const not = Math.random('not') > 0.95 ? 'not' : undefined;
+			const not = Math.random('not') > 0.95 ? 'not' : '';
 			const adverb = getRandomEntry({ source: Adverbs, chance: 0.35, caller: 'adverb' });
 			const mainVerb = getRandomEntry({ source: Verbs, caller: 'mainVerb' });
 			const goalArticle = getRandomEntry({ source: Articles, caller: 'goalArticle' });
@@ -63,8 +63,8 @@ export default class PromptCommand extends Command {
 		}
 
 		function getRandomEntry ({ source, chance, caller }) {
-			if (chance && Math.random(caller) < chance) {
-				return;
+			if (chance && Math.random(caller) <= chance) {
+				return '';
 			}
 
 			const index = Math.floor(Math.random(caller) * (source.length - 1));

@@ -69,8 +69,23 @@ fdescribe('Prompt.execute', () => {
 		NOT: 'not',
 	});
 
+	function setupHappyPath () {
+		spyOn(Math, 'random')
+			.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(0.11, 0)
+			.withArgs(Callers.ADJECTIVE_1).and.returnValues(0.81, 0)
+			.withArgs(Callers.ADJECTIVE_2).and.returnValue(2 / Adjectives.length)
+			.withArgs(Callers.NOT).and.returnValue(0.951)
+			.withArgs(Callers.ADVERB).and.returnValue(0.351)
+			.withArgs(Callers.MCGUFFIN).and.returnValue(2 / Nouns.length)
+			.withArgs(Callers.REASON_ARTICLE).and.returnValue(2 / Articles.length)
+			.withArgs(Callers.ADJECTIVE_3).and.returnValues(0.41, 3 / Adjectives.length)
+			.withArgs(Callers.REASON_COLLECTIVE).and.returnValues(0.11, 2 / CollectiveNouns.length)
+			.withArgs(Callers.MOTIVATION).and.returnValue(3 / Nouns.length)
+			.and.returnValue(0);
+	}
+
 	describe(`
-		happy path prompt assembly - all components
+		happy path prompt assembly (all components present)
 		character is a collective noun start with a consonant
 		character has two adjectives
 		goal has a not
@@ -79,23 +94,61 @@ fdescribe('Prompt.execute', () => {
 		reason has a adjective
 		`, () => {
 		it('assembles a prompt with the correct values in the correct place', async () => {
-			spyOn(Math, 'random')
-				.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(0.11, 0)
-				.withArgs(Callers.ADJECTIVE_1).and.returnValues(0.81, 0)
-				.withArgs(Callers.ADJECTIVE_2).and.returnValue(2 / Adjectives.length)
-				.withArgs(Callers.NOT).and.returnValue(0.951)
-				.withArgs(Callers.ADVERB).and.returnValue(0.351)
-				.withArgs(Callers.MCGUFFIN).and.returnValue(2 / Nouns.length)
-				.withArgs(Callers.REASON_ARTICLE).and.returnValue(2 / Articles.length)
-				.withArgs(Callers.ADJECTIVE_3).and.returnValues(0.41, 3 / Adjectives.length)
-				.withArgs(Callers.REASON_COLLECTIVE).and.returnValues(0.11, 2 / CollectiveNouns.length)
-				.withArgs(Callers.MOTIVATION).and.returnValue(3 / Nouns.length)
-				.and.returnValue(0);
+			setupHappyPath();
 
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
 
 			const description = `${CollectiveNouns[0]} ${Adjectives[0]}${','} ${Adjectives[1]}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0]}`;
+			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Nouns[1]}`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} ${Adjectives[2]} ${Nouns[2]} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			expect(interaction.reply).toHaveBeenCalledWith(message);
+		});
+	});
+	describe('happy path prompt - EXCEPT no not', () => {
+		it('assembles a prompt without a not and single spaced', async () => {
+			setupHappyPath();
+			Math.random.withArgs(Callers.NOT).and.returnValue(0.95);
+
+			const interaction = Fakes.Interaction.create();
+			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
+
+			const description = `${CollectiveNouns[0]} ${Adjectives[0]}${','} ${Adjectives[1]}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0]}`;
+			const goal = `${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Nouns[1]}`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} ${Adjectives[2]} ${Nouns[2]} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			expect(interaction.reply).toHaveBeenCalledWith(message);
+		});
+	});
+	describe('happy path prompt - EXCEPT character has no collective and the adjectice starts with a vowel', () => {
+		it('assembles a prompt without a character collective, the correct character article, and single spaced', async () => {
+			setupHappyPath();
+			Math.random.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(0.1, 0);
+
+			const interaction = Fakes.Interaction.create();
+			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
+
+			const description = `${Adjectives[0]}${','} ${Adjectives[1]}`;
+			const character = `${InitialArticle.VOWEL} ${description} ${Nouns[0]}`;
+			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Nouns[1]}`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} ${Adjectives[2]} ${Nouns[2]} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			expect(interaction.reply).toHaveBeenCalledWith(message);
+		});
+	});
+	describe('happy path prompt - EXCEPT only the first character adjective is present', () => {
+		it('assembles a prompt with one character adjective and no comma', async () => {
+			setupHappyPath();
+			Math.random.withArgs(Callers.ADJECTIVE_2).and.returnValue(0);
+
+
+			const interaction = Fakes.Interaction.create();
+			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
+
+			const description = `${CollectiveNouns[0]} ${Adjectives[0]}`;
 			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0]}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Nouns[1]}`;
 			const reason = `${Articles[1]} ${CollectiveNouns[1]} ${Adjectives[2]} ${Nouns[2]} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
