@@ -21,36 +21,51 @@ export default class PromptCommand extends Command {
 		} = _PromptData;
 
 		async function execute (interaction) {
-			const initialArticle = InitialArticle.CONSONANT;
-			const mainCollectiveNoun = CollectiveNouns[0];
-			const adjective1 = Adjectives[0];
-			const optionalComma = ',';
-			const adjective2 = Adjectives[1];
-			const mainNoun = Nouns[0];
-
-			const description = `${mainCollectiveNoun} ${adjective1}${optionalComma} ${adjective2}`;
-			const character = `${initialArticle} ${description} ${mainNoun}`;
-
-			const not = 'not';
-			const adverb = Adverbs[0];
-			const mainVerb = Verbs[0];
-			const goalArticle = Articles[0];
-			const mcguffin = Nouns[1];
-			const pluralize = 's';
-			const goal = `${not} ${adverb} ${mainVerb} ${goalArticle} ${mcguffin}`;
-
-
-			const reasonArticle = Articles[1];
-			const adjective3 = Adjectives[2];
-			const reasonCollectiveNoun = CollectiveNouns[1];
-			const motivation = Nouns[2];
-			const toBe = FinalToBe.SINGULAR;
-			const verbing = VerbParticiples[0];
-			const reason = `${reasonArticle} ${reasonCollectiveNoun} ${adjective3} ${motivation} ${toBe} ${verbing}`;
-
-			const prompt = `${character} need${pluralize} to ${goal}, because ${reason}.`;
+			const { character, pluralize } = createCharacter();
+			const prompt = `${character} need${pluralize} to ${creatGoal()}, because ${createReason()}.`;
 			await interaction.reply(prompt);
 		}
+
+		function createCharacter () {
+			const mainCollectiveNoun = getRandomEntry({ source: CollectiveNouns, caller: 'mainColectiveNoun' });
+			const adjective1 = getRandomEntry({ source: Adjectives, caller: 'adjective1' });
+			const adjective2 = getRandomEntry({ source: Adjectives, caller: 'adjective2' });
+			const optionalComma = ',';
+
+			const description = `${mainCollectiveNoun} ${adjective1}${optionalComma} ${adjective2}`;
+
+			const initialArticle = InitialArticle.CONSONANT;
+			const pluralize = 's';
+			const subject = getRandomEntry({ source: Nouns, caller: 'subject' });
+			const character = `${initialArticle} ${description} ${subject}`;
+
+			return { character, pluralize };
+		}
+
+		function creatGoal () {
+			const not = 'not';
+			const adverb = getRandomEntry({ source: Adverbs, caller: 'adverb' });
+			const mainVerb = getRandomEntry({ source: Verbs, caller: 'mainVerb' });
+			const goalArticle = getRandomEntry({ source: Articles, caller: 'goalArticle' });
+			const mcguffin = getRandomEntry({ source: Nouns, caller: 'mcguffin' });
+			return `${not} ${adverb} ${mainVerb} ${goalArticle} ${mcguffin}`;
+		}
+
+		function createReason () {
+			const reasonArticle = getRandomEntry({ source: Articles, caller: 'reasonArticle' });
+			const adjective3 = getRandomEntry({ source: Adjectives, caller: 'adjective3' });
+			const reasonCollectiveNoun = getRandomEntry({ source: CollectiveNouns, caller: 'reasonCollectiveNoun' });
+			const motivation = getRandomEntry({ source: Nouns, caller: 'motivation' });
+			const toBe = FinalToBe.SINGULAR;
+			const verbing = getRandomEntry({ source: VerbParticiples, caller: 'verbing' });
+			return `${reasonArticle} ${reasonCollectiveNoun} ${adjective3} ${motivation} ${toBe} ${verbing}`;
+		}
+
+		function getRandomEntry ({ source, caller }) {
+			const index = Math.floor(Math.random(caller) * (source.length - 1));
+			return source[index];
+		}
+
 
 		super({ data, execute });
 	}
