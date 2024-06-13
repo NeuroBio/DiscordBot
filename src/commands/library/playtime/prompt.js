@@ -28,11 +28,12 @@ export default class PromptCommand extends Command {
 
 		function createCharacter () {
 			const mainCollectiveNoun = getRandomEntry({ source: CollectiveNouns, chance: 0.1, caller: 'mainColectiveNoun' });
+			const of = mainCollectiveNoun ? 'of' : '';
 			const adjective1 = getRandomEntry({ source: Adjectives, chance: 0.8, caller: 'adjective1' });
 			const adjective2 = getRandomEntry({ source: Adjectives, chance: 0.2, caller: 'adjective2' });
 			const optionalComma = (adjective1 && adjective2) ? ',' : '';
 
-			const description = `${mainCollectiveNoun} ${adjective1}${optionalComma} ${adjective2}`;
+			const description = `${mainCollectiveNoun} ${of} ${adjective1}${optionalComma} ${adjective2}`;
 
 			const startsWithVowel = /^[aeiou]+/.test(description.replace(/\s+/g, ''));
 			const initialArticle = startsWithVowel ? InitialArticle.VOWEL : InitialArticle.CONSONANT;
@@ -56,10 +57,11 @@ export default class PromptCommand extends Command {
 			const reasonArticle = getRandomEntry({ source: Articles, caller: 'reasonArticle' });
 			const adjective3 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective3' });
 			const reasonCollectiveNoun = getRandomEntry({ source: CollectiveNouns, chance: 0.1, caller: 'reasonCollectiveNoun' });
+			const of = reasonCollectiveNoun ? 'of' : '';
 			const motivation = getRandomEntry({ source: Nouns, caller: 'motivation' });
 			const toBe = FinalToBe.SINGULAR;
 			const verbing = getRandomEntry({ source: VerbParticiples, caller: 'verbing' });
-			return `${reasonArticle} ${reasonCollectiveNoun} ${adjective3} ${motivation} ${toBe} ${verbing}`;
+			return `${reasonArticle} ${reasonCollectiveNoun} ${of} ${adjective3} ${motivation} ${toBe} ${verbing}`;
 		}
 
 		function getRandomEntry ({ source, chance, caller }) {
