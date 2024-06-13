@@ -38,7 +38,7 @@ export default class PromptCommand extends Command {
 			const startsWithVowel = /^[aeiou]+/.test(description.replace(/\s+/g, ''));
 			const initialArticle = startsWithVowel ? InitialArticle.VOWEL : InitialArticle.CONSONANT;
 			const pluralize = 's';
-			const subject = getRandomEntry({ source: Nouns, caller: 'subject' });
+			const subject = getRandomEntry({ source: Nouns, caller: 'subject' }).singular;
 			const character = `${initialArticle} ${description} ${subject}`;
 
 			return { character, pluralize };
@@ -50,7 +50,7 @@ export default class PromptCommand extends Command {
 			const mainVerb = getRandomEntry({ source: Verbs, caller: 'mainVerb' });
 			const goalArticle = getRandomEntry({ source: Articles, caller: 'goalArticle' });
 			const adjective3 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective3' });
-			const mcguffin = getRandomEntry({ source: Nouns, caller: 'mcguffin' });
+			const mcguffin = getRandomEntry({ source: Nouns, caller: 'mcguffin' }).singular;
 			return `${not} ${adverb} ${mainVerb} ${goalArticle} ${adjective3} ${mcguffin}`;
 		}
 
@@ -59,7 +59,7 @@ export default class PromptCommand extends Command {
 			const adjective4 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective4' });
 			const reasonCollectiveNoun = getRandomEntry({ source: CollectiveNouns, chance: 0.1, caller: 'reasonCollectiveNoun' });
 			const of = reasonCollectiveNoun ? 'of' : '';
-			const motivation = getRandomEntry({ source: Nouns, caller: 'motivation' });
+			const motivation = getRandomEntry({ source: Nouns, caller: 'motivation' }).singular;
 			const toBe = FinalToBe.SINGULAR;
 			const verbing = getRandomEntry({ source: VerbParticiples, caller: 'verbing' });
 			return `${reasonArticle} ${reasonCollectiveNoun} ${of} ${adjective4} ${motivation} ${toBe} ${verbing}`;
