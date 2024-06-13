@@ -49,19 +49,20 @@ export default class PromptCommand extends Command {
 			const adverb = getRandomEntry({ source: Adverbs, chance: 0.35, caller: 'adverb' });
 			const mainVerb = getRandomEntry({ source: Verbs, caller: 'mainVerb' });
 			const goalArticle = getRandomEntry({ source: Articles, caller: 'goalArticle' });
+			const adjective3 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective3' });
 			const mcguffin = getRandomEntry({ source: Nouns, caller: 'mcguffin' });
-			return `${not} ${adverb} ${mainVerb} ${goalArticle} ${mcguffin}`;
+			return `${not} ${adverb} ${mainVerb} ${goalArticle} ${adjective3} ${mcguffin}`;
 		}
 
 		function createReason () {
 			const reasonArticle = getRandomEntry({ source: Articles, caller: 'reasonArticle' });
-			const adjective3 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective3' });
+			const adjective4 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective4' });
 			const reasonCollectiveNoun = getRandomEntry({ source: CollectiveNouns, chance: 0.1, caller: 'reasonCollectiveNoun' });
 			const of = reasonCollectiveNoun ? 'of' : '';
 			const motivation = getRandomEntry({ source: Nouns, caller: 'motivation' });
 			const toBe = FinalToBe.SINGULAR;
 			const verbing = getRandomEntry({ source: VerbParticiples, caller: 'verbing' });
-			return `${reasonArticle} ${reasonCollectiveNoun} ${of} ${adjective3} ${motivation} ${toBe} ${verbing}`;
+			return `${reasonArticle} ${reasonCollectiveNoun} ${of} ${adjective4} ${motivation} ${toBe} ${verbing}`;
 		}
 
 		function getRandomEntry ({ source, chance, caller }) {
