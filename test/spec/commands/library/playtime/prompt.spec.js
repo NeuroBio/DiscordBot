@@ -105,10 +105,10 @@ fdescribe('Prompt.execute', () => {
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
 
 			const description = `${CollectiveNouns[0]} of ${Adjectives[0]}${','} ${Adjectives[1]}`;
-			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].singular}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
-			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} need to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
 	});
@@ -121,10 +121,10 @@ fdescribe('Prompt.execute', () => {
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
 
 			const description = `${CollectiveNouns[0]} of ${Adjectives[0]}${','} ${Adjectives[1]}`;
-			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].singular}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
 			const goal = `${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
-			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} need to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
 	});
@@ -138,10 +138,10 @@ fdescribe('Prompt.execute', () => {
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
 
 			const description = `${CollectiveNouns[2]} of ${Adjectives[0]}${','} ${Adjectives[1]}`;
-			const character = `${InitialArticle.VOWEL} ${description} ${Nouns[0].singular}`;
+			const character = `${InitialArticle.VOWEL} ${description} ${Nouns[0].plural}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
-			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} need to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
 	});
@@ -156,7 +156,7 @@ fdescribe('Prompt.execute', () => {
 			const description = `${Adjectives[0]}${','} ${Adjectives[1]}`;
 			const character = `${InitialArticle.VOWEL} ${description} ${Nouns[0].singular}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
 			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
@@ -174,7 +174,7 @@ fdescribe('Prompt.execute', () => {
 			const description = `${Adjectives[4]}${','} ${Adjectives[1]}`;
 			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].singular}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
 			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
@@ -192,7 +192,7 @@ fdescribe('Prompt.execute', () => {
 			const description = `${Adjectives[1]}`;
 			const character = `${InitialArticle.VOWEL} ${description} ${Nouns[0].singular}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
 			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
@@ -211,7 +211,7 @@ fdescribe('Prompt.execute', () => {
 			const description = `${Adjectives[4]}`;
 			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].singular}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
 			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
@@ -226,10 +226,10 @@ fdescribe('Prompt.execute', () => {
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
 
 			const description = `${CollectiveNouns[0]} of ${Adjectives[0]}`;
-			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].singular}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
-			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} need to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
 	});
@@ -243,10 +243,10 @@ fdescribe('Prompt.execute', () => {
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
 
 			const description = `${CollectiveNouns[0]} of ${Adjectives[1]}`;
-			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].singular}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
-			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} need to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
 	});
@@ -259,10 +259,10 @@ fdescribe('Prompt.execute', () => {
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
 
 			const description = `${CollectiveNouns[0]} of ${Adjectives[0]}${','} ${Adjectives[1]}`;
-			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].singular}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
-			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} need to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
 	});
@@ -275,10 +275,10 @@ fdescribe('Prompt.execute', () => {
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
 
 			const description = `${CollectiveNouns[0]} of ${Adjectives[0]}${','} ${Adjectives[1]}`;
-			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].singular}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
 			const goal = `${'not'} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
-			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} need to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
 	});
@@ -291,10 +291,10 @@ fdescribe('Prompt.execute', () => {
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
 
 			const description = `${CollectiveNouns[0]} of ${Adjectives[0]}${','} ${Adjectives[1]}`;
-			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].singular}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
 			const reason = `${Articles[1]} ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
-			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			const message = `${character} need to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
 	});
@@ -308,10 +308,10 @@ fdescribe('Prompt.execute', () => {
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
 
 			const description = `${CollectiveNouns[0]} of ${Adjectives[0]}${','} ${Adjectives[1]}`;
-			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].singular}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
-			const message = `${character} need${'s'} to ${goal}, because ${reason}.`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} need to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
 	});

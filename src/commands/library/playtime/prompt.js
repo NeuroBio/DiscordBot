@@ -37,8 +37,10 @@ export default class PromptCommand extends Command {
 
 			const startsWithVowel = /^[aeiou]+/.test(description.replace(/\s+/g, ''));
 			const initialArticle = startsWithVowel ? InitialArticle.VOWEL : InitialArticle.CONSONANT;
-			const pluralize = 's';
-			const subject = getRandomEntry({ source: Nouns, caller: 'subject' }).singular;
+			const subjectEntry = getRandomEntry({ source: Nouns, caller: 'subject' });
+			const subject = mainCollectiveNoun ? subjectEntry.plural : subjectEntry.singular;
+			const pluralize = mainCollectiveNoun ? '' : 's';
+
 			const character = `${initialArticle} ${description} ${subject}`;
 
 			return { character, pluralize };
@@ -59,7 +61,8 @@ export default class PromptCommand extends Command {
 			const adjective4 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective4' });
 			const reasonCollectiveNoun = getRandomEntry({ source: CollectiveNouns, chance: 0.1, caller: 'reasonCollectiveNoun' });
 			const of = reasonCollectiveNoun ? 'of' : '';
-			const motivation = getRandomEntry({ source: Nouns, caller: 'motivation' }).singular;
+			const motivationEntry = getRandomEntry({ source: Nouns, caller: 'motivation' });
+			const motivation = reasonCollectiveNoun ? motivationEntry.plural : motivationEntry.singular;
 			const toBe = FinalToBe.SINGULAR;
 			const verbing = getRandomEntry({ source: VerbParticiples, caller: 'verbing' });
 			return `${reasonArticle} ${reasonCollectiveNoun} ${of} ${adjective4} ${motivation} ${toBe} ${verbing}`;
