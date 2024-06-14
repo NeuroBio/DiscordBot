@@ -84,12 +84,10 @@ fdescribe('Prompt.execute', () => {
 			.withArgs(Callers.ADVERB).and.returnValue(0.351)
 			.withArgs(Callers.ADJECTIVE_3).and.returnValues(0.41, 3 / Adjectives.length)
 			.withArgs(Callers.MCGUFFIN).and.returnValue(2 / Nouns.length)
-			// .withArgs(Callers.MCGUFFIN_SINGULAR).and.returnValue(0.5)
 			.withArgs(Callers.REASON_ARTICLE).and.returnValue(2 / Articles.length)
 			.withArgs(Callers.ADJECTIVE_4).and.returnValues(0.41, 4 / Adjectives.length)
 			.withArgs(Callers.REASON_COLLECTIVE).and.returnValues(0.11, 2 / CollectiveNouns.length)
 			.withArgs(Callers.MOTIVATION).and.returnValue(3 / Nouns.length)
-			// .withArgs(Callers.MOTIVATION_SINGULAR).and.returnValue(0.5)
 			.and.returnValue(0);
 	}
 
