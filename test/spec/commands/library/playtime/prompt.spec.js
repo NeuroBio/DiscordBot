@@ -55,6 +55,7 @@ fdescribe('Prompt.execute', () => {
 		Adverbs,
 		VerbParticiples,
 	});
+
 	const Callers = Object.freeze({
 		MAIN_COLLECTIVE: 'mainColectiveNoun',
 		REASON_COLLECTIVE: 'reasonCollectiveNoun',
@@ -74,7 +75,6 @@ fdescribe('Prompt.execute', () => {
 		VERBING: 'verbing',
 		NOT: 'not',
 	});
-
 	function setupHappyPath () {
 		spyOn(Math, 'random')
 			.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(0.11, 0)

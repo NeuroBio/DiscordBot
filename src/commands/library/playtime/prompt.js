@@ -8,6 +8,7 @@ export default class PromptCommand extends Command {
 			.setName('prompt')
 			.setDescription('To help you write.');
 		const _PromptData = params.PromptData || PromptData;
+		console.log(_PromptData);
 		const {
 			InitialArticle,
 			CollectiveNouns,
