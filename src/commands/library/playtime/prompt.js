@@ -52,8 +52,8 @@ export default class PromptCommand extends Command {
 			const adjective3 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective3' });
 
 			const mcguffinEntry = getRandomEntry({ source: Nouns, caller: 'mcguffin' });
-			const isSingular = (Math.random('mcguffin singular') > 0.5);
-			const mcguffin = mcguffinEntry.singular;
+			const isSingular = (Math.random('mcguffin singular') < 0.5);
+			const mcguffin = isSingular ? mcguffinEntry.singular : mcguffinEntry.plural;
 
 			return `${not} ${adverb} ${mainVerb} ${goalArticle} ${adjective3} ${mcguffin}`;
 		}
@@ -67,10 +67,9 @@ export default class PromptCommand extends Command {
 
 
 			const motivationEntry = getRandomEntry({ source: Nouns, caller: 'motivation' });
-			const isSingular = (reasonCollectiveNoun || Math.random('motivation singular') > 0.5);
-			const motivation = reasonCollectiveNoun ? motivationEntry.plural : motivationEntry.singular;
-			const toBe = FinalToBe.SINGULAR;
-
+			const isSingular = (!reasonCollectiveNoun && Math.random('motivation singular') < 0.5);
+			const motivation = isSingular ? motivationEntry.singular : motivationEntry.plural;
+			const toBe = reasonCollectiveNoun || isSingular ? FinalToBe.SINGULAR : FinalToBe.PLURAL;
 
 			return `${reasonArticle} ${reasonCollectiveNoun} ${of} ${adjective4} ${motivation} ${toBe} ${verbing}`;
 		}

@@ -64,7 +64,9 @@ fdescribe('Prompt.execute', () => {
 		ADJECTIVE_4: 'adjective4',
 		SUBJECT: 'subject',
 		MCGUFFIN: 'mcguffin',
+		MCGUFFIN_SINGULAR: 'mcguffin singular',
 		MOTIVATION: 'motivation',
+		MOTIVATION_SINGULAR: 'motivation singular',
 		GOAL_ARTICLE: 'goalArticle',
 		REASON_ARTICLE: 'reasonArticle',
 		ADVERB: 'adverb',
@@ -82,10 +84,12 @@ fdescribe('Prompt.execute', () => {
 			.withArgs(Callers.ADVERB).and.returnValue(0.351)
 			.withArgs(Callers.ADJECTIVE_3).and.returnValues(0.41, 3 / Adjectives.length)
 			.withArgs(Callers.MCGUFFIN).and.returnValue(2 / Nouns.length)
+			// .withArgs(Callers.MCGUFFIN_SINGULAR).and.returnValue(0.5)
 			.withArgs(Callers.REASON_ARTICLE).and.returnValue(2 / Articles.length)
 			.withArgs(Callers.ADJECTIVE_4).and.returnValues(0.41, 4 / Adjectives.length)
 			.withArgs(Callers.REASON_COLLECTIVE).and.returnValues(0.11, 2 / CollectiveNouns.length)
 			.withArgs(Callers.MOTIVATION).and.returnValue(3 / Nouns.length)
+			// .withArgs(Callers.MOTIVATION_SINGULAR).and.returnValue(0.5)
 			.and.returnValue(0);
 	}
 
@@ -266,6 +270,22 @@ fdescribe('Prompt.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
 	});
+	describe('happy path prompt - EXCEPT the goal\'s noun is plural', () => {
+		it('assembles a prompt with a plural noun', async () => {
+			setupHappyPath();
+			Math.random.withArgs(Callers.MCGUFFIN_SINGULAR).and.returnValue(0.5);
+
+			const interaction = Fakes.Interaction.create();
+			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
+
+			const description = `${CollectiveNouns[0]} of ${Adjectives[0]}${','} ${Adjectives[1]}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
+			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].plural}`;
+			const reason = `${Articles[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} needs to ${goal}, because ${reason}.`;
+			expect(interaction.reply).toHaveBeenCalledWith(message);
+		});
+	});
 	describe('happy path prompt - EXCEPT there is no adverb', () => {
 		it('assembles a prompt without an adverb and single spaced', async () => {
 			setupHappyPath();
@@ -283,7 +303,7 @@ fdescribe('Prompt.execute', () => {
 		});
 	});
 	describe('happy path prompt - EXCEPT there is no collective noun in the reason', () => {
-		it('assembles a prompt with a collective noun in the reason and single spaced', async () => {
+		it('assembles a prompt without a collective noun in the reason and single spaced', async () => {
 			setupHappyPath();
 			Math.random.withArgs(Callers.REASON_COLLECTIVE).and.returnValue(0);
 
@@ -294,6 +314,24 @@ fdescribe('Prompt.execute', () => {
 			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
 			const reason = `${Articles[1]} ${Adjectives[3]} ${Nouns[2].singular} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
+			const message = `${character} needs to ${goal}, because ${reason}.`;
+			expect(interaction.reply).toHaveBeenCalledWith(message);
+		});
+	});
+	describe('happy path prompt - EXCEPT there is no collective noun in the reason and the reason is plural', () => {
+		it('assembles a prompt without a collective noun in the reason, a plural reason and tobe, and single spaced', async () => {
+			setupHappyPath();
+			Math.random
+				.withArgs(Callers.REASON_COLLECTIVE).and.returnValue(0)
+				.withArgs(Callers.MOTIVATION_SINGULAR).and.returnValue(0.5);
+
+			const interaction = Fakes.Interaction.create();
+			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
+
+			const description = `${CollectiveNouns[0]} of ${Adjectives[0]}${','} ${Adjectives[1]}`;
+			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
+			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
+			const reason = `${Articles[1]} ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.PLURAL} ${VerbParticiples[0]}`;
 			const message = `${character} needs to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});
