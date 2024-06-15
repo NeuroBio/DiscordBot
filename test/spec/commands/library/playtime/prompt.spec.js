@@ -278,7 +278,7 @@ fdescribe('Prompt.execute', () => {
 
 			const description = `${CollectiveNouns[0]} of ${Adjectives[0]}${','} ${Adjectives[1]}`;
 			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
-			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles.SINGULAR[0]} ${Adjectives[2]} ${Nouns[1].plural}`;
+			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles.PLURAL[0]} ${Adjectives[2]} ${Nouns[1].plural}`;
 			const reason = `${Articles.SINGULAR[1]} ${CollectiveNouns[1]} of ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.SINGULAR} ${VerbParticiples[0]}`;
 			const message = `${character} needs to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
@@ -329,7 +329,7 @@ fdescribe('Prompt.execute', () => {
 			const description = `${CollectiveNouns[0]} of ${Adjectives[0]}${','} ${Adjectives[1]}`;
 			const character = `${InitialArticle.CONSONANT} ${description} ${Nouns[0].plural}`;
 			const goal = `${'not'} ${Adverbs[0]} ${Verbs[0]} ${Articles.SINGULAR[0]} ${Adjectives[2]} ${Nouns[1].singular}`;
-			const reason = `${Articles.SINGULAR[1]} ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.PLURAL} ${VerbParticiples[0]}`;
+			const reason = `${Articles.PLURAL[1]} ${Adjectives[3]} ${Nouns[2].plural} ${FinalToBe.PLURAL} ${VerbParticiples[0]}`;
 			const message = `${character} needs to ${goal}, because ${reason}.`;
 			expect(interaction.reply).toHaveBeenCalledWith(message);
 		});

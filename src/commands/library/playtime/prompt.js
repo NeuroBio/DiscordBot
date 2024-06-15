@@ -48,18 +48,19 @@ export default class PromptCommand extends Command {
 			const not = Math.random('not') > 0.95 ? 'not' : '';
 			const adverb = getRandomEntry({ source: Adverbs, chance: 0.35, caller: 'adverb' });
 			const mainVerb = getRandomEntry({ source: Verbs, caller: 'mainVerb' });
-			const goalArticle = getRandomEntry({ source: Articles.SINGULAR, caller: 'goalArticle' });
 			const adjective3 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective3' });
 
 			const mcguffinEntry = getRandomEntry({ source: Nouns, caller: 'mcguffin' });
 			const isSingular = (Math.random('mcguffin singular') < 0.5);
 			const mcguffin = isSingular ? mcguffinEntry.singular : mcguffinEntry.plural;
 
+			const articleSource = isSingular ? Articles.SINGULAR : Articles.PLURAL;
+			const goalArticle = getRandomEntry({ source: articleSource, caller: 'goalArticle' });
+
 			return `${not} ${adverb} ${mainVerb} ${goalArticle} ${adjective3} ${mcguffin}`;
 		}
 
 		function createReason () {
-			const reasonArticle = getRandomEntry({ source: Articles.SINGULAR, caller: 'reasonArticle' });
 			const adjective4 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective4' });
 			const reasonCollectiveNoun = getRandomEntry({ source: CollectiveNouns, chance: 0.1, caller: 'reasonCollectiveNoun' });
 			const of = reasonCollectiveNoun ? 'of' : '';
@@ -70,6 +71,10 @@ export default class PromptCommand extends Command {
 			const isSingular = (!reasonCollectiveNoun && Math.random('motivation singular') < 0.5);
 			const motivation = isSingular ? motivationEntry.singular : motivationEntry.plural;
 			const toBe = reasonCollectiveNoun || isSingular ? FinalToBe.SINGULAR : FinalToBe.PLURAL;
+
+			const articleSource = reasonCollectiveNoun || isSingular ? Articles.SINGULAR : Articles.PLURAL;
+			const reasonArticle = getRandomEntry({ source: articleSource, caller: 'reasonArticle' });
+
 
 			return `${reasonArticle} ${reasonCollectiveNoun} ${of} ${adjective4} ${motivation} ${toBe} ${verbing}`;
 		}
