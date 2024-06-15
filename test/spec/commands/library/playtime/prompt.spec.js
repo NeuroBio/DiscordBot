@@ -75,18 +75,29 @@ fdescribe('Prompt.execute', () => {
 		VERBING: 'verbing',
 		NOT: 'not',
 	});
+	const ChanceThreshold = Object.freeze({
+		MAIN_COLLECTIVE: 0.1,
+		REASON_COLLECTIVE: 0.1,
+		ADJECTIVE_1: 0.8,
+		ADJECTIVE_2: 0.2,
+		ADJECTIVE_3: 0.4,
+		ADJECTIVE_4: 0.4,
+		ADVERB: 0.35,
+		NOT: 0.05,
+		SINGULAR: 0.5,
+	});
 	function setupHappyPath () {
 		spyOn(Math, 'random')
-			.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(0.11, 0)
-			.withArgs(Callers.ADJECTIVE_1).and.returnValues(0.81, 0)
-			.withArgs(Callers.ADJECTIVE_2).and.returnValue(2 / Adjectives.length)
-			.withArgs(Callers.NOT).and.returnValue(0.951)
-			.withArgs(Callers.ADVERB).and.returnValue(0.351)
-			.withArgs(Callers.ADJECTIVE_3).and.returnValues(0.41, 3 / Adjectives.length)
+			.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(ChanceThreshold.MAIN_COLLECTIVE, 0)
+			.withArgs(Callers.ADJECTIVE_1).and.returnValues(ChanceThreshold.ADJECTIVE_1, 0)
+			.withArgs(Callers.ADJECTIVE_2).and.returnValues(ChanceThreshold.ADJECTIVE_2, 2 / Adjectives.length)
+			.withArgs(Callers.NOT).and.returnValue(ChanceThreshold.NOT)
+			.withArgs(Callers.ADVERB).and.returnValues(ChanceThreshold.ADVERB, 0)
+			.withArgs(Callers.ADJECTIVE_3).and.returnValues(ChanceThreshold.ADJECTIVE_3, 3 / Adjectives.length)
 			.withArgs(Callers.MCGUFFIN).and.returnValue(2 / Nouns.length)
 			.withArgs(Callers.REASON_ARTICLE).and.returnValue(2 / Articles.SINGULAR.length)
-			.withArgs(Callers.ADJECTIVE_4).and.returnValues(0.41, 4 / Adjectives.length)
-			.withArgs(Callers.REASON_COLLECTIVE).and.returnValues(0.11, 2 / CollectiveNouns.length)
+			.withArgs(Callers.ADJECTIVE_4).and.returnValues(ChanceThreshold.ADJECTIVE_4, 4 / Adjectives.length)
+			.withArgs(Callers.REASON_COLLECTIVE).and.returnValues(ChanceThreshold.REASON_COLLECTIVE, 2 / CollectiveNouns.length)
 			.withArgs(Callers.MOTIVATION).and.returnValue(3 / Nouns.length)
 			.and.returnValue(0);
 	}
@@ -117,7 +128,7 @@ fdescribe('Prompt.execute', () => {
 	describe('happy path prompt - EXCEPT no not', () => {
 		it('assembles a prompt without a not and single spaced', async () => {
 			setupHappyPath();
-			Math.random.withArgs(Callers.NOT).and.returnValue(0.95);
+			Math.random.withArgs(Callers.NOT).and.returnValue(ChanceThreshold.NOT + 0.01);
 
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
@@ -133,7 +144,7 @@ fdescribe('Prompt.execute', () => {
 	describe('happy path prompt - EXCEPT the character collective noun starts with a vowel', () => {
 		it('assembles a prompt with the correct character article (An)', async () => {
 			setupHappyPath();
-			Math.random.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(0.11, 3 / CollectiveNouns.length);
+			Math.random.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(ChanceThreshold.MAIN_COLLECTIVE, 3 / CollectiveNouns.length);
 
 
 			const interaction = Fakes.Interaction.create();
@@ -150,7 +161,7 @@ fdescribe('Prompt.execute', () => {
 	describe('happy path prompt - EXCEPT character has no collective and the first adjective starts with a vowel', () => {
 		it('assembles a prompt without a character collective, the correct character article (An), and single spaced', async () => {
 			setupHappyPath();
-			Math.random.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(0.1);
+			Math.random.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(ChanceThreshold.MAIN_COLLECTIVE + 0.01);
 
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
@@ -167,8 +178,8 @@ fdescribe('Prompt.execute', () => {
 		it('assembles a prompt without a character collective, the correct character article (A), and single spaced', async () => {
 			setupHappyPath();
 			Math.random
-				.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(0.1)
-				.withArgs(Callers.ADJECTIVE_1).and.returnValues(0.81, 5 / Adjectives.length);
+				.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(ChanceThreshold.MAIN_COLLECTIVE + 0.01)
+				.withArgs(Callers.ADJECTIVE_1).and.returnValues(ChanceThreshold.ADJECTIVE_1, 5 / Adjectives.length);
 
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
@@ -185,8 +196,8 @@ fdescribe('Prompt.execute', () => {
 		it('assembles a prompt without a character collective, the correct character article (An), and single spaced', async () => {
 			setupHappyPath();
 			Math.random
-				.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(0.1)
-				.withArgs(Callers.ADJECTIVE_1).and.returnValues(0.8);
+				.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(ChanceThreshold.MAIN_COLLECTIVE + 0.01)
+				.withArgs(Callers.ADJECTIVE_1).and.returnValues(ChanceThreshold.ADJECTIVE_1 + 0.01);
 
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
@@ -203,9 +214,9 @@ fdescribe('Prompt.execute', () => {
 		it('assembles a prompt without a character collective, the correct character article (A), and single spaced', async () => {
 			setupHappyPath();
 			Math.random
-				.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(0.1)
-				.withArgs(Callers.ADJECTIVE_1).and.returnValues(0.8)
-				.withArgs(Callers.ADJECTIVE_2).and.returnValues(0.21, 5 / Adjectives.length);
+				.withArgs(Callers.MAIN_COLLECTIVE).and.returnValues(ChanceThreshold.MAIN_COLLECTIVE + 0.01)
+				.withArgs(Callers.ADJECTIVE_1).and.returnValues(ChanceThreshold.ADJECTIVE_1 + 0.01)
+				.withArgs(Callers.ADJECTIVE_2).and.returnValues(ChanceThreshold.ADJECTIVE_2, 5 / Adjectives.length);
 
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
@@ -221,7 +232,7 @@ fdescribe('Prompt.execute', () => {
 	describe('happy path prompt - EXCEPT only the first character adjective is present', () => {
 		it('assembles a prompt with one character adjective and no comma and single spaced', async () => {
 			setupHappyPath();
-			Math.random.withArgs(Callers.ADJECTIVE_2).and.returnValue(0);
+			Math.random.withArgs(Callers.ADJECTIVE_2).and.returnValue(ChanceThreshold.ADJECTIVE_2 + 0.01);
 
 
 			const interaction = Fakes.Interaction.create();
@@ -238,7 +249,7 @@ fdescribe('Prompt.execute', () => {
 	describe('happy path prompt - EXCEPT only the second character adjective is present', () => {
 		it('assembles a prompt with one character adjective and no comma and single spaced', async () => {
 			setupHappyPath();
-			Math.random.withArgs(Callers.ADJECTIVE_1).and.returnValue(0);
+			Math.random.withArgs(Callers.ADJECTIVE_1).and.returnValue(ChanceThreshold.ADJECTIVE_1 + 0.01);
 
 
 			const interaction = Fakes.Interaction.create();
@@ -255,7 +266,7 @@ fdescribe('Prompt.execute', () => {
 	describe('happy path prompt - EXCEPT there is no adjective in the goal', () => {
 		it('assembles a prompt without a adjective in the goal and single spaced', async () => {
 			setupHappyPath();
-			Math.random.withArgs(Callers.ADJECTIVE_3).and.returnValue(0.4);
+			Math.random.withArgs(Callers.ADJECTIVE_3).and.returnValue(ChanceThreshold.ADJECTIVE_3 + 0.01);
 
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
@@ -271,7 +282,7 @@ fdescribe('Prompt.execute', () => {
 	describe('happy path prompt - EXCEPT the goal\'s noun is plural', () => {
 		it('assembles a prompt with a plural noun', async () => {
 			setupHappyPath();
-			Math.random.withArgs(Callers.MCGUFFIN_SINGULAR).and.returnValue(0.5);
+			Math.random.withArgs(Callers.MCGUFFIN_SINGULAR).and.returnValue(ChanceThreshold.SINGULAR + 0.01);
 
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
@@ -287,7 +298,7 @@ fdescribe('Prompt.execute', () => {
 	describe('happy path prompt - EXCEPT there is no adverb', () => {
 		it('assembles a prompt without an adverb and single spaced', async () => {
 			setupHappyPath();
-			Math.random.withArgs(Callers.ADVERB).and.returnValue(0);
+			Math.random.withArgs(Callers.ADVERB).and.returnValue(ChanceThreshold.ADVERB + 0.01);
 
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
@@ -303,7 +314,7 @@ fdescribe('Prompt.execute', () => {
 	describe('happy path prompt - EXCEPT there is no collective noun in the reason', () => {
 		it('assembles a prompt without a collective noun in the reason and single spaced', async () => {
 			setupHappyPath();
-			Math.random.withArgs(Callers.REASON_COLLECTIVE).and.returnValue(0);
+			Math.random.withArgs(Callers.REASON_COLLECTIVE).and.returnValue(ChanceThreshold.REASON_COLLECTIVE + 0.01);
 
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
@@ -320,8 +331,8 @@ fdescribe('Prompt.execute', () => {
 		it('assembles a prompt without a collective noun in the reason, a plural reason and tobe, and single spaced', async () => {
 			setupHappyPath();
 			Math.random
-				.withArgs(Callers.REASON_COLLECTIVE).and.returnValue(0)
-				.withArgs(Callers.MOTIVATION_SINGULAR).and.returnValue(0.5);
+				.withArgs(Callers.REASON_COLLECTIVE).and.returnValue(ChanceThreshold.REASON_COLLECTIVE + 0.01)
+				.withArgs(Callers.MOTIVATION_SINGULAR).and.returnValue(ChanceThreshold.SINGULAR + 0.01);
 
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
@@ -337,7 +348,7 @@ fdescribe('Prompt.execute', () => {
 	describe('happy path prompt - EXCEPT there is no adjective in the reason', () => {
 		it('assembles a prompt without a adjective in the reason and single spaced', async () => {
 			setupHappyPath();
-			Math.random.withArgs(Callers.ADJECTIVE_4).and.returnValue(0.4);
+			Math.random.withArgs(Callers.ADJECTIVE_4).and.returnValue(ChanceThreshold.ADJECTIVE_4 + 0.01);
 
 
 			const interaction = Fakes.Interaction.create();

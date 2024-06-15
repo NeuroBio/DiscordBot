@@ -45,7 +45,7 @@ export default class PromptCommand extends Command {
 		}
 
 		function creatGoal () {
-			const not = Math.random('not') > 0.95 ? 'not' : '';
+			const not = Math.random('not') <= 0.05 ? 'not' : '';
 			const adverb = getRandomEntry({ source: Adverbs, chance: 0.35, caller: 'adverb' });
 			const mainVerb = getRandomEntry({ source: Verbs, caller: 'mainVerb' });
 			const adjective3 = getRandomEntry({ source: Adjectives, chance: 0.4, caller: 'adjective3' });
@@ -80,7 +80,7 @@ export default class PromptCommand extends Command {
 		}
 
 		function getRandomEntry ({ source, chance, caller }) {
-			if (chance && Math.random(caller) <= chance) {
+			if (chance && Math.random(caller) > chance) {
 				return '';
 			}
 

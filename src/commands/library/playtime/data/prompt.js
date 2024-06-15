@@ -30,7 +30,7 @@ const PromptData = Object.freeze({
 		'steal',
 		'defeat',
 		'avoid',
-		'detroy',
+		'destroy',
 		'trigger',
 		'spy on',
 	]),
