@@ -13,9 +13,10 @@ const PromptData = Object.freeze({
 		SINGULAR: 'is',
 		PLURAL: 'are',
 	}),
-	Articles: Object.freeze([
-		'one', 'any', 'the', 'some', 'this', 'that',
-	]),
+	Articles: Object.freeze({
+		SINGULAR: Object.freeze(['one', 'any', 'the', 'some', 'this', 'that', 'any']),
+		PLURAL: Object.freeze(['the', 'some', 'those', 'these', 'many', 'several', 'too many', 'enough', 'no', 'a few', 'each']),
+	}),
 	Nouns: Object.freeze([
 		new Noun('vampire'),
 		new Noun('hero'),
