@@ -7,8 +7,8 @@ export default class EightBallCommand extends Command {
 	constructor (params = {}) {
 		const _eightBallResponses = params.EightBallResponses || EightBallResponses;
 		const data = new SlashCommandBuilder()
-			.setName('roll')
-			.setDescription('Basic dice rolls.')
+			.setName('eightball')
+			.setDescription('Will answer all your yes/no questions...')
 			.addStringOption((option) => (option
 				.setName('question')
 				.setDescription('A question needing a yes/no answer.')
