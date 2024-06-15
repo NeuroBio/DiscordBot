@@ -29,7 +29,7 @@ const EightBallResponses = Object.freeze([
 	'It\'s a likely as rice for breakfast.',
 	'Certainly.',
 	'aRE yuO SuRE You wANt tO KnOW?',
-	'The spirits feel generous today.',
+	'Indeed, the spirits feel generous today.',
 	'How would the cats feel about that?',
 	'That question... I\'m suspicious of your intensions.',
 ]);

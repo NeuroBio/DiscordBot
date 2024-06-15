@@ -11,6 +11,6 @@ describe('eightball.execute', () => {
 		interaction.options.getString.and.returnValue(question);
 		new EightBall({ EightBallResponses }).execute(interaction);
 
-		expect(interaction.reply).toHaveBeenCalledWith(`Question: ${question}\n${EightBallResponses[0]}`);
+		expect(interaction.reply).toHaveBeenCalledWith(`${'`'}Question: ${question}${'`'}\n${EightBallResponses[0]}`);
 	});
 });
