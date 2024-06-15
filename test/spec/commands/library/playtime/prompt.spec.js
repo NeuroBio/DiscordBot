@@ -1,7 +1,7 @@
 import Prompt from '../../../../../src/commands/library/playtime/prompt.js';
 import Fakes from '../../../../fakes/index.js';
 
-fdescribe('Prompt.execute', () => {
+describe('Prompt.execute', () => {
 
 	const InitialArticle = Object.freeze({
 		CONSONANT: 'A',
