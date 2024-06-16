@@ -1,9 +1,4 @@
-class Noun {
-	constructor (singular, plural) {
-		this.singular = singular;
-		this.plural = plural ? plural : `${singular}s`;
-	}
-}
+import Noun from './noun';
 
 const Nouns = Object.freeze([
 	new Noun('vampire'),
