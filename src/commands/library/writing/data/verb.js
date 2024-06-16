@@ -9,7 +9,7 @@ export default class Verb {
 		}
 
 		this.#infinitive = infinitive;
-		this.#presentParticiple = presentParticiple || `${infinitive.replace(/e$/, '')}ing`;
+		this.#presentParticiple = presentParticiple;
 		this.#preposition = preposition;
 	}
 
@@ -22,6 +22,6 @@ export default class Verb {
 	}
 
 	ing () {
-		return this.#presentParticiple;
+		return this.#presentParticiple || `${this.#infinitive.replace(/e$/, '')}ing`;
 	}
 }
