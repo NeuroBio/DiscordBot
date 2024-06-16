@@ -18,7 +18,7 @@ export default class EightBallCommand extends Command {
 			const index = Math.floor(Math.random() * _eightBallResponses.length);
 			const answer = _eightBallResponses[index];
 
-			interaction.reply(`${'`'}Question: ${question}${'`'}\n${answer}`);
+			interaction.reply(`Question: *${question}*\n${'`'}${answer}${'`'}`);
 		};
 
 		super({ data, execute });
