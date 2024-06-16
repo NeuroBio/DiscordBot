@@ -1,4 +1,4 @@
-import Noun from './noun';
+import Noun from './noun.js';
 
 const Nouns = Object.freeze([
 	new Noun('vampire'),

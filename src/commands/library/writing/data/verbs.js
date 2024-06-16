@@ -1,4 +1,4 @@
-import Verb from './verb';
+import Verb from './verb.js';
 
 const Verbs = Object.freeze([
 	new Verb('save'),

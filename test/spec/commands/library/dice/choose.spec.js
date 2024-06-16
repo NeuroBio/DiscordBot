@@ -9,8 +9,8 @@ describe('choose.execute', () => {
 
 			const interaction = Fakes.Interaction.create();
 			interaction.options.getString
-				.withArgs('option1').and.returnValue(option1)
-				.withArgs('option2').and.returnValue(option2);
+				.withArgs('choice1').and.returnValue(option1)
+				.withArgs('choice2').and.returnValue(option2);
 
 			spyOn(Math, 'random').and.returnValues(0);
 
@@ -28,8 +28,8 @@ describe('choose.execute', () => {
 
 			const interaction = Fakes.Interaction.create();
 			interaction.options.getString
-				.withArgs('option1').and.returnValue(option1)
-				.withArgs('option2').and.returnValue(option2);
+				.withArgs('choice1').and.returnValue(option1)
+				.withArgs('choice2').and.returnValue(option2);
 
 			spyOn(Math, 'random').and.returnValues(0.5);
 
