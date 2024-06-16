@@ -50,7 +50,7 @@ describe ('Roll.execute', () => {
 			spyOn(Math, 'random').and.returnValues(0, 0.2, 0.4, 0.6, 0.8, 0.999);
 
 			await new Roll().execute(interaction);
-			const preamble = `Rolling ${nDx}\n`;
+			const preamble = `Rolling *${nDx}*\n`;
 			const rawRolls = `${'`'}Raw Rolls: 1 3 5 7 9 10${'`'}\n`;
 			const total = `${'`'}Total: 35${'`'}\n`;
 			expect(interaction.reply).toHaveBeenCalledWith(`${preamble}${rawRolls}${total}`);
@@ -64,7 +64,7 @@ describe ('Roll.execute', () => {
 			spyOn(Math, 'random').and.returnValues(0.51);
 
 			await new Roll().execute(interaction);
-			const preamble = `Rolling ${nDx}\n`;
+			const preamble = `Rolling *${nDx}*\n`;
 			const rawRolls = `${'`'}Raw Rolls: 4${'`'}\n`;
 			const total = `${'`'}Total: 4${'`'}\n`;
 			expect(interaction.reply).toHaveBeenCalledWith(`${preamble}${rawRolls}${total}`);
@@ -78,7 +78,7 @@ describe ('Roll.execute', () => {
 			spyOn(Math, 'random').and.returnValues(0.46, 0.73);
 
 			await new Roll().execute(interaction);
-			const preamble = `Rolling ${nDx}\n`;
+			const preamble = `Rolling *${nDx}*\n`;
 			const rawRolls = `${'`'}Raw Rolls: 10 15${'`'}\n`;
 			const total = `${'`'}Total: 25${'`'}\n`;
 			expect(interaction.reply).toHaveBeenCalledWith(`${preamble}${rawRolls}${total}`);

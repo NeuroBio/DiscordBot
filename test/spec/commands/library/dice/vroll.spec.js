@@ -1,7 +1,7 @@
 import VRoll from '../../../../../src/commands/library/dice/vtmRoll.js';
 import Fakes from '../../../../fakes/index.js';
 
-fdescribe('VRoll.execute', () => {
+describe('VRoll.execute', () => {
 	const Fragments = Object.freeze({
 		CRITICAL_RISK: 'At risk of *messy critical*...\n',
 		FAILURE_RISK: 'At risk of *bestial failure*.\n',
