@@ -70,13 +70,12 @@ export default class VRollCommand extends Command {
 				rolledCriticalSuccess, rolledCriticalFailure,
 			 } = params;
 
-			let message = `Rolling ${white} regular dice and ${red} hunger dice`;
+			let message = `Rolling *${white}* regular dice and *${red}* hunger dice`;
 
 			if (difficulty) {
-				message += ` for difficulty ${difficulty}...\n`;
-			} else {
-				message += '...\n';
+				message += ` for difficulty *${difficulty}*`;
 			}
+			message += '...\n';
 
 			if (white > 0) {
 				message += `${'`'}White: ${whiteRolls.join(' ')}${'`'}\n`;
