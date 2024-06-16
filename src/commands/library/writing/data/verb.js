@@ -4,6 +4,10 @@ export default class Verb {
 	#preposition;
 
 	constructor (infinitive, presentParticiple, preposition) {
+		if (!infinitive) {
+			throw new Error('class Verb requires an infinitive argument');
+		}
+
 		this.#infinitive = infinitive;
 		this.#presentParticiple = presentParticiple || `${infinitive.replace(/e$/, '')}ing`;
 		this.#preposition = preposition;

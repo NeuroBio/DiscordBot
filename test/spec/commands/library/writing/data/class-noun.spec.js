@@ -2,7 +2,7 @@ import Noun from '../../../../../../src/commands/library/writing/data/noun.js';
 
 describe('class Noun', () => {
 	describe('construction with no arguments', () => {
-		it('throws and errur', () => {
+		it('throws and error', () => {
 			expect(() => new Noun()).toThrowError('class Noun requires a sigular argument');
 		});
 	});
