@@ -1,7 +1,7 @@
 import VRoll from '../../../../../src/commands/library/dice/vtmRoll.js';
 import Fakes from '../../../../fakes/index.js';
 
-describe('VRoll.execute', () => {
+fdescribe('VRoll.execute', () => {
 	const Fragments = Object.freeze({
 		CRITICAL_RISK: 'At risk of *messy critical*...\n',
 		FAILURE_RISK: 'At risk of *bestial failure*.\n',
@@ -51,7 +51,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 0 successes', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 0\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 0${'`'}\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
@@ -85,7 +85,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).not.toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 1 successes', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 1\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 1${'`'}\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
@@ -119,7 +119,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).not.toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 2 successes', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 2\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 2${'`'}\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
@@ -153,7 +153,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 1 success', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 1\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 1${'`'}\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
@@ -187,7 +187,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 2 successes', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 2\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 2${'`'}\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides a warning about critical success', () => {
@@ -225,7 +225,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 1 successes', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 1\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 1${'`'}\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides a warning about critical failure', () => {
@@ -263,7 +263,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 1 successes', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 2\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 2${'`'}\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides a warning about critical failure', () => {
@@ -306,7 +306,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).not.toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 1 success as a failure', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 1. Challenge failed.\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 1${'`'}\nChallenge failed.\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
@@ -341,7 +341,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).not.toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 1 success as a failure', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 1. Challenge failed.\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 1${'`'}\nChallenge failed.\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
@@ -376,7 +376,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 1 success as a bestial failure', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 1. Challenge failed. *The beast awakens.*\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 1${'`'}\nChallenge failed. *The beast awakens.*\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
@@ -411,7 +411,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).not.toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 3 successes as a success', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 3. Challenge overcome.\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 3${'`'}\nChallenge overcome.\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
@@ -446,7 +446,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides the final result as 3 successes as a messy success', () => {
-			const fragment = jasmine.stringContaining('**Successes:** 3. Challenge overcome... with the beast\'s *messy* help.\n');
+			const fragment = jasmine.stringContaining(`${'`'}Successes: 3${'`'}\nChallenge overcome... with the beast's *messy* help.\n`);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
