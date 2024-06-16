@@ -22,7 +22,7 @@ describe('choose.execute', () => {
 		});
 	});
 	describe('second option chosen', () => {
-		it('repeats the choices and claims the secon option', async () => {
+		it('repeats the choices and claims the second option', async () => {
 			const option1 = 'chips and salsa';
 			const option2 = 'parfait';
 

@@ -6,23 +6,23 @@ export default class ChooseCommand extends Command {
 
 		const data = new SlashCommandBuilder()
 			.setName('choose')
-			.setDescription('Selects one option from two choices.')
+			.setDescription('Selects one of two choices.')
 			.addStringOption((option) => (option
-				.setName('option1')
+				.setName('choice1')
 				.setDescription('The first option.')
 				.setRequired(true)))
 			.addStringOption((option) => (option
-				.setName('option2')
+				.setName('choice2')
 				.setDescription('The second option.')
 				.setRequired(true)));
 
 		async function execute (interaction) {
-			const option1 = interaction.options.getString('option1');
-			const option2 = interaction.options.getString('option2');
+			const choice1 = interaction.options.getString('choice1');
+			const choice2 = interaction.options.getString('choice2');
 
 
-			let message = `Between *${option1}* and *${option2}*...\n`;
-			const selected = Math.random() < 0.5 ? option1 : option2;
+			let message = `Between *${choice1}* and *${choice2}*...\n`;
+			const selected = Math.random() < 0.5 ? choice1 : choice2;
 			message += `${'`'}${selected} was chosen.${'`'}`;
 			interaction.reply(message);
 		}
