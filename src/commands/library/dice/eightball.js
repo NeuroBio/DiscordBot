@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
 import EightBallResponses from './data/eightball.js';
-
 import Command from '../../command.js';
 
 export default class EightBallCommand extends Command {
@@ -14,7 +13,7 @@ export default class EightBallCommand extends Command {
 				.setDescription('A question needing a yes/no answer.')
 				.setRequired(true)));
 
-		const execute = (interaction) => {
+		async function execute (interaction) {
 			const question = interaction.options.getString('question');
 			const index = Math.floor(Math.random() * _eightBallResponses.length);
 			const answer = _eightBallResponses[index];
