@@ -26,7 +26,10 @@ export default class VRollCommand extends Command {
 			}
 
 			let message = `Rolling ${nDx}\n`;
-			message += `${'`'}${rolls.join(' ')}${'`'}\n`;
+			message += `${'`'}Raw Rolls: ${rolls.join(' ')}${'`'}\n`;
+			let sum = 0;
+			rolls.forEach(roll => sum += roll);
+			message += `${'`'}Total: ${sum}${'`'}\n`;
 			await interaction.reply(message);
 		}
 

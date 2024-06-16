@@ -51,7 +51,9 @@ describe ('Roll.execute', () => {
 
 			await new Roll().execute(interaction);
 			const preamble = `Rolling ${nDx}\n`;
-			expect(interaction.reply).toHaveBeenCalledWith(`${preamble}${'`'}1 3 5 7 9 10${'`'}\n`);
+			const rawRolls = `${'`'}Raw Rolls: 1 3 5 7 9 10${'`'}\n`;
+			const total = `${'`'}Total: 35${'`'}\n`;
+			expect(interaction.reply).toHaveBeenCalledWith(`${preamble}${rawRolls}${total}`);
 		});
 	});
 	describe('rolling 1D6', () => {
@@ -63,7 +65,9 @@ describe ('Roll.execute', () => {
 
 			await new Roll().execute(interaction);
 			const preamble = `Rolling ${nDx}\n`;
-			expect(interaction.reply).toHaveBeenCalledWith(`${preamble}${'`'}4${'`'}\n`);
+			const rawRolls = `${'`'}Raw Rolls: 4${'`'}\n`;
+			const total = `${'`'}Total: 4${'`'}\n`;
+			expect(interaction.reply).toHaveBeenCalledWith(`${preamble}${rawRolls}${total}`);
 		});
 	});
 	describe('rolling 2D20', () => {
@@ -75,7 +79,9 @@ describe ('Roll.execute', () => {
 
 			await new Roll().execute(interaction);
 			const preamble = `Rolling ${nDx}\n`;
-			expect(interaction.reply).toHaveBeenCalledWith(`${preamble}${'`'}10 15${'`'}\n`);
+			const rawRolls = `${'`'}Raw Rolls: 10 15${'`'}\n`;
+			const total = `${'`'}Total: 25${'`'}\n`;
+			expect(interaction.reply).toHaveBeenCalledWith(`${preamble}${rawRolls}${total}`);
 		});
 	});
 });
