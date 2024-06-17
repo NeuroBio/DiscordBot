@@ -1,9 +1,9 @@
 import Verb from '../../../../../../../src/commands/library/writing/data/verb.js';
 
 describe('class Verb construction', () => {
-	describe('construcion without arguements', () => {
+	describe('construction without arguements', () => {
 		it('throws an error', () => {
-			expect(() => new Verb()).toThrowError('class Verb requires an infinitive argument');
+			expect(() => new Verb()).toThrowError('Class Verb requires an infinitive argument.');
 		});
 	});
 	describe('construction with an infinitive form only', () => {
@@ -13,7 +13,7 @@ describe('class Verb construction', () => {
 			expect(verb).toEqual(jasmine.objectContaining({
 				ing: jasmine.any(Function),
 				base: jasmine.any(Function),
-				withPreposition: jasmine.any(Function),
+				withPrepositions: jasmine.any(Function),
 			}));
 		});
 	});
@@ -25,7 +25,7 @@ describe('class Verb construction', () => {
 			expect(verb).toEqual(jasmine.objectContaining({
 				ing: jasmine.any(Function),
 				base: jasmine.any(Function),
-				withPreposition: jasmine.any(Function),
+				withPrepositions: jasmine.any(Function),
 			}));
 		});
 	});
@@ -33,12 +33,25 @@ describe('class Verb construction', () => {
 		it('constructs correctly', () => {
 			const infinitive = 'verb';
 			const preposition = 'on';
-			const verb = new Verb(infinitive, '', preposition);
+			const verb = new Verb(infinitive, '', [preposition]);
 			expect(verb).toEqual(jasmine.objectContaining({
 				ing: jasmine.any(Function),
 				base: jasmine.any(Function),
-				withPreposition: jasmine.any(Function),
+				withPrepositions: jasmine.any(Function),
 			}));
+		});
+	});
+	describe('constructed with an infinitive form and an empty preposition array', () => {
+		it('throws an error', () => {
+			const infinitive = 'verb';
+			expect(() => new Verb(infinitive, '', [])).toThrowError('When passing prepositions to class verb, they must be an array of at least one element.');
+		});
+	});
+	describe('constructed with an infinitive form and a preposition string', () => {
+		it('throws an error', () => {
+			const infinitive = 'verb';
+			const preposition = 'on';
+			expect(() => new Verb(infinitive, '', preposition)).toThrowError('When passing prepositions to class verb, they must be an array of at least one element.');
 		});
 	});
 	describe('construction with an infinitive form only', () => {

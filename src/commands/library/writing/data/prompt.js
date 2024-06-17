@@ -21,7 +21,7 @@ const PromptData = Object.freeze({
 	CollectiveNouns,
 	Adverbs,
 	Adjectives,
-	Verbs: Verbs.map(verb => verb.withPreposition()),
+	Verbs: Verbs.map(verb => verb.withPrepositions()[0]),
 	VerbParticiples: Verbs.map(verb => verb.ing()),
 });
 

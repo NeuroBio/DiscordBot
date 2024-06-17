@@ -7,8 +7,8 @@ const Verbs = Object.freeze([
 	new Verb('avoid'),
 	new Verb('destroy'),
 	new Verb('trigger'),
-	new Verb('spy', '', 'on'),
-	new Verb('flee', '', 'from'),
+	new Verb('spy', '', ['on']),
+	new Verb('flee', '', ['from']),
 	new Verb('run', 'running'),
 	new Verb('fail'),
 	new Verb('sing'),
@@ -23,7 +23,7 @@ const Verbs = Object.freeze([
 	new Verb('fight'),
 	new Verb('war', 'warring'),
 	new Verb('die', 'dying'),
-	new Verb('lie', 'lying', 'to'),
+	new Verb('lie', 'lying', ['to']),
 ]);
 
 export default Verbs;

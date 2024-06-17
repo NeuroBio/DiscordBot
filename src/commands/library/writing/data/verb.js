@@ -1,20 +1,27 @@
 export default class Verb {
 	#infinitive;
 	#presentParticiple;
-	#preposition;
+	#prepositions;
 
-	constructor (infinitive, presentParticiple, preposition) {
+	constructor (infinitive, presentParticiple, prepositions) {
 		if (!infinitive) {
-			throw new Error('class Verb requires an infinitive argument');
+			throw new Error('Class Verb requires an infinitive argument.');
 		}
+
+		if (prepositions && (typeof prepositions != 'object' || prepositions.length < 1)) {
+			throw new Error('When passing prepositions to class verb, they must be an array of at least one element.');
+		}
+
 
 		this.#infinitive = infinitive;
 		this.#presentParticiple = presentParticiple;
-		this.#preposition = preposition;
+		this.#prepositions = prepositions;
 	}
 
-	withPreposition () {
-		return this.#preposition ? `${this.#infinitive} ${this.#preposition}` : this.#infinitive;
+	withPrepositions () {
+		return this.#prepositions
+			? [`${this.#infinitive} ${this.#prepositions[0]}`]
+			: [this.#infinitive];
 	}
 
 	base () {
