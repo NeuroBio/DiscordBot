@@ -22,6 +22,13 @@ export default class Verb {
 	}
 
 	ing () {
-		return this.#presentParticiple || `${this.#infinitive.replace(/e$/, '')}ing`;
+		if (this.#presentParticiple) {
+			return this.#presentParticiple;
+		}
+
+		const removeE = /[^aeiou]e$/.test(this.#infinitive);
+		return removeE
+			? `${this.#infinitive.replace(/e$/, '')}ing`
+			: `${this.#infinitive}ing`;
 	}
 }
