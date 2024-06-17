@@ -16,4 +16,16 @@ describe('Verb.withPrepositions', () => {
 			expect(verb.withPrepositions()).toEqual([`${infinitive} ${preposition}`]);
 		});
 	});
+	describe('constructed with multiple prepositions', () => {
+		it('verb uses infinitive with prepositions as preposition form', () => {
+			const infinitive = 'verb';
+			const preposition1 = 'on';
+			const preposition2 = 'in';
+			const verb = new Verb(infinitive, '', [ preposition1, preposition2 ]);
+			expect(verb.withPrepositions()).toEqual([
+				`${infinitive} ${preposition1}`,
+				`${infinitive} ${preposition2}`,
+			]);
+		});
+	});
 });

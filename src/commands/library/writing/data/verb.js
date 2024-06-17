@@ -20,7 +20,7 @@ export default class Verb {
 
 	withPrepositions () {
 		return this.#prepositions
-			? [`${this.#infinitive} ${this.#prepositions[0]}`]
+			? this.#prepositions.map((x) => `${this.#infinitive} ${x}`)
 			: [this.#infinitive];
 	}
 
