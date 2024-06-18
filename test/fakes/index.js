@@ -9,6 +9,7 @@ import CommandLibrary from './commandLibrary.js';
 import DefaultCommand from '../library/folder/default.js';
 import ExcludedCommand from '../library/folder2/exclude.js';
 import NotCommand from '../library/folder/wrong-class.js';
+import ExcludedCommandCopy from '../library/folder2/exclude-copy.js';
 
 const mocks = {
 	Fs,
@@ -22,19 +23,28 @@ const mocks = {
 			filePath: 'default.js',
 			folderPath: 'folder',
 			command: DefaultCommand,
-			name: 'DefaultCommand',
+			className: 'DefaultCommand',
+			name: 'default',
 		}),
 		EXCLUDE: Object.freeze({
 			filePath: 'exclude.js',
 			folderPath: 'folder2',
 			command: ExcludedCommand,
-			name: 'ExcludedCommand',
+			className: 'ExcludedCommand',
+			name: 'excluded',
 		}),
 		WRONG_CLASS: Object.freeze({
 			filePath: 'wrong-class.js',
 			folderPath: 'folder',
 			command: NotCommand,
-			name: 'NotCommand',
+			className: 'NotCommand',
+		}),
+		EXCLUDE_COPY: Object.freeze({
+			filePath: 'exclude-copy.js',
+			folderPath: 'folder2',
+			command: ExcludedCommandCopy,
+			className: 'ExcludedCommandCopy',
+			name: 'excluded',
 		}),
 	},
 };

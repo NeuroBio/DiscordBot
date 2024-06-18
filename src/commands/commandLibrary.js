@@ -29,6 +29,7 @@ export default class CommandLibrary {
 		const relativeFolderPath = folderPath.replace(`${__dirname}\\`, '');
 		const commandFolders = this.#fs.readdirSync(folderPath);
 		const commandLibary = [];
+		const commandNames = new Set();
 
 		for (const folder of commandFolders) {
 			if (excludedFolders && excludedFolders.includes(folder)) {
@@ -39,6 +40,11 @@ export default class CommandLibrary {
 			const commandFiles = this.#fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 			for (const file of commandFiles) {
 				const command = await this.#loadCommand({ relativeFolderPath, folder, file });
+				const commandName = command.data.name;
+				if (commandNames.has(commandName)) {
+					throw new Error(`Commands with duplicate names are not allowed.  Duplicated name: ${commandName}`);
+				}
+				commandNames.add(commandName);
 				commandLibary.push(command);
 			}
 		}

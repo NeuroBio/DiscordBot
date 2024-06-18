@@ -34,7 +34,7 @@ describe('CommandLibrary.load', () => {
 
 			const commands = await commandLibrary.load();
 			expect(commands.length).toBe(1);
-			expect(commands[0].constructor.name).toBe(command.name);
+			expect(commands[0].constructor.name).toBe(command.className);
 		});
 	});
 	describe('params exclude a folder', () => {
@@ -52,7 +52,7 @@ describe('CommandLibrary.load', () => {
 				.withArgs(`${DirPath}/${LibraryPath}/${folderPaths[0]}`).and.returnValue(filePaths);
 
 			const commands = await commandLibrary.load({ excludedFolders: [excludedCommand.folderPath] });
-			expect(commands[0].constructor.name).toBe(defaultCommand.name);
+			expect(commands[0].constructor.name).toBe(defaultCommand.className);
 
 		});
 	});
@@ -78,6 +78,33 @@ describe('CommandLibrary.load', () => {
 			const path = `./../../test/${LibraryPath}/${command.folderPath}/${command.filePath}`;
 			expect(actualError.message).toBe(`The command at ${path} must be of class Command.`);
 
+		});
+	});
+	describe('loading two commands with the same name', () => {
+		it('throws error', async () => {
+			const defaultCommand = Fakes.FakeLibrary.DEFAULT;
+			const excludedCommand = Fakes.FakeLibrary.EXCLUDE;
+			const excludedCommandCopy = Fakes.FakeLibrary.EXCLUDE_COPY;
+
+			fileURLToPathFake.and.returnValue('');
+			pathFake.dirname.and.returnValue(DirPath);
+
+			const folderPaths = [defaultCommand.folderPath, excludedCommand.folderPath];
+			const filePaths1 = [defaultCommand.filePath];
+			const filePaths2 = [excludedCommand.filePath, excludedCommandCopy.filePath];
+			fsFake.readdirSync
+				.withArgs(`${DirPath}/${LibraryPath}`).and.returnValue(folderPaths)
+				.withArgs(`${DirPath}/${LibraryPath}/${folderPaths[0]}`).and.returnValue(filePaths1)
+				.withArgs(`${DirPath}/${LibraryPath}/${folderPaths[1]}`).and.returnValue(filePaths2);
+
+			let actualError;
+			try {
+				await commandLibrary.load();
+			} catch (error) {
+				actualError = error;
+			}
+
+			expect(actualError.message).toBe(`Commands with duplicate names are not allowed.  Duplicated name: ${excludedCommand.name}`);
 		});
 	});
 });
