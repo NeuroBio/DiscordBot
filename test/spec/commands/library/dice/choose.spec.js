@@ -1,7 +1,7 @@
 import ChooseCommand from '../../../../../src/commands/library/dice/choose.js';
 import Fakes from '../../../../fakes/index.js';
 
-describe('choose.execute', () => {
+describe('Choose.execute', () => {
 	describe('first option chosen', () => {
 		it('repeats the choices and claims the first option', async () => {
 			const option1 = 'chips and salsa';

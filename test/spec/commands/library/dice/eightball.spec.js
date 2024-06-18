@@ -1,7 +1,7 @@
 import EightBall from '../../../../../src/commands/library/dice/eightball.js';
 import Fakes from '../../../../fakes/index.js';
 
-describe('eightball.execute', () => {
+describe('Eightball.execute', () => {
 	const EightBallResponses = Object.freeze(['Yes', 'No']);
 	it('repeats the user\'s question and send an answer', async () => {
 		const question = 'Will this test pass?';
