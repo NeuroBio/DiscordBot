@@ -10,9 +10,25 @@ export default class PokedexCommand extends Command {
 
 		const data = new SlashCommandBuilder()
 			.setName('pokedex')
-			.setDescription('Returns pokemon data.');
+			.setDescription('Returns pokemon data.')
+			.addStringOption((option) => (option
+				.setName('name')
+				.setDescription('A pokemon\'s name.')
+				.setRequired(false)))
+			.addNumberOption((option) => option
+				.setName('dex')
+				.setDescription('A national pokedex number.')
+				.setMinValue(1)
+				.setRequired(false));
 
 		async function execute (interaction) {
+			const dex = interaction.options.getNumber('dex');
+			const name = interaction.options.getString('name');
+
+			if ((!dex && !name) || (!!dex && !!name)) {
+				return interaction.reply(`${'`'}ERROR: Send EITHER a national dex number OR a pokemon name.${'`'}`);
+			}
+
 			const pokedex = await _loadPokedex();
 			interaction.reply(pokedex[0]);
 		}
