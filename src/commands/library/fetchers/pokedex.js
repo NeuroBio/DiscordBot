@@ -14,8 +14,7 @@ export default class PokedexCommand extends Command {
 
 		async function execute (interaction) {
 			const pokedex = await _loadPokedex();
-			console.log(pokedex[0]);
-			interaction.reply(pokedex.length);
+			interaction.reply(pokedex[0]);
 		}
 
 		async function _loadPokedex () {

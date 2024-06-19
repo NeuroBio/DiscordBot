@@ -4,6 +4,7 @@ import Url from './url.js';
 import Command from './command.js';
 import Interaction from './interaction.js';
 import CommandLibrary from './commandLibrary.js';
+import Axios from './axios.js';
 
 // fake library
 import DefaultCommand from '../library/folder/default.js';
@@ -18,6 +19,7 @@ const mocks = {
 	Command,
 	Interaction,
 	CommandLibrary,
+	Axios,
 	FakeLibrary: {
 		DEFAULT: Object.freeze({
 			filePath: 'default.js',
