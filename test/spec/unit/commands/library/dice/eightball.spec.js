@@ -1,4 +1,4 @@
-import EightBall from '../../../../../../src/commands/library/dice/eightball.js';
+import EightBall from '#src/commands/library/dice/eightball.js';
 import Fakes from '#fakes';
 
 describe('Eightball.execute', () => {

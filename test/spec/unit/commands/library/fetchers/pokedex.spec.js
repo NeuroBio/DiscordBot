@@ -1,4 +1,4 @@
-import PokedexCommand from '../../../../../../src/commands/library/fetchers/pokedex.js';
+import PokedexCommand from '#src/commands/library/fetchers/pokedex.js';
 import Fakes from '#fakes';
 
 describe('Pokedex.execute', () => {

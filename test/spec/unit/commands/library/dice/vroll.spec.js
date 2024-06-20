@@ -1,4 +1,4 @@
-import VRoll from '../../../../../../src/commands/library/dice/vtmRoll.js';
+import VRoll from '#src/commands/library/dice/vtmRoll.js';
 import Fakes from '#fakes';
 
 describe('VRoll.execute', () => {

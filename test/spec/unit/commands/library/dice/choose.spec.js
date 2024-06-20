@@ -1,4 +1,4 @@
-import ChooseCommand from '../../../../../../src/commands/library/dice/choose.js';
+import ChooseCommand from '#src/commands/library/dice/choose.js';
 import Fakes from '#fakes';
 
 describe('Choose.execute', () => {

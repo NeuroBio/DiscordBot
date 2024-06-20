@@ -1,4 +1,4 @@
-import Roll from '../../../../../../src/commands/library/dice/roll.js';
+import Roll from '#src/commands/library/dice/roll.js';
 import Fakes from '#fakes';
 
 describe ('Roll.execute', () => {

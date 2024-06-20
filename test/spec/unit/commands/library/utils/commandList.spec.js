@@ -1,4 +1,4 @@
-import CommandList from '../../../../../../src/commands/library/utils/commandList.js';
+import CommandList from '#src/commands/library/utils/commandList.js';
 import Fakes from '#fakes';
 
 describe('CommandList.execute', () => {

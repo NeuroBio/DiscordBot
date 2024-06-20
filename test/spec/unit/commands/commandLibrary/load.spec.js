@@ -1,4 +1,4 @@
-import CommandLibrary from '../../../../../src/commands/commandLibrary.js';
+import CommandLibrary from '#src/commands/commandLibrary.js';
 import Fakes from '#fakes';
 
 describe('CommandLibrary.load', () => {

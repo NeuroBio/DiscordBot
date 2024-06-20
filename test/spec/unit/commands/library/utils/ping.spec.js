@@ -1,4 +1,4 @@
-import Ping from '../../../../../../src/commands/library/utils/ping.js';
+import Ping from '#src/commands/library/utils/ping.js';
 import Fakes from '#fakes';
 
 describe('Ping.execute', () => {
