@@ -11,6 +11,10 @@
     "test": "jasmine --config=test/spec/unit/jasmine.json",
     "test-int": "jasmine --config=test/spec/integration/jasmine.json"
   },
+  "imports": {
+    "#fakes": "./test/fakes/index.js",
+    "#src": "./src/*"
+  },
   "dependencies": {
     "axios": "^1.7.2",
     "cheerio": "^1.0.0-rc.12",

@@ -1,5 +1,5 @@
 import VRoll from '../../../../../../src/commands/library/dice/vtmRoll.js';
-import Fakes from '../../../../../fakes/index.js';
+import Fakes from '#fakes';
 
 describe('VRoll.execute', () => {
 	const Param = Object.freeze({

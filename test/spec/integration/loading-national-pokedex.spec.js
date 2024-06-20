@@ -1,5 +1,5 @@
 import Pokedex from '../../../src/commands/library/fetchers/pokedex.js';
-import Fakes from '../../fakes/index.js';
+import Fakes from '#fakes';
 
 describe('loading the national pokedex from serebii to get charmander', () => {
 	const Param = Object.freeze({

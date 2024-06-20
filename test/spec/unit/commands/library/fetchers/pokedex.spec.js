@@ -1,5 +1,5 @@
 import PokedexCommand from '../../../../../../src/commands/library/fetchers/pokedex.js';
-import Fakes from '../../../../../fakes/index.js';
+import Fakes from '#fakes';
 
 describe('Pokedex.execute', () => {
 	const Param = Object.freeze({

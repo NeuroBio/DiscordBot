@@ -1,5 +1,5 @@
 import EightBall from '../../../../../../src/commands/library/dice/eightball.js';
-import Fakes from '../../../../../fakes/index.js';
+import Fakes from '#fakes';
 
 describe('Eightball.execute', () => {
 	const Param = Object.freeze({ QUESTION: 'question' });
