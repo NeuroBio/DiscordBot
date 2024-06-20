@@ -1,4 +1,4 @@
-import Verb from '../../../../../../../src/commands/library/writing/data/verb.js';
+import Verb from '../../../../../../../../src/commands/library/writing/data/verb.js';
 
 describe('class Verb construction', () => {
 	describe('construction without arguements', () => {

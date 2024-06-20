@@ -1,5 +1,5 @@
-import Roll from '../../../../../src/commands/library/dice/roll.js';
-import Fakes from '../../../../fakes/index.js';
+import Roll from '../../../../../../src/commands/library/dice/roll.js';
+import Fakes from '../../../../../fakes/index.js';
 
 describe ('Roll.execute', () => {
 	const Param = Object.freeze({ NDX: 'ndx' });

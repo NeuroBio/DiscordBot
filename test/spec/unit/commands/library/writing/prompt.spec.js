@@ -1,5 +1,5 @@
-import Prompt from '../../../../../src/commands/library/writing/prompt.js';
-import Fakes from '../../../../fakes/index.js';
+import Prompt from '../../../../../../src/commands/library/writing/prompt.js';
+import Fakes from '../../../../../fakes/index.js';
 
 describe('Prompt.execute', () => {
 

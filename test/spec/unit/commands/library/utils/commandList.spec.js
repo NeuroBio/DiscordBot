@@ -1,5 +1,5 @@
-import CommandList from '../../../../../src/commands/library/utils/commandList.js';
-import Fakes from '../../../../fakes/index.js';
+import CommandList from '../../../../../../src/commands/library/utils/commandList.js';
+import Fakes from '../../../../../fakes/index.js';
 
 describe('CommandList.execute', () => {
 	it('returns all commands sorted alphabetically by name', async () => {

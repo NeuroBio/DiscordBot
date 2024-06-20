@@ -33,7 +33,8 @@ export default class PokedexCommand extends Command {
 			let pokemon;
 			if (dex) {
 				const keyedDex = pokedex.reduce((dict, entry) => {
-					dict[entry['No.']] = entry;
+					const pokemonKey = +entry['No.'].replace('#', '');
+					dict[pokemonKey] = entry;
 					return dict;
 				}, {});
 				pokemon = keyedDex[dex];

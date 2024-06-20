@@ -1,5 +1,5 @@
-import PokedexCommand from '../../../../../src/commands/library/fetchers/pokedex.js';
-import Fakes from '../../../../fakes/index.js';
+import PokedexCommand from '../../../../../../src/commands/library/fetchers/pokedex.js';
+import Fakes from '../../../../../fakes/index.js';
 
 describe('Pokedex.execute', () => {
 	const Param = Object.freeze({
@@ -9,13 +9,15 @@ describe('Pokedex.execute', () => {
 	const Error = Object.freeze({
 		INVALID: `${'`'}ERROR: Send EITHER a national dex number OR a pokemon name.${'`'}`,
 	});
+	const pokemonName = 'pokemon name';
+	const pokemonDex = 23;
 	const Text = Object.freeze({
 		HEADER_NUM: 'No.',
 		HEADER_NAME: 'Name',
 		HEADER_ABILITY: 'Abilities',
 		HEADER_STATS: 'Base Stats',
-		BODY_NUM: '#0023',
-		BODY_NAME: 'pokemon name',
+		BODY_NUM: `#00${pokemonDex}`,
+		BODY_NAME: `${pokemonName}`,
 		BODY_ABILITY: 'ability to do thing',
 		BODY_STATS: '99',
 	});
@@ -58,8 +60,8 @@ describe('Pokedex.execute', () => {
 		it('replies with an error', async () => {
 			const axiosFake = new Fakes.Axios();
 			const interaction = Fakes.Interaction.create();
-			interaction.options.getNumber.withArgs(Param.DEX).and.returnValue(Text.BODY_NUM);
-			interaction.options.getString.withArgs(Param.NAME).and.returnValue(Text.BODY_NAME);
+			interaction.options.getNumber.withArgs(Param.DEX).and.returnValue(pokemonDex);
+			interaction.options.getString.withArgs(Param.NAME).and.returnValue(pokemonName);
 
 			await new PokedexCommand({ axios: axiosFake }).execute(interaction);
 			expect(interaction.reply).toHaveBeenCalledWith(Error.INVALID);
@@ -70,7 +72,7 @@ describe('Pokedex.execute', () => {
 			const axiosFake = new Fakes.Axios();
 			axiosFake.get.and.returnValue({ data: pokedexHtml });
 			const interaction = Fakes.Interaction.create();
-			interaction.options.getNumber.withArgs(Param.DEX).and.returnValue(Text.BODY_NUM);
+			interaction.options.getNumber.withArgs(Param.DEX).and.returnValue(pokemonDex);
 
 			await new PokedexCommand({ axios: axiosFake }).execute(interaction);
 			expect(interaction.reply).toHaveBeenCalledWith(JSON.stringify({

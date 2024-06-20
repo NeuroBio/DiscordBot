@@ -1,5 +1,5 @@
-import ChooseCommand from '../../../../../src/commands/library/dice/choose.js';
-import Fakes from '../../../../fakes/index.js';
+import ChooseCommand from '../../../../../../src/commands/library/dice/choose.js';
+import Fakes from '../../../../../fakes/index.js';
 
 describe('Choose.execute', () => {
 	const Param = Object.freeze({

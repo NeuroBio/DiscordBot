@@ -1,5 +1,5 @@
-import Ping from '../../../../../src/commands/library/utils/ping.js';
-import Fakes from '../../../../fakes/index.js';
+import Ping from '../../../../../../src/commands/library/utils/ping.js';
+import Fakes from '../../../../../fakes/index.js';
 
 describe('Ping.execute', () => {
 	it('responds with the invoker\'s nickname', async () => {

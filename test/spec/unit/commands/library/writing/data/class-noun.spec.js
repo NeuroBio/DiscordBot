@@ -1,4 +1,4 @@
-import Noun from '../../../../../../src/commands/library/writing/data/noun.js';
+import Noun from '../../../../../../../src/commands/library/writing/data/noun.js';
 
 describe('class Noun', () => {
 	describe('construction with no arguments', () => {

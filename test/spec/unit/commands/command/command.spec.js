@@ -1,4 +1,4 @@
-import Command from '../../../../src/commands/command.js';
+import Command from '../../../../../src/commands/command.js';
 
 describe('Command.construction', () => {
 	const ExpectedErrors = Object.freeze({

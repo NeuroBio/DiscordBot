@@ -1,4 +1,4 @@
-import Verb from '../../../../../../../src/commands/library/writing/data/verb.js';
+import Verb from '../../../../../../../../src/commands/library/writing/data/verb.js';
 
 describe('Verb.ing', () => {
 	describe('constructed with an infinitive form only for verb not ending in e', () => {

@@ -1,5 +1,5 @@
-import CommandLibrary from '../../../../src/commands/commandLibrary.js';
-import Fakes from '../../../fakes/index.js';
+import CommandLibrary from '../../../../../src/commands/commandLibrary.js';
+import Fakes from '../../../../fakes/index.js';
 
 describe('CommandLibrary.load', () => {
 	const LibraryPath = 'library';
