@@ -30,7 +30,15 @@ export default class PokedexCommand extends Command {
 			}
 
 			const pokedex = await _loadPokedex();
-			await interaction.reply(pokedex[0]);
+			let pokemon;
+			if (dex) {
+				const keyedDex = pokedex.reduce((dict, entry) => {
+					dict[entry['No.']] = entry;
+					return dict;
+				}, {});
+				pokemon = keyedDex[dex];
+			}
+			await interaction.reply(JSON.stringify(pokemon));
 		}
 
 		async function _loadPokedex () {

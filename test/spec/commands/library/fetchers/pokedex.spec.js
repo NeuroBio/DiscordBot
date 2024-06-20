@@ -14,7 +14,7 @@ describe('Pokedex.execute', () => {
 		HEADER_NAME: 'Name',
 		HEADER_ABILITY: 'Abilities',
 		HEADER_STATS: 'Base Stats',
-		BODY_NUM: '23',
+		BODY_NUM: '#0023',
 		BODY_NAME: 'pokemon name',
 		BODY_ABILITY: 'ability to do thing',
 		BODY_STATS: '99',
@@ -73,12 +73,12 @@ describe('Pokedex.execute', () => {
 			interaction.options.getNumber.withArgs(Param.DEX).and.returnValue(Text.BODY_NUM);
 
 			await new PokedexCommand({ axios: axiosFake }).execute(interaction);
-			expect(interaction.reply).toHaveBeenCalledWith({
+			expect(interaction.reply).toHaveBeenCalledWith(JSON.stringify({
 				[Text.HEADER_NUM]: Text.BODY_NUM,
 				[Text.HEADER_NAME]: Text.BODY_NAME,
 				[Text.HEADER_ABILITY]: Text.BODY_ABILITY,
 				[Text.HEADER_STATS]: Text.BODY_STATS,
-			});
+			}));
 		});
 	});
 });
