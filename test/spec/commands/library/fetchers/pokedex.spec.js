@@ -81,4 +81,7 @@ describe('Pokedex.execute', () => {
 			}));
 		});
 	});
+	// parse No. into a normal number ffs not #NNNN
+	// requesting with pokemon name
+	// pokemon not found
 });
