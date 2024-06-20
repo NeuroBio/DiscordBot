@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import Command from '../../command.js';
+import Command from '#command';
 
 export default class VRollCommand extends Command {
 	constructor () {

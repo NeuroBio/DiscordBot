@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
 import EightBallResponses from './data/eightball.js';
-import Command from '../../command.js';
+import Command from '#command';
 
 export default class EightBallCommand extends Command {
 	constructor (params = {}) {
