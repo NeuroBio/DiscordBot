@@ -24,7 +24,7 @@ export default class ChooseCommand extends Command {
 			let message = `Between *${choice1}* and *${choice2}*...\n`;
 			const selected = Math.random() < 0.5 ? choice1 : choice2;
 			message += `${'`'}${selected} was chosen.${'`'}`;
-			interaction.reply(message);
+			await interaction.reply(message);
 		}
 
 		super({ data, execute });

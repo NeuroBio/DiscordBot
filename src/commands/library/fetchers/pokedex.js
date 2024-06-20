@@ -26,11 +26,11 @@ export default class PokedexCommand extends Command {
 			const name = interaction.options.getString('name');
 
 			if ((!dex && !name) || (!!dex && !!name)) {
-				return interaction.reply(`${'`'}ERROR: Send EITHER a national dex number OR a pokemon name.${'`'}`);
+				return await interaction.reply(`${'`'}ERROR: Send EITHER a national dex number OR a pokemon name.${'`'}`);
 			}
 
 			const pokedex = await _loadPokedex();
-			interaction.reply(pokedex[0]);
+			await interaction.reply(pokedex[0]);
 		}
 
 		async function _loadPokedex () {
