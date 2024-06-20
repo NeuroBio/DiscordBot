@@ -29,7 +29,7 @@ export default class VRollCommand extends Command {
 			}
 
 			if (x == 1) { // returns as string
-				return await interaction.reply(`A d1?  *Really?*  Okay, I'll do simple addition for you: ${n}`);
+				return await interaction.reply(`A d1?  *Really?*  Okay, I'll do simple addition for you: ${n}.`);
 			}
 
 

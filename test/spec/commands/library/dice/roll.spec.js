@@ -72,7 +72,7 @@ describe ('Roll.execute', () => {
 			interaction.options.getString.withArgs(Param.NDX).and.returnValue(nDx);
 
 			await new Roll().execute(interaction);
-			expect(interaction.reply).toHaveBeenCalledWith(`${Error.STUPID_DICE}${5}`);
+			expect(interaction.reply).toHaveBeenCalledWith(`${Error.STUPID_DICE}${5}.`);
 			expect(interaction.reply).toHaveBeenCalledTimes(1);
 		});
 	});
