@@ -2,16 +2,21 @@ import VRoll from '../../../../../src/commands/library/dice/vtmRoll.js';
 import Fakes from '../../../../fakes/index.js';
 
 describe('VRoll.execute', () => {
-	const Fragments = Object.freeze({
+	const Param = Object.freeze({
+		RED: 'red',
+		WHITE: 'white',
+		DIFFICULTY: 'difficulty',
+	});
+	const Fragment = Object.freeze({
 		CRITICAL_RISK: 'At risk of *messy critical*...\n',
 		FAILURE_RISK: 'At risk of *bestial failure*.\n',
 	});
 	describe('no dice were rolled', () => {
-		it('replies with an error message', async () => {
+		it('replies with a funny error message', async () => {
 			const interaction = Fakes.Interaction.create();
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(0)
-				.withArgs('red').and.returnValue(0)
+				.withArgs(Param.WHITE).and.returnValue(0)
+				.withArgs(Param.RED).and.returnValue(0)
 				.and.returnValue(undefined);
 
 			await new VRoll().execute(interaction);
@@ -30,8 +35,8 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.0, 0.1, 0.2, 0.3, 0.4);
@@ -64,8 +69,8 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.5, 0.45);
@@ -98,8 +103,8 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.3, 0.99);
@@ -132,8 +137,8 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.24, 0.59);
@@ -166,8 +171,8 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.24, 0.9);
@@ -191,7 +196,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides a warning about critical success', () => {
-			const fragment = jasmine.stringContaining(Fragments.CRITICAL_RISK);
+			const fragment = jasmine.stringContaining(Fragment.CRITICAL_RISK);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
@@ -204,8 +209,8 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.09, 0.8);
@@ -229,7 +234,7 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides a warning about critical failure', () => {
-			const fragment = jasmine.stringContaining(Fragments.FAILURE_RISK);
+			const fragment = jasmine.stringContaining(Fragment.FAILURE_RISK);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
@@ -242,8 +247,8 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.09, 0.9);
@@ -267,11 +272,11 @@ describe('VRoll.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides a warning about critical failure', () => {
-			const fragment = jasmine.stringContaining(Fragments.FAILURE_RISK);
+			const fragment = jasmine.stringContaining(Fragment.FAILURE_RISK);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 		it('provides a warning about critical success', () => {
-			const fragment = jasmine.stringContaining(Fragments.CRITICAL_RISK);
+			const fragment = jasmine.stringContaining(Fragment.CRITICAL_RISK);
 			expect(interaction.reply).toHaveBeenCalledWith(fragment);
 		});
 	});
@@ -284,9 +289,9 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
-				.withArgs('difficulty').and.returnValue(difficulty)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
+				.withArgs(Param.DIFFICULTY).and.returnValue(difficulty)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.5, 0.45);
@@ -319,9 +324,9 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
-				.withArgs('difficulty').and.returnValue(difficulty)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
+				.withArgs(Param.DIFFICULTY).and.returnValue(difficulty)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.5, 0.0);
@@ -354,9 +359,9 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
-				.withArgs('difficulty').and.returnValue(difficulty)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
+				.withArgs(Param.DIFFICULTY).and.returnValue(difficulty)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.5, 0.0);
@@ -389,9 +394,9 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
-				.withArgs('difficulty').and.returnValue(difficulty)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
+				.withArgs(Param.DIFFICULTY).and.returnValue(difficulty)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.8, 0.9);
@@ -424,9 +429,9 @@ describe('VRoll.execute', () => {
 		const interaction = Fakes.Interaction.create();
 		beforeAll(async () => {
 			interaction.options.getNumber
-				.withArgs('white').and.returnValue(white)
-				.withArgs('red').and.returnValue(red)
-				.withArgs('difficulty').and.returnValue(difficulty)
+				.withArgs(Param.WHITE).and.returnValue(white)
+				.withArgs(Param.RED).and.returnValue(red)
+				.withArgs(Param.DIFFICULTY).and.returnValue(difficulty)
 				.and.returnValue(undefined);
 
 			spyOn(Math, 'random').and.returnValues(0.8, 0.9);

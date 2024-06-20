@@ -350,7 +350,6 @@ describe('Prompt.execute', () => {
 			setupHappyPath();
 			Math.random.withArgs(Callers.ADJECTIVE_4).and.returnValue(ChanceThreshold.ADJECTIVE_4 + 0.01);
 
-
 			const interaction = Fakes.Interaction.create();
 			await new Prompt({ PromptData: PromptDataFake }).execute(interaction);
 

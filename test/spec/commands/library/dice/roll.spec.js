@@ -2,19 +2,20 @@ import Roll from '../../../../../src/commands/library/dice/roll.js';
 import Fakes from '../../../../fakes/index.js';
 
 describe ('Roll.execute', () => {
-	const Errors = Object.freeze({
-		INVALID: 'Roll requiest must be nDx or ndx format.',
+	const Param = Object.freeze({ NDX: 'ndx' });
+	const Error = Object.freeze({
+		INVALID: `${'`'}ERROR: Roll request must be nDx or ndx format.${'`'}`,
 	});
 
 	describe('rolling invalid 4.5d7', () => {
 		it('throws invalid error', async () => {
 			const nDx = '4.5d7';
 			const interaction = Fakes.Interaction.create();
-			interaction.options.getString.withArgs('ndx').and.returnValue(nDx);
+			interaction.options.getString.withArgs(Param.NDX).and.returnValue(nDx);
 			spyOn(Math, 'random').and.returnValues(0, 0.2, 0.4, 0.6, 0.8, 0.999);
 
 			await new Roll().execute(interaction);
-			expect(interaction.reply).toHaveBeenCalledWith(Errors.INVALID);
+			expect(interaction.reply).toHaveBeenCalledWith(Error.INVALID);
 			expect(interaction.reply).toHaveBeenCalledTimes(1);
 		});
 	});
@@ -22,11 +23,11 @@ describe ('Roll.execute', () => {
 		it('throws invalid error', async () => {
 			const nDx = '4d7.7';
 			const interaction = Fakes.Interaction.create();
-			interaction.options.getString.withArgs('ndx').and.returnValue(nDx);
+			interaction.options.getString.withArgs(Param.NDX).and.returnValue(nDx);
 			spyOn(Math, 'random').and.returnValues(0, 0.2, 0.4, 0.6, 0.8, 0.999);
 
 			await new Roll().execute(interaction);
-			expect(interaction.reply).toHaveBeenCalledWith(Errors.INVALID);
+			expect(interaction.reply).toHaveBeenCalledWith(Error.INVALID);
 			expect(interaction.reply).toHaveBeenCalledTimes(1);
 		});
 	});
@@ -34,11 +35,11 @@ describe ('Roll.execute', () => {
 		it('throws invalid error', async () => {
 			const nDx = '4x7';
 			const interaction = Fakes.Interaction.create();
-			interaction.options.getString.withArgs('ndx').and.returnValue(nDx);
+			interaction.options.getString.withArgs(Param.NDX).and.returnValue(nDx);
 			spyOn(Math, 'random').and.returnValues(0, 0.2, 0.4, 0.6, 0.8, 0.999);
 
 			await new Roll().execute(interaction);
-			expect(interaction.reply).toHaveBeenCalledWith(Errors.INVALID);
+			expect(interaction.reply).toHaveBeenCalledWith(Error.INVALID);
 			expect(interaction.reply).toHaveBeenCalledTimes(1);
 		});
 	});
@@ -46,7 +47,7 @@ describe ('Roll.execute', () => {
 		it('returns the raw rolls', async () => {
 			const nDx = '6d10';
 			const interaction = Fakes.Interaction.create();
-			interaction.options.getString.withArgs('ndx').and.returnValue(nDx);
+			interaction.options.getString.withArgs(Param.NDX).and.returnValue(nDx);
 			spyOn(Math, 'random').and.returnValues(0, 0.2, 0.4, 0.6, 0.8, 0.999);
 
 			await new Roll().execute(interaction);
@@ -60,7 +61,7 @@ describe ('Roll.execute', () => {
 		it('returns the raw rolls', async () => {
 			const nDx = '1D6';
 			const interaction = Fakes.Interaction.create();
-			interaction.options.getString.withArgs('ndx').and.returnValue(nDx);
+			interaction.options.getString.withArgs(Param.NDX).and.returnValue(nDx);
 			spyOn(Math, 'random').and.returnValues(0.51);
 
 			await new Roll().execute(interaction);
@@ -74,7 +75,7 @@ describe ('Roll.execute', () => {
 		it('returns the raw rolls', async () => {
 			const nDx = '2D20';
 			const interaction = Fakes.Interaction.create();
-			interaction.options.getString.withArgs('ndx').and.returnValue(nDx);
+			interaction.options.getString.withArgs(Param.NDX).and.returnValue(nDx);
 			spyOn(Math, 'random').and.returnValues(0.46, 0.73);
 
 			await new Roll().execute(interaction);

@@ -15,7 +15,7 @@ export default class VRollCommand extends Command {
 			const nDx = interaction.options.getString('ndx');
 
 			if (!nDx.match(/^[0-9]+(d|D)[0-9]+$/)) {
-				return await interaction.reply('Roll requiest must be nDx or ndx format.');
+				return await interaction.reply(`${'`'}ERROR: Roll request must be nDx or ndx format.${'`'}`);
 			}
 
 			const [n, x] = nDx.split(/d|D/);

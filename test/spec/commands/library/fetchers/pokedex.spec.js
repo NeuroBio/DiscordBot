@@ -1,10 +1,13 @@
 import PokedexCommand from '../../../../../src/commands/library/fetchers/pokedex.js';
 import Fakes from '../../../../fakes/index.js';
 
-fdescribe('Pokedex.execute', () => {
+describe('Pokedex.execute', () => {
 	const Param = Object.freeze({
 		DEX: 'dex',
 		NAME: 'name',
+	});
+	const Error = Object.freeze({
+		INVALID: `${'`'}ERROR: Send EITHER a national dex number OR a pokemon name.${'`'}`,
 	});
 	const Text = Object.freeze({
 		HEADER_NUM: 'No.',
@@ -48,7 +51,7 @@ fdescribe('Pokedex.execute', () => {
 			const interaction = Fakes.Interaction.create();
 
 			await new PokedexCommand({ axios: axiosFake }).execute(interaction);
-			expect(interaction.reply).toHaveBeenCalledWith(`${'`'}ERROR: Send EITHER a national dex number OR a pokemon name.${'`'}`);
+			expect(interaction.reply).toHaveBeenCalledWith(Error.INVALID);
 		});
 	});
 	describe('passed both parameters', () => {
@@ -59,7 +62,7 @@ fdescribe('Pokedex.execute', () => {
 			interaction.options.getString.withArgs(Param.NAME).and.returnValue(Text.BODY_NAME);
 
 			await new PokedexCommand({ axios: axiosFake }).execute(interaction);
-			expect(interaction.reply).toHaveBeenCalledWith(`${'`'}ERROR: Send EITHER a national dex number OR a pokemon name.${'`'}`);
+			expect(interaction.reply).toHaveBeenCalledWith(Error.INVALID);
 		});
 	});
 	describe('given a valid national dex number', () => {
