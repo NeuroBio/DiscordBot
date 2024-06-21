@@ -7,6 +7,7 @@ export default class PokedexCommand extends Command {
 	constructor (params = {}) {
 		const _axios = params.axios || axios;
 		const _cheerio = params.cheerio || cheerio;
+		let _cache;
 
 		const data = new SlashCommandBuilder()
 			.setName('pokedex')
@@ -55,6 +56,10 @@ export default class PokedexCommand extends Command {
 		}
 
 		async function _loadPokedex () {
+			if (_cache) {
+				return _cache;
+			}
+
 			const { data } = await _axios.get('https://www.serebii.net/pokemon/nationalpokedex.shtml', { responseType: 'document' });
 			const serebii = _cheerio.load(data);
 			const table = serebii('main table tbody');
@@ -77,6 +82,7 @@ export default class PokedexCommand extends Command {
 				pokedex.push(rowData);
 			});
 
+			_cache = pokedex;
 			return pokedex;
 		}
 

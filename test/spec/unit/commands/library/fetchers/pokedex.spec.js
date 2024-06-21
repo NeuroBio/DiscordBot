@@ -195,4 +195,18 @@ describe('Pokedex.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledTimes(1);
 		});
 	});
+	describe('Pokedex is called twice', () => {
+		it('requests data once, then uses the cache', async () => {
+			const axiosFake = new Fakes.Axios();
+			axiosFake.get.and.returnValue({ data: pokedexHtml });
+			const interaction = Fakes.Interaction.create();
+			interaction.options.getNumber.withArgs(Param.DEX).and.returnValue(pokemonDex);
+
+			const command = new PokedexCommand({ axios: axiosFake });
+			await command.execute(interaction);
+			await command.execute(interaction);
+
+			expect(axiosFake.get).toHaveBeenCalledTimes(1);
+		});
+	});
 });
