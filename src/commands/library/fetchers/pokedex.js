@@ -40,7 +40,7 @@ export default class PokedexCommand extends Command {
 				pokemon = keyedDex[dex];
 			}
 
-			await interaction.reply(_formatData({ pokemon }));
+			await interaction.reply(_formatMessage({ pokemon }));
 		}
 
 		async function _loadPokedex () {
@@ -87,7 +87,7 @@ export default class PokedexCommand extends Command {
 			const rowData = {};
 			serebii(row).find('td.fooinfo').each((j, cell) => {
 				const rawText = serebii(cell).find('br').replaceWith(',').end().text();
-				const text = rawText.replace(/(\n|\t)/g, '').replace(/\s*,/, ', ');
+				const text = rawText.replace(/(\n|\t)/g, '').replace(/\s*,/g, ', ');
 
 				if (!text || text === ' ') {
 					return true;
@@ -97,7 +97,7 @@ export default class PokedexCommand extends Command {
 			return rowData;
 		}
 
-		function _formatData ({ pokemon }) {
+		function _formatMessage ({ pokemon }) {
 			const dex = pokemon['No.'].replace('#', '').replace(/^0/, '');
 
 			let message = '';

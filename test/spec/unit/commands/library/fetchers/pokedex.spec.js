@@ -25,6 +25,7 @@ describe('Pokedex.execute', () => {
 		BODY_NAME: `${pokemonName}`,
 		BODY_ABILITY_1: 'thing',
 		BODY_ABILITY_2: 'other thing',
+		BODY_ABILITY_3: 'third thing',
 		BODY_HP: '1',
 		BODY_ATT: '2',
 		BODY_DEF: '3',
@@ -56,6 +57,23 @@ describe('Pokedex.execute', () => {
 		<td>${Text.HEADER_SPD}</td>
 	</tr>
 	<tr>
+		<td class="${SpecialClasses.CELL}">no</td>
+		<td class="${SpecialClasses.CELL}"></td>
+		<td></td>
+		<td class="${SpecialClasses.CELL}">no</td>
+		<td class="${SpecialClasses.CELL}">
+			<a>no</a>
+			<br>
+			<a>no</a>
+		</td>
+		<td class="${SpecialClasses.CELL}">no</td>
+		<td class="${SpecialClasses.CELL}">no</td>
+		<td class="${SpecialClasses.CELL}">no</td>
+		<td class="${SpecialClasses.CELL}">no</td>
+		<td class="${SpecialClasses.CELL}">no</td>
+		<td class="${SpecialClasses.CELL}">no</td>
+	</tr>
+	<tr>
 		<td class="${SpecialClasses.CELL}">${Text.BODY_NUM}</td>
 		<td class="${SpecialClasses.CELL}"></td>
 		<td></td>
@@ -64,6 +82,8 @@ describe('Pokedex.execute', () => {
 			<a>${Text.BODY_ABILITY_1}</a>
 			<br>
 			<a>${Text.BODY_ABILITY_2}</a>
+			<br>
+			<a>${Text.BODY_ABILITY_3}</a>
 		</td>
 		<td class="${SpecialClasses.CELL}">${Text.BODY_HP}</td>
 		<td class="${SpecialClasses.CELL}">${Text.BODY_ATT}</td>
@@ -79,9 +99,11 @@ describe('Pokedex.execute', () => {
 	</html>
 	`;
 
-	function _formateData () {
-		let data = `${'```'}${Text.BODY_NAME} ${Text.BODY_NUM}\n`;
-		data += `Abilities: ${Text.BODY_ABILITY_1}, ${Text.BODY_ABILITY_2}\n`;
+	function _formatResult () {
+		let data = '';
+		data += `https://www.serebii.net/pokemon/art/0${pokemonDex}.png\n`;
+		data += `${'```'}${Text.BODY_NAME} ${Text.BODY_NUM}\n`;
+		data += `Abilities: ${Text.BODY_ABILITY_1}, ${Text.BODY_ABILITY_2}, ${Text.BODY_ABILITY_3}\n`;
 		data += `HP: ${Text.BODY_HP}\n`;
 		data += `Att: ${Text.BODY_ATT}\n`;
 		data += `Def: ${Text.BODY_DEF}\n`;
@@ -119,11 +141,9 @@ describe('Pokedex.execute', () => {
 			interaction.options.getNumber.withArgs(Param.DEX).and.returnValue(pokemonDex);
 
 			await new PokedexCommand({ axios: axiosFake }).execute(interaction);
-			expect(interaction.reply).toHaveBeenCalledWith(_formateData());
+			expect(interaction.reply).toHaveBeenCalledWith(_formatResult());
 		});
 	});
-	// add third ability
-	// parse No. into a normal number ffs not #NNNN
 	// requesting with pokemon name
 	// pokemon not found
 });
