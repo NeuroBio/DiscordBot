@@ -40,14 +40,15 @@ export default class PokedexCommand extends Command {
 				pokemon = keyedDex[dex];
 			} else {
 				const keyedDex = pokedex.reduce((dict, entry) => {
-					dict[entry.Name] = entry;
+					const pokemonKey = entry.Name.toLowerCase();
+					dict[pokemonKey] = entry;
 					return dict;
 				}, {});
-				pokemon = keyedDex[name];
+				pokemon = keyedDex[name.toLowerCase()];
 			}
 
 			if (!pokemon) {
-				return await interaction.reply(`${'`'}ERROR: Requested pokemon was not found.${'`'}`);
+				return await interaction.reply(`${'`'}ERROR: Requested pokemon ${dex || name} was not found.${'`'}`);
 			}
 
 			await interaction.reply(_formatMessage({ pokemon }));
