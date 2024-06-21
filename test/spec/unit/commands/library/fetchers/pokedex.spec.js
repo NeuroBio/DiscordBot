@@ -122,6 +122,7 @@ describe('Pokedex.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(_formateData());
 		});
 	});
+	// add third ability
 	// parse No. into a normal number ffs not #NNNN
 	// requesting with pokemon name
 	// pokemon not found
