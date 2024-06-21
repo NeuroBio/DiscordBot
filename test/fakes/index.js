@@ -5,6 +5,7 @@ import Command from './command.js';
 import Interaction from './interaction.js';
 import CommandLibrary from './commandLibrary.js';
 import Axios from './axios.js';
+import Discord from './discord/index.js';
 
 // fake library
 import DefaultCommand from '../library/folder/default.js';
@@ -20,6 +21,7 @@ const mocks = {
 	Interaction,
 	CommandLibrary,
 	Axios,
+	Discord,
 	FakeLibrary: {
 		DEFAULT: Object.freeze({
 			filePath: 'default.js',

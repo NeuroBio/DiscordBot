@@ -24,6 +24,7 @@ describe('loading the national pokedex from serebii to get charmander', () => {
 	it('still parses the web data correctly', async () => {
 		const interaction = Fakes.Interaction.create();
 		interaction.options.getNumber.withArgs(Param.DEX).and.returnValue(5);
+
 		await new Pokedex().execute(interaction);
 		expect(interaction.reply).toHaveBeenCalledWith(_charmeleonData());
 	});

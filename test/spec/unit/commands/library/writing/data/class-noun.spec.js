@@ -1,6 +1,6 @@
 import Noun from '#src/commands/library/writing/data/noun.js';
 
-describe('class Noun', () => {
+describe('class Noun construction', () => {
 	describe('construction with no arguments', () => {
 		it('throws and error', () => {
 			expect(() => new Noun()).toThrowError('class Noun requires a sigular argument');

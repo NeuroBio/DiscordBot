@@ -11,6 +11,8 @@ export default class Interaction {
 				getNumber: jasmine.createSpy('getNumber'),
 				getString: jasmine.createSpy('getString'),
 			},
+			replied: false,
+			deferred: false,
 		};
 	}
 }
