@@ -39,6 +39,7 @@ export default class PokedexCommand extends Command {
 				}, {});
 				pokemon = keyedDex[dex];
 			}
+
 			await interaction.reply(_formatData({ pokemon }));
 		}
 
@@ -97,15 +98,19 @@ export default class PokedexCommand extends Command {
 		}
 
 		function _formatData ({ pokemon }) {
-			let data = `${'```'}${pokemon.Name} ${pokemon['No.']}\n`;
-			data += `Abilities: ${pokemon.Abilities}\n`;
-			data += `HP: ${pokemon.HP}\n`;
-			data += `Att: ${pokemon.Att}\n`;
-			data += `Def: ${pokemon.Def}\n`;
-			data += `S.Att: ${pokemon['S.Att']}\n`;
-			data += `S.Def: ${pokemon['S.Def']}\n`;
-			data += `Spd: ${pokemon.Spd}\n${'```'}`;
-			return data;
+			const dex = pokemon['No.'].replace('#', '').replace(/^0/, '');
+
+			let message = '';
+			message += `https://www.serebii.net/pokemon/art/${dex}.png\n`;
+			message += `${'```'}${pokemon.Name} ${pokemon['No.']}\n`;
+			message += `Abilities: ${pokemon.Abilities}\n`;
+			message += `HP: ${pokemon.HP}\n`;
+			message += `Att: ${pokemon.Att}\n`;
+			message += `Def: ${pokemon.Def}\n`;
+			message += `S.Att: ${pokemon['S.Att']}\n`;
+			message += `S.Def: ${pokemon['S.Def']}\n`;
+			message += `Spd: ${pokemon.Spd}\n${'```'}`;
+			return message;
 		}
 
 		super({ data, execute });

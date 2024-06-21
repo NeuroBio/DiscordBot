@@ -8,7 +8,9 @@ describe('loading the national pokedex from serebii to get charmander', () => {
 	});
 
 	function _charmeleonData () {
-		let data = `${'```'}Charmeleon #0005\n`;
+		let data = '';
+		data += 'https://www.serebii.net/pokemon/art/005.png\n';
+		data += `${'```'}Charmeleon #0005\n`;
 		data += 'Abilities: Blaze, Solar Power\n';
 		data += 'HP: 58\n';
 		data += 'Att: 64\n';
