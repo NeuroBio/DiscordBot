@@ -6,7 +6,7 @@ import cheerio from 'cheerio';
 export default class PokedexCommand extends Command {
 	constructor (params = {}) {
 		const _axios = params.axios || axios;
-		const _cheerio = params.cheerio || cheerio; // you're wrong cheerio
+		const _cheerio = params.cheerio || cheerio;
 
 		const data = new SlashCommandBuilder()
 			.setName('pokedex')
@@ -38,6 +38,16 @@ export default class PokedexCommand extends Command {
 					return dict;
 				}, {});
 				pokemon = keyedDex[dex];
+			} else {
+				const keyedDex = pokedex.reduce((dict, entry) => {
+					dict[entry.Name] = entry;
+					return dict;
+				}, {});
+				pokemon = keyedDex[name];
+			}
+
+			if (!pokemon) {
+				return await interaction.reply(`${'`'}ERROR: Requested pokemon was not found.${'`'}`);
 			}
 
 			await interaction.reply(_formatMessage({ pokemon }));

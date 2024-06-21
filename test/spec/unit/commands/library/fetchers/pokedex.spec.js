@@ -8,6 +8,7 @@ describe('Pokedex.execute', () => {
 	});
 	const Error = Object.freeze({
 		INVALID: `${'`'}ERROR: Send EITHER a national dex number OR a pokemon name.${'`'}`,
+		NOT_FOUND: `${'`'}ERROR: Requested pokemon was not found.${'`'}`,
 	});
 	const pokemonName = 'pokemon name';
 	const pokemonDex = 23;
@@ -120,6 +121,7 @@ describe('Pokedex.execute', () => {
 
 			await new PokedexCommand({ axios: axiosFake }).execute(interaction);
 			expect(interaction.reply).toHaveBeenCalledWith(Error.INVALID);
+			expect(interaction.reply).toHaveBeenCalledTimes(1);
 		});
 	});
 	describe('passed both parameters', () => {
@@ -131,6 +133,7 @@ describe('Pokedex.execute', () => {
 
 			await new PokedexCommand({ axios: axiosFake }).execute(interaction);
 			expect(interaction.reply).toHaveBeenCalledWith(Error.INVALID);
+			expect(interaction.reply).toHaveBeenCalledTimes(1);
 		});
 	});
 	describe('given a valid national dex number', () => {
@@ -144,6 +147,29 @@ describe('Pokedex.execute', () => {
 			expect(interaction.reply).toHaveBeenCalledWith(_formatResult());
 		});
 	});
+	describe('given a valid name', () => {
+		it('returns the pokemon with that name', async () => {
+			const axiosFake = new Fakes.Axios();
+			axiosFake.get.and.returnValue({ data: pokedexHtml });
+			const interaction = Fakes.Interaction.create();
+			interaction.options.getString.withArgs(Param.NAME).and.returnValue(pokemonName);
+
+			await new PokedexCommand({ axios: axiosFake }).execute(interaction);
+			expect(interaction.reply).toHaveBeenCalledWith(_formatResult());
+		});
+	});
+	describe('given a valid national dex number and pokemon not found', () => {
+		it('replies with an error', async () => {
+			const dex = 432;
+			const axiosFake = new Fakes.Axios();
+			axiosFake.get.and.returnValue({ data: pokedexHtml });
+			const interaction = Fakes.Interaction.create();
+			interaction.options.getNumber.withArgs(Param.DEX).and.returnValue(dex);
+
+			await new PokedexCommand({ axios: axiosFake }).execute(interaction);
+			expect(interaction.reply).toHaveBeenCalledWith(Error.NOT_FOUND);
+			expect(interaction.reply).toHaveBeenCalledTimes(1);
+		});
+	});
 	// requesting with pokemon name
-	// pokemon not found
 });
