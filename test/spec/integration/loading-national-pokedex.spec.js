@@ -6,21 +6,23 @@ describe('loading the national pokedex from serebii to get charmander', () => {
 		DEX: 'dex',
 		NAME: 'name',
 	});
-	const CharmanderData = JSON.stringify({
-		'No.': '#0005',
-		Name: 'Charmeleon',
-		Abilities: 'Blaze Solar Power',
-		'Base Stats': '58',
-		HP: '64',
-		Att: '58',
-		Def: '80',
-		'S.Att': '65',
-		'S.Def': '80',
-	});
+
+	function _charmeleonData () {
+		let data = `${'```'}Charmeleon #0005\n`;
+		data += 'Abilities: Blaze, Solar Power\n';
+		data += 'HP: 58\n';
+		data += 'Att: 64\n';
+		data += 'Def: 58\n';
+		data += 'S.Att: 80\n';
+		data += 'S.Def: 65\n';
+		data += `Spd: 80\n${'```'}`;
+		return data;
+	}
+
 	it('still parses the web data correctly', async () => {
 		const interaction = Fakes.Interaction.create();
 		interaction.options.getNumber.withArgs(Param.DEX).and.returnValue(5);
 		await new Pokedex().execute(interaction);
-		expect(interaction.reply).toHaveBeenCalledWith(CharmanderData);
+		expect(interaction.reply).toHaveBeenCalledWith(_charmeleonData());
 	});
 });

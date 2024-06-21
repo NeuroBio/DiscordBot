@@ -15,11 +15,22 @@ describe('Pokedex.execute', () => {
 		HEADER_NUM: 'No.',
 		HEADER_NAME: 'Name',
 		HEADER_ABILITY: 'Abilities',
-		HEADER_STATS: 'Base Stats',
+		HEADER_HP: 'HP',
+		HEADER_ATT: 'Att',
+		HEADER_DEF: 'Def',
+		HEADER_SATT: 'S.Att',
+		HEADER_SDEF: 'S.Def',
+		HEADER_SPD: 'Spd',
 		BODY_NUM: `#00${pokemonDex}`,
 		BODY_NAME: `${pokemonName}`,
-		BODY_ABILITY: 'ability to do thing',
-		BODY_STATS: '99',
+		BODY_ABILITY_1: 'thing',
+		BODY_ABILITY_2: 'other thing',
+		BODY_HP: '1',
+		BODY_ATT: '2',
+		BODY_DEF: '3',
+		BODY_SATT: '4',
+		BODY_SDEF: '5',
+		BODY_SPD: '6',
 	});
 	const SpecialClasses = Object.freeze({
 		CELL: 'fooinfo',
@@ -29,16 +40,37 @@ describe('Pokedex.execute', () => {
 	<main>
 	<table>
 	<tbody>
-	<tr><td>${Text.HEADER_NUM}</td><td>excluded</td><td>${Text.HEADER_NAME}</td></tr>
-	<tr><td>${Text.HEADER_ABILITY}</td><td>${Text.HEADER_STATS}</td></tr>
-	
 	<tr>
-	<td class="${SpecialClasses.CELL}">${Text.BODY_NUM}</td>
+		<td>${Text.HEADER_NUM}</td>
+		<td>excluded</td>
+		<td>${Text.HEADER_NAME}</td>
+		<td>${Text.HEADER_ABILITY}</td>
+	</tr>
+	<tr>
+		<td colspan="6">excluded</td>
+		<td>${Text.HEADER_HP}</td>
+		<td>${Text.HEADER_ATT}</td>
+		<td>${Text.HEADER_DEF}</td>
+		<td>${Text.HEADER_SATT}</td>
+		<td>${Text.HEADER_SDEF}</td>
+		<td>${Text.HEADER_SPD}</td>
+	</tr>
+	<tr>
+		<td class="${SpecialClasses.CELL}">${Text.BODY_NUM}</td>
 		<td class="${SpecialClasses.CELL}"></td>
-	<td></td>
-	<td class="${SpecialClasses.CELL}">${Text.BODY_NAME}</td>
-	<td class="${SpecialClasses.CELL}">${Text.BODY_ABILITY}</td>
-	<td class="${SpecialClasses.CELL}">${Text.BODY_STATS}</td>
+		<td></td>
+		<td class="${SpecialClasses.CELL}">${Text.BODY_NAME}</td>
+		<td class="${SpecialClasses.CELL}">
+			<a>${Text.BODY_ABILITY_1}</a>
+			<br>
+			<a>${Text.BODY_ABILITY_2}</a>
+		</td>
+		<td class="${SpecialClasses.CELL}">${Text.BODY_HP}</td>
+		<td class="${SpecialClasses.CELL}">${Text.BODY_ATT}</td>
+		<td class="${SpecialClasses.CELL}">${Text.BODY_DEF}</td>
+		<td class="${SpecialClasses.CELL}">${Text.BODY_SATT}</td>
+		<td class="${SpecialClasses.CELL}">${Text.BODY_SDEF}</td>
+		<td class="${SpecialClasses.CELL}">${Text.BODY_SPD}</td>
 	</tr>
 	
 	</tbody>
@@ -46,6 +78,18 @@ describe('Pokedex.execute', () => {
 	</main>
 	</html>
 	`;
+
+	function _formateData () {
+		let data = `${'```'}${Text.BODY_NAME} ${Text.BODY_NUM}\n`;
+		data += `Abilities: ${Text.BODY_ABILITY_1}, ${Text.BODY_ABILITY_2}\n`;
+		data += `HP: ${Text.BODY_HP}\n`;
+		data += `Att: ${Text.BODY_ATT}\n`;
+		data += `Def: ${Text.BODY_DEF}\n`;
+		data += `S.Att: ${Text.BODY_SATT}\n`;
+		data += `S.Def: ${Text.BODY_SDEF}\n`;
+		data += `Spd: ${Text.BODY_SPD}\n${'```'}`;
+		return data;
+	}
 
 	describe('passed no parameters', () => {
 		it('replies with an error', async () => {
@@ -75,12 +119,7 @@ describe('Pokedex.execute', () => {
 			interaction.options.getNumber.withArgs(Param.DEX).and.returnValue(pokemonDex);
 
 			await new PokedexCommand({ axios: axiosFake }).execute(interaction);
-			expect(interaction.reply).toHaveBeenCalledWith(JSON.stringify({
-				[Text.HEADER_NUM]: Text.BODY_NUM,
-				[Text.HEADER_NAME]: Text.BODY_NAME,
-				[Text.HEADER_ABILITY]: Text.BODY_ABILITY,
-				[Text.HEADER_STATS]: Text.BODY_STATS,
-			}));
+			expect(interaction.reply).toHaveBeenCalledWith(_formateData());
 		});
 	});
 	// parse No. into a normal number ffs not #NNNN

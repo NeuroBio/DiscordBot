@@ -39,7 +39,7 @@ export default class PokedexCommand extends Command {
 				}, {});
 				pokemon = keyedDex[dex];
 			}
-			await interaction.reply(JSON.stringify(pokemon));
+			await interaction.reply(_formatData({ pokemon }));
 		}
 
 		async function _loadPokedex () {
@@ -71,6 +71,9 @@ export default class PokedexCommand extends Command {
 		function _extractHeaderNames ({ serebii, row }) {
 			const header = [];
 			serebii(row).find('td').each((j, cell) => {
+				if (serebii(cell).attr('colspan') == 6) { // colspan is string data
+					return true;
+				}
 				const rawText = serebii(cell).text();
 				const text = rawText.replace(/(\n|\t)/g, '');
 				header.push(text);
@@ -82,8 +85,8 @@ export default class PokedexCommand extends Command {
 		function _extractRowData ({ serebii, row, header }) {
 			const rowData = {};
 			serebii(row).find('td.fooinfo').each((j, cell) => {
-				const rawText = serebii(cell).text();
-				const text = rawText.replace(/(\n|\t)/g, '');
+				const rawText = serebii(cell).find('br').replaceWith(',').end().text();
+				const text = rawText.replace(/(\n|\t)/g, '').replace(/\s*,/, ', ');
 
 				if (!text || text === ' ') {
 					return true;
@@ -91,6 +94,18 @@ export default class PokedexCommand extends Command {
 				rowData[header[j]] = text;
 			});
 			return rowData;
+		}
+
+		function _formatData ({ pokemon }) {
+			let data = `${'```'}${pokemon.Name} ${pokemon['No.']}\n`;
+			data += `Abilities: ${pokemon.Abilities}\n`;
+			data += `HP: ${pokemon.HP}\n`;
+			data += `Att: ${pokemon.Att}\n`;
+			data += `Def: ${pokemon.Def}\n`;
+			data += `S.Att: ${pokemon['S.Att']}\n`;
+			data += `S.Def: ${pokemon['S.Def']}\n`;
+			data += `Spd: ${pokemon.Spd}\n${'```'}`;
+			return data;
 		}
 
 		super({ data, execute });
