@@ -28,8 +28,7 @@ export default class DiscordServer {
 
 
 	async deploy (params = {}) {
-		params = this.#getCommandLineArguments();
-		const serversForDeployment = this.#getServersForDeployment(params);
+		const serversForDeployment = this.#getServersForDeployment(params); // 4 paths
 
 		const commands = await this.#commandLibrary.load({ excludedFolders: ['no-deploy'] });
 		const commandList = commands.map(command => command.data.toJSON());
@@ -53,19 +52,6 @@ export default class DiscordServer {
 			console.error(error);
 		}
 		console.log(`Reloaded ${data.length} application (/) commands.`);
-	}
-
-	#getCommandLineArguments () {
-		const args = process.argv;
-		console.log(args);
-		args.shift();
-		args.shift();
-		const formattedArguments = {};
-		for (let i = 0; i < args.length / 2; i++) {
-			const index = i * 2;
-			formattedArguments[args[index].replace(/-/g, '')] = args[index + 1];
-		}
-		return formattedArguments;
 	}
 
 	#getServersForDeployment ({ server: serverName }) {

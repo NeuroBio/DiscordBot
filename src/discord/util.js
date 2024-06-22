@@ -3,6 +3,7 @@ export default class Util {
 		const args = process.argv;
 		args.shift();
 		args.shift();
+
 		const formattedArguments = {};
 		for (let i = 0; i < args.length / 2; i++) {
 			const index = i * 2;
