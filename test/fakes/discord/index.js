@@ -6,6 +6,9 @@ export default class Discord {
 	Events = {
 		ClientReady: 'ready',
 	};
+	Routes = {
+		applicationGuildCommands: jasmine.createSpy('applicationGuildCommands'),
+	};
 	Client = Client;
 	Collection = Collection;
 	GatewayIntentBits = GatewayIntentBits;
