@@ -24,7 +24,7 @@ export default [
 		},
 	},
 	{
-		ignores: ['src/configs.js'],
+		ignores: ['src/discord/configs.js'],
 	},
 	pluginJs.configs.recommended,
 	{

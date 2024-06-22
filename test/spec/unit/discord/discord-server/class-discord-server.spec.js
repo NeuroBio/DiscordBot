@@ -1,4 +1,4 @@
-import DiscordServer from '../../../../../src/discord/discord-server.js';
+import DiscordServer from '#src/discord/discord-server.js';
 import Fakes from '#fakes';
 
 describe('class DiscordServer construction', (() => {

@@ -1,6 +1,6 @@
 import discord from 'discord.js';
-import CommandLibrary from '../commands/commandLibrary.js';
-import Configs from '../configs.js';
+import CommandLibrary from '#src/commands/commandLibrary.js';
+import Configs from './configs.js';
 
 export default class DiscordServer {
 
@@ -57,6 +57,7 @@ export default class DiscordServer {
 
 	#getCommandLineArguments () {
 		const args = process.argv;
+		console.log(args);
 		args.shift();
 		args.shift();
 		const formattedArguments = {};

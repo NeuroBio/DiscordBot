@@ -4,8 +4,8 @@
 	This is a cheat to get around that. :)
 */
 
-import config from '../config.json' assert { type: 'json' };
-import devConfig from '../dev-config.json' assert { type: 'json' };
+import config from '../../config.json' assert { type: 'json' };
+import devConfig from '../../dev-config.json' assert { type: 'json' };
 
 export default {
 	main: config,

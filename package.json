@@ -3,11 +3,11 @@
   "type": "module",
   "scripts": {
     "start": "node src/start.js",
-    "deploy": "node src/deploy.js ",
+    "deploy": "node src/deploy.js",
     "build": "node src/build.js",
 
-    "deploy-all": "node src/deploy-commands.js -server all",
-    "deploy-prod": "node src/deploy-commands.js -server production",
+    "deploy-all": "node src/deploy.js -server all",
+    "deploy-prod": "node src/deploy.js -server production",
 
     "postinstall": "node setup.js",
     "lint": "eslint --fix",

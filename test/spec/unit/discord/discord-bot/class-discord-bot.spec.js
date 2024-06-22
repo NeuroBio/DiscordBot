@@ -1,4 +1,4 @@
-import DiscordBot from '../../../../../src/discord/discord-bot.js';
+import DiscordBot from '#src/discord/discord-bot.js';
 import Fakes from '#fakes';
 
 describe('class DiscordBot construction', () => {
