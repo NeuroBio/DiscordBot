@@ -7,6 +7,7 @@ export default class Interaction {
 		return {
 			user: params.user || this.user,
 			reply: jasmine.createSpy('reply'),
+			isChatInputCommand: jasmine.createSpy('isChatInputCommand'),
 			options: {
 				getNumber: jasmine.createSpy('getNumber'),
 				getString: jasmine.createSpy('getString'),

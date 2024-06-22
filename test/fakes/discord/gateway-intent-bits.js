@@ -1,3 +1,3 @@
-export default class Client {
+export default class GatewayIntentBits {
 
 };

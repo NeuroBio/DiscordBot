@@ -8,13 +8,13 @@ export default class DiscordBot {
 	});
 
 	#Events;
-	#CommandLibrary;
+	#commandLibrary;
 
 	#Token;
 	#client;
 
 	constructor (params = {}) {
-		this.#CommandLibrary = params.CommandLibrary || CommandLibrary;
+		this.#commandLibrary = params.commandLibrary || new CommandLibrary();
 
 		const _Configs = params.Configs || Configs;
 		this.#Token = _Configs.main.token;
@@ -28,13 +28,14 @@ export default class DiscordBot {
 	}
 
 	async start () {
-		const commands = await new this.#CommandLibrary().load({ excludedFolders: ['no-deploy'] });
+
+		const commands = await this.#commandLibrary.load({ excludedFolders: ['no-deploy'] });
 
 		commands.forEach((command) => {
 			this.#client.commands.set(command.data.name, command);
 		});
 
-		this.#client.once(this.#Events.ClientReady, readyClient => {
+		this.#client.once(this.#Events.ClientReady, (readyClient) => {
 			console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 		});
 
