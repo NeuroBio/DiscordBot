@@ -8,12 +8,14 @@ export default class Interaction {
 			user: params.user || this.user,
 			reply: jasmine.createSpy('reply'),
 			isChatInputCommand: jasmine.createSpy('isChatInputCommand'),
+			followUp: jasmine.createSpy('followUp'),
 			options: {
 				getNumber: jasmine.createSpy('getNumber'),
 				getString: jasmine.createSpy('getString'),
 			},
 			replied: false,
 			deferred: false,
+			commandName: '',
 		};
 	}
 }
