@@ -1,4 +1,4 @@
-import { REST, Routes } from 'discord.js';
+import discord from 'discord.js';
 import CommandLibrary from '../commands/commandLibrary.js';
 import Configs from '../configs.js';
 
@@ -13,17 +13,17 @@ export default class DiscordServer {
 	#rest;
 
 	constructor (params = {}) {
-
 		this.#commandLibrary = params.commandLibrary || new CommandLibrary();
-		this.#Routes = params.Routes || Routes;
-		const _Rest = params.Rest || REST;
-		const _Configs = params.Configs || Configs;
+		const _discord = params.discord || discord;
+		this.#Routes = _discord.Routes;
 
+		const _Configs = params.Configs || Configs;
 		const token = _Configs.main.token;
 		this.#clientId = _Configs.main.clientId;
 		this.#servers = _Configs.main.servers;
 		this.#devServer = _Configs.dev.devServer;
-		this.#rest = new _Rest().setToken(token);
+
+		this.#rest = new _discord.REST().setToken(token);
 	}
 
 
