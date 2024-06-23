@@ -3,9 +3,9 @@
   "type": "module",
   "scripts": {
     "start": "node src/start.js",
-    "deploy": "node src/deploy.js",
     "build": "node src/build.js",
 
+    "deploy": "node src/deploy.js",
     "deploy-all": "node src/deploy.js -server all",
     "deploy-prod": "node src/deploy.js -server production",
 
