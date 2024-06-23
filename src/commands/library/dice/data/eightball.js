@@ -43,7 +43,6 @@ const EightBallResponses = Object.freeze([
 	'A resounding yes!',
 	'Regrettably, no.',
 	'When pigs fly.',
-	'',
 ]);
 
 export default EightBallResponses;

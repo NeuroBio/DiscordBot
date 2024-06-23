@@ -1,7 +1,7 @@
 import Pokedex from '#src/commands/library/fetchers/pokedex.js';
 import Fakes from '#fakes';
 
-describe('loading the national pokedex from serebii to get charmander', () => {
+describe('loading the national pokedex from serebii to get charmeleon', () => {
 	const Param = Object.freeze({
 		DEX: 'dex',
 		NAME: 'name',
