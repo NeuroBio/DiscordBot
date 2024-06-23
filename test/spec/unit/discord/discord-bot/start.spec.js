@@ -5,6 +5,9 @@ describe('DiscordBot.start', () => {
 	const ErrorMessage = Object.freeze({
 		EXECUTE_FAILED: 'There was an error while executing this command.',
 	});
+	const ExcludedFolder = Object.freeze({
+		NO_DEPLOY: 'no-deploy',
+	});
 	const commandLibraryFake = new Fakes.CommandLibrary();
 	const discordFake = new Fakes.Discord();
 	const client = new discordFake.Client();
@@ -38,7 +41,7 @@ describe('DiscordBot.start', () => {
 
 	describe('initializing the bot', () => {
 		it('loads commands', () => {
-			expect(commandLibraryFake.load).toHaveBeenCalled();
+			expect(commandLibraryFake.load).toHaveBeenCalledWith({ excludedFolders: [ExcludedFolder.NO_DEPLOY] });
 		});
 		it('sets all commands', () => {
 			expect(client.commands.set)

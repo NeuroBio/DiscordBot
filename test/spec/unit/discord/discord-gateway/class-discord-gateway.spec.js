@@ -1,15 +1,15 @@
-import DiscordServer from '#src/discord/discord-server.js';
+import DiscordGateway from '#src/discord/discord-gateway.js';
 import Fakes from '#fakes';
 
-describe('class DiscordServer construction', (() => {
-	const CommandLibraryFake = new Fakes.CommandLibrary();
+describe('class DiscordGateway construction', (() => {
+	const commandLibraryFake = new Fakes.CommandLibrary();
 	const discordFake = new Fakes.Discord();
 	const rest = new discordFake.REST();
 	const token = 'token';
 	let server;
 	beforeAll(() => {
 		spyOn(discordFake, 'REST').and.returnValue(rest);
-		server = new DiscordServer({
+		server = new DiscordGateway({
 			discord: discordFake,
 			Configs: {
 				main: {
@@ -19,7 +19,7 @@ describe('class DiscordServer construction', (() => {
 				},
 				dev: { serverName: 'dev' },
 			},
-			CommandLibrary: CommandLibraryFake,
+			commandLibrary: commandLibraryFake,
 		});
 	});
 	it('constructs a correctly shaped object', () => {
