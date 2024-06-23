@@ -24,7 +24,7 @@ describe('class DiscordGateway construction', (() => {
 	});
 	it('constructs a correctly shaped object', () => {
 		expect(server).toEqual(jasmine.objectContaining({
-			deploy: jasmine.any(Function),
+			deployTo: jasmine.any(Function),
 		}));
 	});
 	it('creates a rest client with the token', () => {

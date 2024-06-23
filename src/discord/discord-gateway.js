@@ -27,7 +27,7 @@ export default class DiscordGateway {
 	}
 
 
-	async deploy (params = {}) {
+	async deployTo (params = {}) {
 		const serversForDeployment = this.#getServersForDeployment(params);
 
 		const commands = await this.#commandLibrary.load({ excludedFolders: ['no-deploy'] });

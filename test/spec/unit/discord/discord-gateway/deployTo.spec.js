@@ -1,7 +1,7 @@
 import DiscordGateway from '#src/discord/discord-gateway.js';
 import Fakes from '#fakes';
 
-describe('DiscordGateway.deploy', (() => {
+describe('DiscordGateway.deployTo', (() => {
 	const ExcludedFolder = Object.freeze({
 		NO_DEPLOY: 'no-deploy',
 	});
@@ -62,7 +62,7 @@ describe('DiscordGateway.deploy', (() => {
 		beforeAll(async () => {
 			_createServer();
 			rest.put.and.returnValue([{}]);
-			await gateway.deploy();
+			await gateway.deployTo();
 		});
 		it('loads commands', () => {
 			expect(commandLibraryFake.load).toHaveBeenCalledWith({ excludedFolders: [ExcludedFolder.NO_DEPLOY] });
@@ -90,7 +90,7 @@ describe('DiscordGateway.deploy', (() => {
 		beforeAll(async () => {
 			_createServer();
 			rest.put.and.returnValue([{}]);
-			await gateway.deploy({ server: Server.PROD });
+			await gateway.deployTo({ server: Server.PROD });
 		});
 		it('loads commands', () => {
 			expect(commandLibraryFake.load).toHaveBeenCalledWith({ excludedFolders: [ExcludedFolder.NO_DEPLOY] });
@@ -118,7 +118,7 @@ describe('DiscordGateway.deploy', (() => {
 		beforeAll(async () => {
 			_createServer();
 			rest.put.and.returnValue([{}]);
-			await gateway.deploy({ server: Server.ALL });
+			await gateway.deployTo({ server: Server.ALL });
 		});
 		it('loads commands', () => {
 			expect(commandLibraryFake.load).toHaveBeenCalledWith({ excludedFolders: [ExcludedFolder.NO_DEPLOY] });
@@ -147,7 +147,7 @@ describe('DiscordGateway.deploy', (() => {
 		beforeAll(async () => {
 			_createServer();
 			rest.put.and.throwError(error);
-			await gateway.deploy();
+			await gateway.deployTo();
 		});
 		it('loads commands', () => {
 			expect(commandLibraryFake.load).toHaveBeenCalledWith({ excludedFolders: [ExcludedFolder.NO_DEPLOY] });
