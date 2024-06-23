@@ -1,7 +1,12 @@
 export default class Command {
-	data = {
+	#data = {
 		name: 'commandName',
-		toJSON: jasmine.createSpy('toJSON'),
+	};
+	data = {
+		...this.#data,
+		toJSON: jasmine.createSpy('toJSON', () => {
+			return JSON.stringify(this.#data);
+		}).and.callThrough(),
 	};
 	execute = jasmine.createSpy('execute');
 }

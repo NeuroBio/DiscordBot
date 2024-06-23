@@ -28,7 +28,7 @@ export default class DiscordGateway {
 
 
 	async deploy (params = {}) {
-		const serversForDeployment = this.#getServersForDeployment(params); // 4 paths
+		const serversForDeployment = this.#getServersForDeployment(params);
 
 		const commands = await this.#commandLibrary.load({ excludedFolders: ['no-deploy'] });
 		const commandList = commands.map(command => command.data.toJSON());
@@ -41,17 +41,16 @@ export default class DiscordGateway {
 
 
 	async #deployCommands ({ commandList, server }) {
-		let data;
 		console.log(`Refreshing ${commandList.length} application (/) commands.`);
 		try {
-			data = await this.#rest.put(
+			const data = await this.#rest.put(
 				this.#Routes.applicationGuildCommands(this.#clientId, server.id),
 				{ body: commandList },
 			);
+			console.log(`Reloaded ${data.length} application (/) commands.`);
 		} catch (error) {
 			console.error(error);
 		}
-		console.log(`Reloaded ${data.length} application (/) commands.`);
 	}
 
 	#getServersForDeployment ({ server: serverName }) {
