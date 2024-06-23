@@ -1,5 +1,5 @@
 # DiscordBot
-What is says on the tin: a bot for convenience and trolling in my private discord servers
+What is says on the tin: a bot for convenience and trolling in my private discord servers.
 
 ---
 
@@ -20,6 +20,10 @@ The intended audience here is my friends who are novice coders.  There will be i
 		- expect two new greyed-out `.json` files to appear in the root directory.
 		- if they don't appear, ping me; a post-install script failed to run
 
+#### Nice-to-Have VSCode Extensions
+- ESLint
+- GitLens
+
 ### Dev Start-up
 #### Scripts
 There are three key scripts you need to know about (viewable in `package.json`).
@@ -32,10 +36,15 @@ There are three key scripts you need to know about (viewable in `package.json`).
 	- It will run and stop on its own.
 	- It would be great if you wrote some.  See the dev process section below for why it's helpful.
 	- Worst case, always run them before deploying.  If any tests fail, then you broke something.
+	- If you're a real go-getter, there is also a small number of integration tests run with `npm run test-int`.
+		- ideally, don't write integration tests.  You only need them if you are testing something that requires real data.  I have 2 atm for...
+			- confirming that a web scrape pattern still works against the sererbii's data
+			- confirming that all commands have unique names (because I keep failing deploys on this)
+
 	
 
 #### Setup
-You may be wonering: how does the code know what my dev server is?  What is `dev-config.json`?  Open that file.  By default, `dev-config.json` specifies the dev-server as `dev`.  Go to `config.json` to see the default servers.  `dev` is a clone of `stray-dev` (my private server).  You can add servers to this list, but please do not modify the ones that are in place.  To change the server you are deploying to for development, pick a server key from `config.json` and change `dev-config.json` to use that key as the value for `devServer`.
+You may be wondering: how does the code know what my dev server is?  What is `dev-config.json`?  Open that file.  By default, `dev-config.json` specifies the dev-server as `dev`.  Go to `config.json` to see the default servers.  `dev` is a clone of `stray-dev` (my private server).  You can add servers to this list, but please do not modify the ones that are in place.  To change the server you are deploying to for development, pick a server key from `config.json` and change `dev-config.json` to use that key as the value for `devServer`.
 
 Note: Is `config.json` missing values for `token` and `clientId` credentials?  Ask me to send them to you.  For security reasons, that data CANNOT be committed to github.
 
@@ -49,7 +58,7 @@ You may have an additional server you want to experiment on.  To add a new serve
 
 **Self:** you have the bot's install permissions locked down.  You'll need to open them if folks actually want to do this.
 
-#### Development
+#### Where to Develop
 After setup is complete, you can basically ignore all files outside of `src/commands/library`.  Library is where the discord bot command code lives.  Start by looking at one of the existing commands (e.g. `PingCommand` in `utility/ping.js` is very simple).  Most of your code will be the 'work' performed by a command's `execute` function.  The data property uses the `discord.js` library to name your command, describe it, and add arguments to the command.  You can consider the rest of the file boiler plate until you start wanting to do more complex operations.  Good example of moderate complexity commans include:
 - `PokedexCommand` in `fetchers/pokdex.js`, which loads libraries for interacting with websites (REST opperations with `axios` + webscraping with `cheerio`).
 - `EightballCommand` in `dice/eightball.js`, which loads locally stored data from `dice/data/eightball.js`
@@ -58,6 +67,9 @@ Command should not live loose in the library folder.  Feel free to make new fold
 Beyond that, I think the discord.js interface is fairly self-explanatory.  Their tutorials and documentation is here: https://discord.js.org/.
 
 Note: If you start working through the discord.js guide from the beginning, the go through steps already done in the repo... though and massively refactored.  For comparison, most of the contents of their `index.js` file is my `DiscordBot` class.  Most of the contents of their `deploy-commands.js` file is my `DiscordGateway` class.  My classes are instantiated do work in the tiny script files including `deploy.js`, `start.js`, ect.  As for the "most of" part, I moved the command loading code for `inex.js` and `deploy-commands.js` into the `CommandLibrary` class, since you need it for starting the bot and deploying the commands.
+
+#### Getting Your Code into the Repo
+If the words "branch", "pull request", or "unit test" mean nothing to you, ping me and I'll walk you through the processes bit-by-bit as needed.  Just start with this nugget: if you try to push code directly to the main repo, you will be denied.  It's *supposed* to be that way.  I'm going to review and approve code going into teh main repo.
 
 
 ---
@@ -83,12 +95,17 @@ Note: If you start working through the discord.js guide from the beginning, the 
 
 ### On Deck
 - high priority
-	- ...
+	- get a better test reporter; jasmine's base reporter is not great
+		- cry if karma is required to swap reporters
+	- CI for my unit and integration tests
+	- lock down branch policies to block direct merges
+		- also require passing tests?
 - medium priority
 	- figure out how to get the bot to run perpetually on raspberry pi
 	- figure out how to connect with firebase to start doing real database operations
 - low priority
 	- add karma to make test run on save
+		- manually running tests hasn't hurt me too much and karma adds a lot of overhead
 
 ---
 
