@@ -25,6 +25,9 @@ export default class DiscordBot {
 		this.#client.commands = new Collection();
 	}
 
+	/**
+	 * @returns {Promise<void>}
+	 */
 	async start () {
 		const commands = await this.#commandLibrary.load({ excludedFolders: ['no-deploy'] });
 		commands.forEach((command) => this.#client.commands.set(command.data.name, command));

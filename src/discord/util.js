@@ -1,4 +1,8 @@
 export default class Util {
+
+	/**
+	 * @returns {Object}
+	 */
 	getCommandLineParams () {
 		const args = process.argv;
 		args.shift();

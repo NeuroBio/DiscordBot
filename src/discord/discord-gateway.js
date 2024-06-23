@@ -27,6 +27,15 @@ export default class DiscordGateway {
 	}
 
 
+	/**
+	 * @typedef {Object} DeployTpParams
+	 * @property server {string}
+	 */
+
+	/**
+	 * @param {DeployTpParams} params
+	 * @returns {Promise<void>}
+	 */
 	async deployTo (params = {}) {
 		const serversForDeployment = this.#getServersForDeployment(params);
 
