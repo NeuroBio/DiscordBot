@@ -1,6 +1,7 @@
 # DiscordBot
 What is says on the tin: a bot for convenience and trolling in my private discord servers.
 ![discordbot](https://github.com/NeuroBio/DiscordBot/assets/8708809/e389d2a4-e822-42fd-bf37-3d36edbd6c40)
+
 ---
 
 ## Getting Started
