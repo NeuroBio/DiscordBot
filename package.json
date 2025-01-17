@@ -8,6 +8,7 @@
     "deploy": "node src/deploy.js",
     "deploy-all": "node src/deploy.js -server all",
     "deploy-prod": "node src/deploy.js -server production",
+    "deploy-games": "node src/deploy.js -server vtm",
 
     "postinstall": "node setup.js",
     "lint": "eslint --fix",
