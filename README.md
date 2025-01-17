@@ -121,4 +121,16 @@ For when you just need to deploy commands without starting the bot.
 	- `npm run deploy-all`
 		- This updates the bot commands for **all** servers in `config.json`
 
+### Add a New Server
+- go to: https://discord.com/developers/applications
+- fot to OAuth2
+- set permissions as bot
+- add specific permissions as:
+   - send messages
+   - send messages
+   - attach files
+   - read message history
+   - add reactions
+ 
+
 ---
